@@ -1,6 +1,7 @@
 package data;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +33,12 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
     
     
     /**
+     * Default constructor, branchingFactor = 5;
+     */
+    public BPTree() {
+    	this.branchingFactor = 5;
+    }
+    /**
      * Public constructor
      * 
      * @param branchingFactor 
@@ -44,7 +51,11 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         // TODO : Complete
     }
     
-    
+    /*
+     * Searches for the location of the value
+     * @return pointer to the leaf node containing the value
+     * If value doesn't exist, returns pointer to the node which /should/ contain the value
+     */
     /*
      * (non-Javadoc)
      * @see BPTreeADT#insert(java.lang.Object, java.lang.Object)
@@ -121,7 +132,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * Package constructor
          */
         Node() {
-            // TODO : Complete
+            this.keys = new ArrayList<K>();
         }
         
         /**
@@ -183,7 +194,6 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          */
         InternalNode() {
             super();
-            // TODO : Complete
         }
         
         /**
@@ -191,8 +201,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#getFirstLeafKey()
          */
         K getFirstLeafKey() {
-            // TODO : Complete
-            return null;
+        	return this.children.get(0).getFirstLeafKey();
         }
         
         /**
@@ -200,8 +209,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#isOverflow()
          */
         boolean isOverflow() {
-            // TODO : Complete
-            return false;
+        	return this.children.size() >= branchingFactor;
         }
         
         /**
@@ -209,7 +217,15 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#insert(java.lang.Comparable, java.lang.Object)
          */
         void insert(K key, V value) {
-            // TODO : Complete
+        	//searches for correct child
+        	int target = -1;
+        	for(int i=0; i<this.children.size(); i++){
+        		if(key.compareTo(this.children.get(i)) <= 0)
+        		
+        	//inserts
+        	//checks if overflow
+        	//if so, split
+        	
         }
         
         /**
