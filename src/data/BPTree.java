@@ -194,6 +194,8 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          */
         InternalNode() {
             super();
+            
+            
         }
         
         /**
@@ -218,10 +220,16 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          */
         void insert(K key, V value) {
         	//searches for correct child
-        	int target = -1;
+        	boolean inserted = false;
         	for(int i=0; i<this.children.size(); i++){
-        		if(key.compareTo(this.children.get(i)) <= 0)
-        		//ahh
+        		if(key.compareTo(this.keys.get(i)) <= 0){
+        			this.children.get(i).insert(key, value);
+        			inserted = true;
+        			break;
+        		}
+        	}
+        	if(!inserted){//insert to last child
+        	}
         	//inserts
         	//checks if overflow
         	//if so, split
