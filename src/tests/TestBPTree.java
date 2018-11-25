@@ -92,22 +92,61 @@ class TestBPTree {
 
 	@Test
 	void testSimpleRangeSearch() {
-		print("\ntestSimpleRangeSearch");
+		print("\ntestSimpleRangeSearch...");
 		for(int i=0; i<20; i++){
 			bpt.insert(i, Integer.toString(i));
 		}
 		List<String> vals_1 = bpt.rangeSearch(10, ">=");
-		List<String> vals_2 = bpt.rangeSearch(10, "<=");
-		List<String> vals_3 = bpt.rangeSearch(10, "==");
-		List<String> vals_4 = bpt.rangeSearch(10, "foo");
 		for(int i=0; i<10; i++){
 			assertEquals(Integer.toString(i+10), vals_1.get(i));
 		}
+		
+		List<String> vals_2 = bpt.rangeSearch(10, "<=");
 		for(int i=0; i<11; i++){
 			assertEquals(Integer.toString(10-i), vals_2.get(i));
 		}
+		
+		List<String> vals_3 = bpt.rangeSearch(10, "==");
 		assertEquals(Integer.toString(10), vals_3.get(0));
+		
+		List<String> vals_4 = bpt.rangeSearch(10, "foo");
 		assertEquals(0, vals_4.size());
+		
+		List<String> vals_5 = bpt.rangeSearch(0, ">=");
+		for(int i=0; i<20; i++){
+			assertEquals(Integer.toString(i), vals_5.get(i));
+		}
+		List<String> vals_6 = bpt.rangeSearch(100, "<=");
+		for(int i=0; i<20; i++){
+			assertEquals(Integer.toString(19-i), vals_6.get(i));
+		}
+		print("passed!");
+	}
+	
+	@Test
+	void testDuplicateRangeSearch() {
+		print("\ntestDuplicateRangeSearch...");
+		bpt.insert(1, "1");
+		for(int i=0; i<3; i++) bpt.insert(2, "2");
+		for(int i=0; i<5; i++) bpt.insert(3, "3");
+		bpt.insert(4, "4");
+		//[1, 2] [2, 2] [3, 3] [3, 3] [3, 4]
+		//		^	   ^             ^		-point checked forwards and backwards
+		List<String> vals_0 = bpt.rangeSearch(2, "<=");
+		assertArrayEquals(new String[]{"2", "2", "2", "1"}, vals_0.toArray());
+		List<String> vals_1 = bpt.rangeSearch(2, ">=");
+		assertArrayEquals(new String[]{"2", "2", "2", "3", "3", "3", "3", "3", "4"}, vals_1.toArray());
+		List<String> vals_2 = bpt.rangeSearch(2, "==");
+		System.out.println(vals_2);
+		assertArrayEquals(new String[]{"2", "2", "2"}, vals_2.toArray());
+		
+		List<String> vals_3 = bpt.rangeSearch(3, "<=");
+		assertArrayEquals(new String[]{"3", "3", "3", "3", "3", "2", "2", "2", "1"}, vals_3.toArray());
+		List<String> vals_4 = bpt.rangeSearch(3, ">=");
+		assertArrayEquals(new String[]{"3", "3", "3", "3", "3", "4"}, vals_4.toArray());
+		List<String> vals_5 = bpt.rangeSearch(3, "==");
+		assertArrayEquals(new String[]{"3", "3", "3", "3", "3"}, vals_5.toArray());
+		print("passed!");
 	}
 
 	private static void printTree(){

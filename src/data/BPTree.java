@@ -402,19 +402,6 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	return newChild;
         }
         
-         /**
-          * returns a list of all elements to the right of index
-          */
-        List<V> moveRight(int index){
-        	List<V> out = new ArrayList<V>();
-        	for(int i=index; i<this.values.size(); i++){
-        		out.add(this.values.get(i));
-        	}
-        	if(this.next!=null){
-        		out.addAll(this.next.moveRight(0));
-        	}
-        	return out;
-        }
         /**
          * return a list of all elements to the left of index
          */
@@ -430,6 +417,36 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	 }
         	 return out;
          }
+         
+         /**
+          * returns a list of all elements to the right of index
+          */
+        List<V> moveRight(int index){
+        	List<V> out = new ArrayList<V>();
+        	for(int i=index; i<this.values.size(); i++){
+        		out.add(this.values.get(i));
+        	}
+        	if(this.next!=null){
+        		out.addAll(this.next.moveRight(0));
+        	}
+        	return out;
+        }
+         
+         /**
+          * return a list of all elements with key equal to key, starting from index
+          */
+          List<V> moveEquals(int index, K key){
+        	  List<V> out = new ArrayList<V>();
+        	  for(int i=index; i<this.values.size(); i++){
+        		  if(key.compareTo(this.keys.get(i))!=0)
+        			  return out;
+        		  out.add(this.values.get(i));
+        	  }
+        	  if(this.next!=null){
+        		  out.addAll(this.next.moveEquals(0, key));
+        	  }
+        	  return out;
+          }
         
         /**
          * (non-Javadoc)
@@ -459,15 +476,18 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         		index += direction;
         	}
         	if(direction==-1){
-        		if(index == start)//possible that there's a duplicate key in the next node
+        		if(index == start && this.next!=null)//possible that there's a duplicate key in the next node
         			return this.next.rangeSearch(key, comparator);
         		else 
 					return this.moveLeft(index);
         	} else{
-        		if(index == start)//possible that there's a duplicate key in the previous node
+        		if(index == start && this.previous!=null)//possible that there's a duplicate key in the previous node
         			return this.previous.rangeSearch(key, comparator);
         		else
-					return this.moveRight(index);
+        			if(comparator.equals(">="))
+						return this.moveRight(index);
+        			else //==
+        				return this.moveEquals(index, key);
         	}
         }
         
