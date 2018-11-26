@@ -20,6 +20,28 @@ public class GUIManager extends Application {
 		}
 	}
 	
+	////////////////////
+	//InfoPane methods//
+	////////////////////
+	/*
+	 * Once a food is selected, sends data to infoPane to be displayed
+	 */
+	protected void updateInfoPane(){
+		System.out.println("updateInfoPane NOT IMPLEMENTED YET");
+	}
+	/*
+	 * Once a food is deselected, clears infoPane
+	 */
+	 protected void clearInfoPane(){
+		 System.out.println("clearInfoPane NOT IMPLEMENTED YET");
+	 }
+	
+	//////////////////////
+	//SearchPane methods//
+	//////////////////////
+	
+	
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

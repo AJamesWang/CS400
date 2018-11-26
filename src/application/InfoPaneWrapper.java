@@ -51,7 +51,7 @@ public class InfoPaneWrapper extends Application {
 		BorderPane titlePane;
 		GridPane dataPane;
 		HBox buttonPane;
-		private InfoPane(){
+		protected InfoPane(){
 			this.titlePane = new BorderPane();
 			this.dataPane = new GridPane();
 			this.buttonPane = new HBox();
@@ -61,7 +61,10 @@ public class InfoPaneWrapper extends Application {
 			this.getChildren().addAll(titlePane, dataPane, buttonPane);
 		}
 		
-		public void setFood(FoodItem target){
+		/*
+		 * updates the food which InfoPane looks at
+		 */
+		protected void setFood(FoodItem target){
 			this.target = target;
 			this.update();
 		}
@@ -75,7 +78,10 @@ public class InfoPaneWrapper extends Application {
 			}
 		}
 		
-		public void update(){
+		/*
+		 * updates all the data info
+		 */
+		protected void update(){
 			//TODO: make the text prettier
 			dataPane.getChildren().clear();
 			dataPane.add(new Label(target.getName()), 0, 0, 2, 1);
@@ -105,11 +111,19 @@ public class InfoPaneWrapper extends Application {
 			}
 		}
 		
-		private void clear(){
+		/*
+		 * Clears selected food data
+		 * Consider removing, no purpose for it to exist?
+		 * At least, remove the button...
+		 */
+		protected void clear(){
 			this.dataPane.getChildren().clear();
 			this.padDataPane();
 		}
 		
+		/*
+		 * Generates title, makes it all pretty
+		 */
 		private void generateTitle(){
 			Text title = new Text("Nutrients of selected item:");
 			title.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
@@ -118,6 +132,10 @@ public class InfoPaneWrapper extends Application {
 			//TODO: look into Text.applyCss
 		}
 		
+		/*
+		 * Creates buttons
+		 * TODO: delete? Not sure if we need these buttons...
+		 */
 		private void generateButtons(){
 			Button clearButton = new Button("clear");
 			clearButton.setOnAction(new EventHandler<ActionEvent>() {

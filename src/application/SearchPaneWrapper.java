@@ -31,7 +31,7 @@ public class SearchPaneWrapper extends Application {
 	}
 	
 	public class SearchPane{
-		
+		GUIManager manager;
 	}
 	
 	public static void main(String[] args) {
