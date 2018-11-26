@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import data.FoodItem;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -14,6 +16,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 
 public class InfoPaneWrapper extends Application {
@@ -41,10 +46,19 @@ public class InfoPaneWrapper extends Application {
 		}
 	}
 	
-	public class InfoPane extends GridPane{
+	public class InfoPane extends VBox{
 		FoodItem target;
+		BorderPane titlePane;
+		GridPane dataPane;
+		HBox buttonPane;
 		private InfoPane(){
-//			this.setHgap(0);
+			this.titlePane = new BorderPane();
+			this.dataPane = new GridPane();
+			this.buttonPane = new HBox();
+			this.generateTitle();
+			this.generateButtons();
+			
+			this.getChildren().addAll(titlePane, dataPane, buttonPane);
 		}
 		
 		public void setFood(FoodItem target){
@@ -62,10 +76,11 @@ public class InfoPaneWrapper extends Application {
 		}
 		
 		public void update(){
-			this.getChildren().clear();
-			this.add(new Label(target.getName()), 0, 0, 2, 1);
+			//TODO: make the text prettier
+			dataPane.getChildren().clear();
+			dataPane.add(new Label(target.getName()), 0, 0, 2, 1);
 			for(int i=0; i<FoodItem.NUTRIENT_IDS.length; i++){
-				int row = i+2;
+				int row = i+1;
 				String _nutrient = FoodItem.NUTRIENT_IDS[i];
 				String _value = this.format(target.getNutrientValue(_nutrient));
 				String _units = FoodItem.NUTRIENT_UNITS[i];
@@ -75,10 +90,43 @@ public class InfoPaneWrapper extends Application {
 				
 				GridPane.setHalignment(value, HPos.RIGHT);
 				
-				this.add(nutrient, 0, row);
-				this.add(value, 1, row);
-				this.add(units, 2, row);
+				dataPane.add(nutrient, 0, row);
+				dataPane.add(value, 1, row);
+				dataPane.add(units, 2, row);
 			}
+		}
+		
+		/**
+		 * Pads dataPane with empty labels to keep it from collapsing once data is cleared
+		 */
+		private void padDataPane(){
+			for(int i=0; i<FoodItem.NUTRIENT_IDS.length+1; i++){
+				this.dataPane.add(new Label(), 0, i);
+			}
+		}
+		
+		private void clear(){
+			this.dataPane.getChildren().clear();
+			this.padDataPane();
+		}
+		
+		private void generateTitle(){
+			Text title = new Text("Nutrients of selected item:");
+			title.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+			title.setUnderline(true);
+			this.titlePane.setCenter(title);
+			//TODO: look into Text.applyCss
+		}
+		
+		private void generateButtons(){
+			Button clearButton = new Button("clear");
+			clearButton.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e){
+					clear();
+				}
+			});
+			this.buttonPane.getChildren().add(clearButton);
 		}
 	}
 	
