@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import data.FoodItem;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,11 +26,10 @@ public class InfoPaneWrapper extends Application {
 			GridPane root = new GridPane();
 			InfoPane ip = new InfoPane();
 			FoodItem foo = new FoodItem("0", "Cake");
-			double[] nutrients = new double[]{1000, 10, 15, 5, 0};
+			double[] nutrients = new double[]{1000, 10, 15, 5, 0.5};
 			HashMap<String, Double> tet = foo.getNutrients();
-			for(int i=0; i<nutrients.length; i++){
+			for(int i=0; i<nutrients.length; i++)
 				foo.addNutrient(FoodItem.NUTRIENT_IDS[i], nutrients[i]);
-			}
 			ip.setFood(foo);
 			root.add(ip, 0, 0, 5, 5);
 			
@@ -44,7 +44,7 @@ public class InfoPaneWrapper extends Application {
 	public class InfoPane extends GridPane{
 		FoodItem target;
 		private InfoPane(){
-			this.setHgap(10);
+//			this.setHgap(0);
 		}
 		
 		public void setFood(FoodItem target){
@@ -66,11 +66,18 @@ public class InfoPaneWrapper extends Application {
 			this.add(new Label(target.getName()), 0, 0, 2, 1);
 			for(int i=0; i<FoodItem.NUTRIENT_IDS.length; i++){
 				int row = i+2;
-				String nutrient = FoodItem.NUTRIENT_IDS[i];
-				String value = this.format(target.getNutrientValue(nutrient)) + FoodItem.NUTRIENT_UNITS[i];
+				String _nutrient = FoodItem.NUTRIENT_IDS[i];
+				String _value = this.format(target.getNutrientValue(_nutrient));
+				String _units = FoodItem.NUTRIENT_UNITS[i];
+				Label nutrient = new Label(_nutrient);
+				Label value = new Label(_value);
+				Label units = new Label(_units);
 				
-				this.add(new Label(nutrient), 0, row);
-				this.add(new Label(value), 1, row);
+				GridPane.setHalignment(value, HPos.RIGHT);
+				
+				this.add(nutrient, 0, row);
+				this.add(value, 1, row);
+				this.add(units, 2, row);
 			}
 		}
 	}

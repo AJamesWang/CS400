@@ -11,7 +11,7 @@ import java.util.List;
 public class FoodItem {
 
 	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
-	public static final String[] NUTRIENT_UNITS = {" Cals", 		   "g",   "g",  	      "g",	   "g"};
+	public static final String[] NUTRIENT_UNITS = {" Calories", 		   " g",   " g",  	      " g",	   " g"};
 
     // The name of the food item.
     private String name;
