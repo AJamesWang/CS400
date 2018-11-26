@@ -11,7 +11,8 @@ import java.util.List;
 public class FoodItem {
 
 	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
-	public static final String[] NUTRIENT_UNITS = {" Calories", 		   " g",   " g",  	      " g",	   " g"};
+	public static final String[] NUTRIENT_NAMES = {"Calories: ", "Fat: ", "Carbs: ", "Fiber: ", "Protein: "};
+	public static final String[] NUTRIENT_UNITS = {" Cal", " g", " g", " g", " g"};
 
     // The name of the food item.
     private String name;
@@ -77,4 +78,16 @@ public class FoodItem {
     	return out==null?0:out;
     }
     
+    /*
+     * Cuts off all trailing zeroes and converts value to String
+     */
+	private static final double LIMIT = .1;
+	public static String format(double val){
+		if(Math.abs(val-(int)val) < LIMIT){
+			return Integer.toString((int) val);
+		} else{
+			return Double.toString(val);
+		}
+	}
+ 
 }

@@ -39,7 +39,16 @@ public class GUIManager extends Application {
 	//////////////////////
 	//SearchPane methods//
 	//////////////////////
-	
+	/*
+	 * receives a list of constraints from SearchPane
+	 * updates FoodList accordingly
+	 */
+	 protected void updateConstraints(){
+		 System.out.println("updateConstraints NOT IMPLEMENTED YET");
+	 }
+	 protected void clearConstraints(){
+		 System.out.println("clearConstraints NOT IMPLEMENTED YET");
+	 }
 	
 	
 	public static void main(String[] args) {

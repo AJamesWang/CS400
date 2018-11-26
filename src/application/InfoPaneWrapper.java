@@ -32,11 +32,10 @@ public class InfoPaneWrapper extends Application {
 			InfoPane ip = new InfoPane();
 			FoodItem foo = new FoodItem("0", "Cake");
 			double[] nutrients = new double[]{1000, 10, 15, 5, 0.5};
-			HashMap<String, Double> tet = foo.getNutrients();
 			for(int i=0; i<nutrients.length; i++)
 				foo.addNutrient(FoodItem.NUTRIENT_IDS[i], nutrients[i]);
 			ip.setFood(foo);
-			root.add(ip, 0, 0, 5, 5);
+			root.add(ip, 0, 0);
 			
 			Scene scene = new Scene(root,400,400);
 			primaryStage.setScene(scene);
@@ -52,13 +51,9 @@ public class InfoPaneWrapper extends Application {
 		GridPane dataPane;
 		HBox buttonPane;
 		protected InfoPane(){
-			this.titlePane = new BorderPane();
-			this.dataPane = new GridPane();
-			this.buttonPane = new HBox();
 			this.generateTitle();
+			this.generateData();
 			this.generateButtons();
-			
-			this.getChildren().addAll(titlePane, dataPane, buttonPane);
 		}
 		
 		/*
@@ -69,14 +64,6 @@ public class InfoPaneWrapper extends Application {
 			this.update();
 		}
 		
-		private static final double LIMIT = .1;
-		private String format(double val){
-			if(Math.abs(val-(int)val) < LIMIT){
-				return Integer.toString((int) val);
-			} else{
-				return Double.toString(val);
-			}
-		}
 		
 		/*
 		 * updates all the data info
@@ -84,11 +71,13 @@ public class InfoPaneWrapper extends Application {
 		protected void update(){
 			//TODO: make the text prettier
 			dataPane.getChildren().clear();
-			dataPane.add(new Label(target.getName()), 0, 0, 2, 1);
+			dataPane.add(new Label(target.getName()), 0, 0);
+			dataPane.add(new Label("     "), 1, 0);//padding so the numbers aren't too close to the labels 
 			for(int i=0; i<FoodItem.NUTRIENT_IDS.length; i++){
 				int row = i+1;
-				String _nutrient = FoodItem.NUTRIENT_IDS[i];
-				String _value = this.format(target.getNutrientValue(_nutrient));
+				String id = FoodItem.NUTRIENT_IDS[i];
+				String _nutrient = FoodItem.NUTRIENT_NAMES[i];
+				String _value = FoodItem.format(target.getNutrientValue(id));
 				String _units = FoodItem.NUTRIENT_UNITS[i];
 				Label nutrient = new Label(_nutrient);
 				Label value = new Label(_value);
@@ -123,13 +112,27 @@ public class InfoPaneWrapper extends Application {
 		
 		/*
 		 * Generates title, makes it all pretty
+		 * TODO: find some way to standardize title format across panes
+		 * maybe through Text.applyCss?
+		 * TODO: look into Text.applyCss
 		 */
 		private void generateTitle(){
 			Text title = new Text("Nutrients of selected item:");
 			title.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
 			title.setUnderline(true);
+			
+			this.titlePane = new BorderPane();
 			this.titlePane.setCenter(title);
-			//TODO: look into Text.applyCss
+			this.getChildren().add(this.titlePane);
+		}
+		
+		/*
+		 * Generates the initial, blank dataPane
+		 */
+		private void generateData(){
+			this.dataPane = new GridPane();
+			this.padDataPane();
+			this.getChildren().add(this.dataPane);
 		}
 		
 		/*
@@ -144,7 +147,10 @@ public class InfoPaneWrapper extends Application {
 					clear();
 				}
 			});
+			
+			this.buttonPane = new HBox();
 			this.buttonPane.getChildren().add(clearButton);
+			this.getChildren().add(this.buttonPane);
 		}
 	}
 	
