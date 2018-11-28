@@ -82,11 +82,12 @@ public class FoodItem {
      * Cuts off all trailing zeroes and converts value to String
      */
 	private static final double LIMIT = .1;
-	public static String format(double val){
-		if(Math.abs(val-(int)val) < LIMIT){
-			return Integer.toString((int) val);
+	public static String format(Double val){
+		if(val==null) return "-";
+		if(Math.abs(val-val.intValue()) < LIMIT){
+			return Integer.toString(val.intValue());
 		} else{
-			return Double.toString(val);
+			return Double.toString(val);//Could simply be val.toString(). But, consistency
 		}
 	}
  

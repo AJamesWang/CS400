@@ -60,6 +60,72 @@ public class SearchPaneWrapper extends Application {
 		}
 		
 		/*
+		 * Sets all the values in the text boxes to whatever's listed in CurVals
+		 */
+		 protected void update(){
+			 for(String id : FoodItem.NUTRIENT_IDS){
+				 mins.get(id).clear();
+				 mins.get(id).setPromptText(FoodItem.format(curMins.get(id)));
+				 maxes.get(id).clear();
+				 maxes.get(id).setPromptText(FoodItem.format(curMaxes.get(id)));
+			 }
+		 }
+		/*
+		 * Updates curMins and curMaxes data values
+		 * TODO: make it so that text boxes reset to curVals when unfocused?
+		 */
+		 private void updateCurVals(){
+			 for(String id : FoodItem.NUTRIENT_IDS){
+				 try{
+					 this.curMins.put(id, Double.parseDouble(this.mins.get(id).getText()));
+				 } catch(NumberFormatException e){
+				 }
+				 try{
+					 this.curMaxes.put(id, Double.parseDouble(this.maxes.get(id).getText()));
+				 } catch(NumberFormatException e){
+				 }
+			 }
+		 }
+		
+		/*
+		 * sends min/max data to GUIManager
+		 * TODO: check that there's some way for user to know what the current filters are
+		 */
+		private void sendData(){
+			this.manager.updateConstraints();
+		}
+		
+		/*
+		 * Things that happen when searchButton was clicked
+		 */
+		 private void search(){
+			 this.updateCurVals();
+			 this.sendData();
+			 this.printData();
+			 update();
+			 System.out.println("Searching...");
+		 }
+		
+		/*
+		 * tells GUIManager to clear min/max data
+		 */
+		 private void clearData(){
+			 this.curMins.clear();
+			 this.curMaxes.clear();
+			 this.manager.clearConstraints();
+			 this.update();
+			 this.printData();
+			 System.out.println("Clearing...");
+		 }
+		 
+		 private void printData(){
+			 //TODO: implement the GUIManager method so I can delete this
+			 for(String id : FoodItem.NUTRIENT_IDS){
+				 System.out.println(String.format("ID:%s\tMin:%s\tMax:%s\t", id, this.curMins.get(id), this.curMaxes.get(id)));
+			 }
+		 }
+		 
+		/*
 		 * Creates all necessary title components
 		 */
 		private void generateTitle(){
@@ -95,8 +161,10 @@ public class SearchPaneWrapper extends Application {
 				Label nutrient = new Label(_nutrient);
 				//TODO: get rid of the magic numbers
 				TextField min = new TextField();
+				min.setPromptText("-");
 				min.setMaxWidth(70);
 				TextField max = new TextField();
+				max.setPromptText("-");
 				max.setMaxWidth(70);
 				//TODO: look into TextFormatter? To limit input to numbers?
 				//https://stackoverflow.com/questions/8381374/how-to-implement-a-numberfield-in-javafx-2-0
@@ -136,58 +204,6 @@ public class SearchPaneWrapper extends Application {
 			this.getChildren().add(this.buttonPane);
 		}
 		
-		/*
-		 * Updates curMins and curMaxes
-		 * TODO: make it so that text boxes reset to curVals when unfocused?
-		 */
-		 private void updateCurVals(){
-			 for(String id : FoodItem.NUTRIENT_IDS){
-				 try{
-					 this.curMins.put(id, Double.parseDouble(this.mins.get(id).getText()));
-				 } catch(NumberFormatException e){
-				 }
-				 try{
-					 this.curMaxes.put(id, Double.parseDouble(this.maxes.get(id).getText()));
-				 } catch(NumberFormatException e){
-				 }
-			 }
-		 }
-		
-		/*
-		 * sends min/max data to GUIManager
-		 * TODO: check that there's some way for user to know what the current filters are
-		 */
-		private void sendData(){
-			this.manager.updateConstraints();
-		}
-		
-		/*
-		 * Things that happen when searchButton was clicked
-		 */
-		 private void search(){
-			 this.updateCurVals();
-			 this.sendData();
-			 this.printData();
-			 System.out.println("Searching...");
-		 }
-		
-		/*
-		 * tells GUIManager to clear min/max data
-		 */
-		 private void clearData(){
-			 this.curMins.clear();
-			 this.curMaxes.clear();
-			 this.manager.clearConstraints();
-			 this.printData();
-			 System.out.println("Clearing...");
-		 }
-		 
-		 private void printData(){
-			 //TODO: implement the GUIManager method so I can delete this
-			 for(String id : FoodItem.NUTRIENT_IDS){
-				 System.out.println(String.format("ID:%s\tMin:%s\tMax:%s\t", id, this.curMins.get(id), this.curMaxes.get(id)));
-			 }
-		 }
 	}
 	
 	

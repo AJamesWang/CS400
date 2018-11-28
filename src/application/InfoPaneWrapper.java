@@ -71,17 +71,19 @@ public class InfoPaneWrapper extends Application {
 		protected void update(){
 			//TODO: make the text prettier
 			dataPane.getChildren().clear();
-			dataPane.add(new Label(target.getName()), 0, 0);
+			
+			Text name = new Text(target.getName());
+			name.setFont(Font.font("Comic Sans", FontWeight.BOLD, 18));
+
+			dataPane.add(name, 0, 0);
 			dataPane.add(new Label("     "), 1, 0);//padding so the numbers aren't too close to the labels 
+			
 			for(int i=0; i<FoodItem.NUTRIENT_IDS.length; i++){
 				int row = i+1;
 				String id = FoodItem.NUTRIENT_IDS[i];
-				String _nutrient = FoodItem.NUTRIENT_NAMES[i];
-				String _value = FoodItem.format(target.getNutrientValue(id));
-				String _units = FoodItem.NUTRIENT_UNITS[i];
-				Label nutrient = new Label(_nutrient);
-				Label value = new Label(_value);
-				Label units = new Label(_units);
+				Text nutrient = new Text(FoodItem.NUTRIENT_NAMES[i]);
+				Text value = new Text(FoodItem.format(target.getNutrientValue(id)));
+				Text units = new Text(FoodItem.NUTRIENT_UNITS[i]);
 				
 				GridPane.setHalignment(value, HPos.RIGHT);
 				
