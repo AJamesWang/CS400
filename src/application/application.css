@@ -1,1 +1,21 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#section-heading{
+	-fx-font-family: "Comic Sans MS";
+	-fx-font-size: 20pt;
+	-fx-font-weight:bold;
+	-fx-underline: true;
+}
+#food-name{
+	-fx-font-family: "Comic Sans MS";
+	-fx-font-size: 15pt;
+	-fx-font-weight: bold;
+}
+#food-data{
+	-fx-font-family: "Comic Sans MS";
+	-fx-font-size: 12pt;
+	-fx-font-weight: normal;
+}
+.button{
+	-fx-font-family: "Comic Sans MS";
+	-fx-font-size: 12pt;
+	-fx-font-weight: normal;
+}

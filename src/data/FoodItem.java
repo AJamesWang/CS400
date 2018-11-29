@@ -9,6 +9,11 @@ import java.util.List;
  * @author aka
  */
 public class FoodItem {
+
+	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
+	public static final String[] NUTRIENT_NAMES = {"Calories: ", "Fat: ", "Carbs: ", "Fiber: ", "Protein: "};
+	public static final String[] NUTRIENT_UNITS = {" Cal", " g", " g", " g", " g"};
+
     // The name of the food item.
     private String name;
 
@@ -24,7 +29,9 @@ public class FoodItem {
      * @param id unique id of the food item 
      */
     public FoodItem(String id, String name) {
-        // TODO : Complete
+    	this.nutrients = new HashMap<String, Double>();
+    	this.id = id;
+    	this.name = name;
     }
     
     /**
@@ -42,8 +49,7 @@ public class FoodItem {
      * @return id of the food item
      */
     public String getID() {
-        // TODO : Complete
-        return null;
+    	return this.id;
     }
     
     /**
@@ -52,8 +58,7 @@ public class FoodItem {
      * @return nutrients of the food item
      */
     public HashMap<String, Double> getNutrients() {
-        // TODO : Complete
-        return null;
+    	return (HashMap<String, Double>) this.nutrients.clone();
     }
 
     /**
@@ -61,7 +66,7 @@ public class FoodItem {
      * If nutrient already exists, updates its value.
      */
     public void addNutrient(String name, double value) {
-        // TODO : Complete
+    	this.nutrients.put(name, value);
     }
 
     /**
@@ -69,8 +74,21 @@ public class FoodItem {
      * If not present, then returns 0.
      */
     public double getNutrientValue(String name) {
-        // TODO : Complete
-        return 0;
+    	Double out = this.nutrients.get(name);
+    	return out==null?0:out;
     }
     
+    /*
+     * Cuts off all trailing zeroes and converts value to String
+     */
+	private static final double LIMIT = .01;
+	public static String format(Double val){
+		if(val==null) return "-";
+		if(Math.abs(val-val.intValue()) < LIMIT){//the double is close enough to an int
+			return Integer.toString(val.intValue());
+		} else{
+			return Double.toString(val);//Not val.toString b/c want to match above line 
+		}
+	}
+ 
 }
