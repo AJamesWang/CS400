@@ -11,11 +11,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class FrontPage extends Application{
+//TODO: switch this to a popup?
+public class FrontPage extends GridPane{
 
 	
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public FrontPage(){
 		
 		
 		Label title = new Label("Meal Planner");
@@ -35,14 +35,7 @@ public class FrontPage extends Application{
 		vbox.getChildren().add(vbox2);
 		vbox.setSpacing(400); 
 		
-		Scene scene = new Scene(vbox, 200, 100); 
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Meal Planner"); 
-		primaryStage.show();
+		this.getChildren().add(vbox);
+		
 	}
-	
-	public static void main(String[] args) {
-		launch(args); 
-	}
-
 }
