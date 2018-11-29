@@ -3,6 +3,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.List;
 import javax.swing.GroupLayout.Alignment;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -109,7 +110,7 @@ public class MealListPane extends Application {
             scroll.setOrientation(Orientation.VERTICAL);
             VBox vBox = new VBox();
             
-            TableView mealTable = new TableView();
+            TableView<List<String>> mealTable = new TableView<>();
             mealTable.setMaxWidth(500);
             TableColumn name = new TableColumn("Name");
             name.setMinWidth(100);
@@ -131,7 +132,8 @@ public class MealListPane extends Application {
             
             ListView mealList = new ListView();
             ObservableList<String> list = FXCollections.observableArrayList();
-
+            
+            
             list.add("Pear");
             list.add( "Pineapple");
             list.add("Apple");
@@ -142,6 +144,16 @@ public class MealListPane extends Application {
             list.add("Peach");
             list.add("Pear");
             list.add( "Pineapple");
+            list.add("Apple");
+            list.add("Peach");
+            list.add("Pear");
+            list.add( "Pineapple");
+            list.add("Apple");
+            list.add("Peach");
+            list.add("Pear");
+            list.add( "Pineapple");
+            list.add("Apple");
+            list.add("Peach");
             list.add("Apple");
             list.add("Peach");
             list.add("Pear");
@@ -155,6 +167,7 @@ public class MealListPane extends Application {
 
             mealList.setItems(list);
             mealList.setMaxSize(700, 900);
+   //         vBox.getChildren().addAll(hBox1, mealList, hBox2);
             vBox.getChildren().addAll(hBox1, mealTable, hBox2);
             return vBox;
     }
