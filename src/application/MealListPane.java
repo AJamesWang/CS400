@@ -30,15 +30,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
-<<<<<<< HEAD
-
-public class MealListPane extends Application {
-    @Override
-    public void start(Stage primaryStage) {
-=======
 public class MealListPane extends BorderPane {
     public MealListPane(){
->>>>>>> refs/remotes/origin/master
         try {
             VBox borderPaneRight = new VBox();
             borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis(20, 30, 40, 50));
