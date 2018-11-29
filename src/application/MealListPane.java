@@ -41,6 +41,7 @@ public class MealListPane extends Application {
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
+            System.out.println("hi");
         } catch(Exception e) {
             e.printStackTrace();
         }
