@@ -16,12 +16,10 @@ public class GUIManager extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-//			FrontPage fp = new FrontPage();
 			SearchPane sp = new SearchPane(this);
 			InfoPane ip = new InfoPane();
 			GridPane root = new GridPane();
 			MealListPane mlp = new MealListPane();
-//			root.add(fp, 0, 0, 10, 10);
 			root.add(sp, 10, 0);
 			root.add(ip, 10, 10);
 			root.add(mlp, 40, 0);
@@ -29,6 +27,7 @@ public class GUIManager extends Application {
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setMaximized(true);
 			primaryStage.show();
 			
 			TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
