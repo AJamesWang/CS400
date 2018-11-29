@@ -84,7 +84,7 @@ public class FoodItem {
 	private static final double LIMIT = .01;
 	public static String format(Double val){
 		if(val==null) return "-";
-		if(Math.abs(val-val.intValue()) < LIMIT){
+		if(Math.abs(val-val.intValue()) < LIMIT){//the double is close enough to an int
 			return Integer.toString(val.intValue());
 		} else{
 			return Double.toString(val);//Not val.toString b/c want to match above line 

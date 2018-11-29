@@ -73,7 +73,6 @@ public class SearchPaneWrapper extends Application {
 		 }
 		/*
 		 * Updates curMins and curMaxes data values
-		 * TODO: make it so that text boxes reset to curVals when unfocused?
 		 */
 		 private void updateCurVals(){
 			 for(String id : FoodItem.NUTRIENT_IDS){
@@ -90,7 +89,6 @@ public class SearchPaneWrapper extends Application {
 		
 		/*
 		 * sends min/max data to GUIManager
-		 * TODO: check that there's some way for user to know what the current filters are
 		 */
 		private void sendData(){
 			this.manager.updateConstraints();

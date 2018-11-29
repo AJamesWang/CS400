@@ -70,7 +70,6 @@ public class InfoPaneWrapper extends Application {
 		 * updates all the data info
 		 */
 		protected void update(){
-			//TODO: make the text prettier
 			dataPane.getChildren().clear();
 			
 			Text name = new Text(target.getName());
@@ -118,9 +117,6 @@ public class InfoPaneWrapper extends Application {
 		
 		/*
 		 * Generates title, makes it all pretty
-		 * TODO: find some way to standardize title format across panes
-		 * maybe through Text.applyCss?
-		 * TODO: look into Text.applyCss
 		 */
 		private void generateTitle(){
 			Text title = new Text("Nutrients of selected item:");
