@@ -30,18 +30,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
-public class MealListPane extends Application {
-    @Override
-    public void start(Stage primaryStage) {
+public class MealListPane extends BorderPane {
+    public MealListPane(){
         try {
-            BorderPane root = new BorderPane();
             VBox borderPaneRight = new VBox();
             borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis(20, 30, 40, 50));
-            root.setRight(borderPaneRight);
-            Scene scene = new Scene(root, 1000,1000);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            this.setRight(borderPaneRight);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -172,9 +166,4 @@ public class MealListPane extends Application {
             return vBox;
     }
 
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
