@@ -35,6 +35,7 @@ public class SearchPaneWrapper extends Application {
 			root.getChildren().add(sp);
 			
 			Scene scene = new Scene(root,400,400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
@@ -130,8 +131,9 @@ public class SearchPaneWrapper extends Application {
 		 */
 		private void generateTitle(){
 			Text title = new Text("Filter foods by nutrients:");
-			title.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
-			title.setUnderline(true);
+			title.setId("section-heading");
+//			title.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
+//			title.setUnderline(true);
 			
 			this.titlePane = new BorderPane();
 			this.titlePane.setCenter(title);

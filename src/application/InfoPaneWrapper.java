@@ -38,6 +38,7 @@ public class InfoPaneWrapper extends Application {
 			root.add(ip, 0, 0);
 			
 			Scene scene = new Scene(root,400,400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
@@ -73,7 +74,7 @@ public class InfoPaneWrapper extends Application {
 			dataPane.getChildren().clear();
 			
 			Text name = new Text(target.getName());
-			name.setFont(Font.font("Comic Sans", FontWeight.BOLD, 18));
+			name.setId("food-name");
 
 			dataPane.add(name, 0, 0);
 			dataPane.add(new Label("     "), 1, 0);//padding so the numbers aren't too close to the labels 
@@ -82,8 +83,11 @@ public class InfoPaneWrapper extends Application {
 				int row = i+1;
 				String id = FoodItem.NUTRIENT_IDS[i];
 				Text nutrient = new Text(FoodItem.NUTRIENT_NAMES[i]);
+				nutrient.setId("food-data");
 				Text value = new Text(FoodItem.format(target.getNutrientValue(id)));
+				value.setId("food-data");
 				Text units = new Text(FoodItem.NUTRIENT_UNITS[i]);
+				units.setId("food-data");
 				
 				GridPane.setHalignment(value, HPos.RIGHT);
 				
@@ -120,8 +124,7 @@ public class InfoPaneWrapper extends Application {
 		 */
 		private void generateTitle(){
 			Text title = new Text("Nutrients of selected item:");
-			title.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
-			title.setUnderline(true);
+			this.setId("section-heading");
 			
 			this.titlePane = new BorderPane();
 			this.titlePane.setCenter(title);
