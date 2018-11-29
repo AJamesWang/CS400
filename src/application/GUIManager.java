@@ -4,13 +4,20 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 public class GUIManager extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
+			FrontPage fp = new FrontPage();
+			InfoPane ip = new InfoPane();
+			SearchPane sp = new SearchPane(this);
+			HBox root = new HBox();
+			root.getChildren().addAll(fp, ip, sp);
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
