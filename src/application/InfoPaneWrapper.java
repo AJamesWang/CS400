@@ -143,12 +143,7 @@ public class InfoPaneWrapper extends Application {
 		 */
 		private void generateButtons(){
 			Button clearButton = new Button("clear");
-			clearButton.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e){
-					clear();
-				}
-			});
+			clearButton.setOnAction(e->clear());
 			
 			this.buttonPane = new HBox();
 			this.buttonPane.getChildren().add(clearButton);

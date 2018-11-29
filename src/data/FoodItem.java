@@ -81,13 +81,13 @@ public class FoodItem {
     /*
      * Cuts off all trailing zeroes and converts value to String
      */
-	private static final double LIMIT = .1;
+	private static final double LIMIT = .01;
 	public static String format(Double val){
 		if(val==null) return "-";
 		if(Math.abs(val-val.intValue()) < LIMIT){
 			return Integer.toString(val.intValue());
 		} else{
-			return Double.toString(val);//Could simply be val.toString(). But, consistency
+			return Double.toString(val);//Not val.toString b/c want to match above line 
 		}
 	}
  

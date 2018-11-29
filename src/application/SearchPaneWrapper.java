@@ -186,19 +186,9 @@ public class SearchPaneWrapper extends Application {
 		 */
 		private void generateButtons(){
 			Button searchButton = new Button("search");//TODO: consider renaming to filter?
-			searchButton.setOnAction(new EventHandler<ActionEvent>(){
-				@Override
-				public void handle(ActionEvent e){
-					search();
-				}
-			});
+			searchButton.setOnAction(e->search());
 			Button resetButton = new Button("reset");
-			resetButton.setOnAction(new EventHandler<ActionEvent>(){
-				@Override
-				public void handle(ActionEvent e){
-					clearData();
-				}
-			});
+			resetButton.setOnAction(e->clearData());
 			this.buttonPane = new HBox();
 			this.buttonPane.getChildren().addAll(searchButton, resetButton);
 			this.getChildren().add(this.buttonPane);
