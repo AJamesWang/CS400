@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
+
 public class MealListPane extends Application {
     @Override
     public void start(Stage primaryStage) {
@@ -157,7 +158,7 @@ public class MealListPane extends Application {
             list.add("Apple");
             list.add("Peach");
             list.add("Pear");
-            list.add( "Pineapple");
+            list.add( "Pineapple"); 
             list.add("Apple");
             list.add("Peach");
             list.add("Pear");

@@ -1,8 +1,11 @@
 package application;
 	
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -25,6 +28,21 @@ public class GUIManager extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
+			dialog.setTitle("Meal Planner");
+			dialog.setHeaderText("Enter path to Food Data");
+			dialog.setContentText("Path:");
+
+			// Traditional way to get the response value.
+			Optional<String> path = dialog.showAndWait();
+			if (path.isPresent()) {
+			    dialog.close();
+			}
+
+			// The Java 8 way to get the response value (with lambda expression).
+			//result.ifPresent(name -> System.out.println("Your name: " + name));
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
