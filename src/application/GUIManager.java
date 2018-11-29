@@ -14,11 +14,14 @@ public class GUIManager extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FrontPage fp = new FrontPage();
-			InfoPane ip = new InfoPane();
 			SearchPane sp = new SearchPane(this);
-			HBox root = new HBox();
-			root.getChildren().addAll(fp, ip, sp);
-			Scene scene = new Scene(root,400,400);
+			InfoPane ip = new InfoPane();
+			GridPane root = new GridPane();
+			root.add(fp, 0, 0, 10, 10);
+			root.add(sp, 10, 0);
+			root.add(ip, 10, 10);
+			
+			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
