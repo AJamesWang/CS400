@@ -20,9 +20,9 @@ public class GUIManager extends Application {
 			InfoPane ip = new InfoPane();
 			GridPane root = new GridPane();
 			MealListPane mlp = new MealListPane();
-			root.add(sp, 10, 0);
-			root.add(ip, 10, 10);
-			root.add(mlp, 40, 0);
+			root.add(sp, 1, 0);
+			root.add(ip, 2, 0);
+			root.add(mlp, 1, 2);
 			
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

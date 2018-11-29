@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -69,6 +70,7 @@ public class InfoPane extends VBox{
 			dataPane.add(value, 1, row);
 			dataPane.add(units, 2, row);
 		}
+		this.dataPane.setAlignment(Pos.CENTER);
 	}
 	
 	/**
@@ -95,7 +97,7 @@ public class InfoPane extends VBox{
 	 */
 	private void generateTitle(){
 		Text title = new Text("Nutrients of selected item:");
-		this.setId("section-heading");
+		title.setId("section-heading");
 		
 		this.titlePane = new BorderPane();
 		this.titlePane.setCenter(title);
@@ -121,6 +123,7 @@ public class InfoPane extends VBox{
 		
 		this.buttonPane = new HBox();
 		this.buttonPane.getChildren().add(clearButton);
+		this.buttonPane.setAlignment(Pos.CENTER);
 		this.getChildren().add(this.buttonPane);
 	}
 }
