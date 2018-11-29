@@ -152,6 +152,16 @@ public class MealListPane extends Application {
             list.add( "Pineapple");
             list.add("Apple");
             list.add("Peach");
+            list.add("Apple");
+            list.add("Peach");
+            list.add("Pear");
+            list.add( "Pineapple");
+            list.add("Apple");
+            list.add("Peach");
+            list.add("Pear");
+            list.add( "Pineapple");
+            list.add("Apple");
+            list.add("Peach");
 
             mealList.setItems(list);
             mealList.setMaxSize(700, 900);
