@@ -38,7 +38,7 @@ public class MealListPane extends BorderPane {
     public MealListPane(){
         try {
             VBox borderPaneRight = new VBox();
-            borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis(20, 30, 40, 50));
+            borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis(20, 100, 200, 0, 20));
             this.setRight(borderPaneRight);
         } catch(Exception e) {
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class MealListPane extends BorderPane {
         }
     }
     
-    public VBox mealAnalysis(int cal, int fat, int pro, int fib) {
+    public VBox mealAnalysis( int cal, int fat, int carbs, int fib, int pro) {
     	this.setId("food-data");//sets the default font to food-data (see CSS)
         Label mealAnalysis = new Label("Meal Analysis: ");
         mealAnalysis.setId("section-heading");
@@ -71,7 +71,9 @@ public class MealListPane extends BorderPane {
         Label numCals = new Label(" " + cal);
         subBox1.getChildren().add(numCals);
         subBox1.setAlignment(Pos.BASELINE_RIGHT); // trying to align numbers to the right?
-        Label calNum = new Label(" " + cal);
+        Label carbsNum = new Label(" " + carbs);
+        Label totalCarbs = new Label("Total carbs:");
+        Label carbNum = new Label(" " + cal);
         Label totalFat = new Label("Total fat:");
         Label fatNum = new Label(" " + fat);
         Label totalProtein = new Label("Total protein:");
@@ -84,14 +86,16 @@ public class MealListPane extends BorderPane {
         HBox hBox3 = new HBox();
         HBox hBox4 = new HBox();
         HBox hBox5 = new HBox();
+        HBox hBox6 = new HBox();
         
         hBox2.getChildren().addAll(totalCals, subBox1);
         hBox3.getChildren().addAll(totalFat, fatNum);
-        hBox4.getChildren().addAll(totalProtein, proNum);
+        hBox4.getChildren().addAll(totalCarbs, carbNum);
+        hBox6.getChildren().addAll(totalProtein, proNum);
         hBox5.getChildren().addAll(totalFiber, fibNum);
         
         VBox vBox1 = new VBox();
-        vBox1.getChildren().addAll(hBox1, hBox2, hBox3, hBox4, hBox5);
+        vBox1.getChildren().addAll(hBox1, hBox2, hBox3, hBox4, hBox5, hBox6);
    
         return vBox1;
     }
@@ -124,7 +128,7 @@ public class MealListPane extends BorderPane {
             TableColumn carbs = new TableColumn("Carbs");
             carbs.setCellValueFactory(new PropertyValueFactory("Carbs"));
             this.mealTable.getColumns().setAll(name, cals, fat, carbs, fiber, protein);
-            this.mealTable.setMinHeight((0.30) * Screen.getPrimary().getBounds().getHeight());
+            this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
             this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             vBox.getChildren().addAll(hBox1, mealTable, hBox2);
             return vBox;
