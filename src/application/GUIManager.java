@@ -18,7 +18,7 @@ public class GUIManager extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			InfoPane ip = new InfoPane();
+//			InfoPane ip = new InfoPane();
 			SearchPane sp = new SearchPane(this);
 			MealListPane mlp = new MealListPane();
 	        FoodPane fp = new FoodPane();
@@ -36,10 +36,10 @@ public class GUIManager extends Application {
 			mlp.setMinHeight(primaryStage.getHeight());
 			
 			GridPane root = new GridPane();
-			root.add(ip, 2, 0);
-			root.add(sp, 2,1);
-			root.add(mlp, 0, 0);
-			root.add(fp, 1, 0);
+//			root.add(ip, 2, 0);
+			root.add(sp, 0,0);
+			root.add(mlp, 1, 0);
+			root.add(fp, 0, 1);
 			
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
