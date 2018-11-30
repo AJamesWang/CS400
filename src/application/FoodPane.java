@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import data.FoodItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -22,6 +24,7 @@ import javafx.stage.Screen;
 public class FoodPane extends BorderPane{
     private TableView foodTable = new TableView(); // table to display food options
     private ArrayList<FoodItem> currSelected = new ArrayList<FoodItem>(); // current food items selected
+    TextField filterField;
     
     /*
      * Constructs a FoodPane containing information
@@ -43,6 +46,8 @@ public class FoodPane extends BorderPane{
     public VBox foodPane() {
         Label foodLabel = new Label("Food List:");
         foodLabel.setId("section-heading");
+        this.filterField = new TextField();
+        this.filterField.setPromptText("filter name here");
         Button addFoodBtn = new Button("Add food(s) to meal");
         
         // name the columns
@@ -58,7 +63,7 @@ public class FoodPane extends BorderPane{
         VBox foodPane = new VBox(10);
         foodPane.setId("food-data");
         foodPane.setPadding(new Insets(20, 20, 20, 20));
-        foodPane.getChildren().addAll(foodLabel, foodTable, addFoodBtn);
+        foodPane.getChildren().addAll(foodLabel, filterField, foodTable, addFoodBtn);
         
         // when button is pressed, add selected food item(s) to meal list
         addFoodBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -89,8 +94,27 @@ public class FoodPane extends BorderPane{
      * with those foods.
      * @param food The ArrayList of FoodItems
      */
+     //TODO: maybe make foodObsList a class variable? I think to add new elements, you'll need to access it
+     //Or maybe filteredData?
     public void setInitialTableData(ArrayList<FoodItem> food) {      
         ObservableList<FoodItem> foodObsList = FXCollections.observableList(food);
+        //taken from https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
+        FilteredList<FoodItem> filteredData = new FilteredList<FoodItem>(foodObsList, p->true);
+        this.filterField.textProperty().addListener((observable, oldVal, newVal) -> {
+        	filteredData.setPredicate( target -> {
+				if (newVal==null || newVal.isEmpty()){
+					return true;
+				}
+				
+				String input = newVal.toLowerCase();
+				if(target.getName().toLowerCase().contains(input)){
+					return true;
+				} else{
+					return false;
+				}
+				
+        	});
+        });
         
         // get data from food list to display in table
         this.foodTable.setItems(foodObsList);
