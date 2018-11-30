@@ -113,7 +113,7 @@ public class MealListPane extends BorderPane {
             TableColumn name = new TableColumn("Name");
             name.setMinWidth(100);
  //           name.setCellValueFactory(new PropertyValueFactory<Food, String> ("name"));
-            TableColumn cals = new TableColumn("Cals");
+            TableColumn cals = new TableColumn("Calories");
             cals.setMinWidth(20);
  //           cals.setCellValueFactory(new PropertyValueFactory<Food, Integer>("cals"));
             TableColumn fat = new TableColumn("Fat");
@@ -125,8 +125,11 @@ public class MealListPane extends BorderPane {
             TableColumn fiber = new TableColumn("Fiber");
             fiber.setMinWidth(20);
  //           fiber.setCellFactory(new PropertyValueFactory<Food, Integer>("fiber"));
+            TableColumn carbs = new TableColumn("Carbs");
+            carbs.setMinWidth(20);
+ //           fiber.setCellFactory(new PropertyValueFactory<Food, Integer>("fiber"));
             
-            mealTable.getColumns().addAll(name, cals, fat, protein, fiber);
+            mealTable.getColumns().addAll(name, cals, fat, carbs, fiber, protein);
             
             ListView mealList = new ListView();
             ObservableList<String> list = FXCollections.observableArrayList();
