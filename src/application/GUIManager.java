@@ -48,7 +48,7 @@ public class GUIManager extends Application {
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setMaximized(true);
+			// primaryStage.setMaximized(true); CAUSES ERROR ON MAC OS MOJAVE
 			primaryStage.setTitle("COOLEST CS400 PROJECT EVER WE ARE THE PROFESSORS NAO");
 			primaryStage.show();
 			
