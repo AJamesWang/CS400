@@ -16,13 +16,18 @@ public class GUIManager extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			SearchPane sp = new SearchPane(this);
 			InfoPane ip = new InfoPane();
-			GridPane root = new GridPane();
+			SearchPane sp = new SearchPane(this);
+			Label flp = new Label("Food List");
+			flp.setMinWidth(1000);
 			MealListPane mlp = new MealListPane();
-			root.add(sp, 1, 0);
+			mlp.setMinHeight(primaryStage.getHeight());
+			
+			GridPane root = new GridPane();
 			root.add(ip, 2, 0);
-			root.add(mlp, 1, 2);
+			root.add(sp, 2,1);
+			root.add(flp, 1, 0);
+			root.add(mlp, 0, 0);
 			
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

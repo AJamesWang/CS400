@@ -141,13 +141,16 @@ public class SearchPane extends VBox{
 			String id = FoodItem.NUTRIENT_IDS[i];
 			String _nutrient = FoodItem.NUTRIENT_NAMES[i];
 			Label nutrient = new Label(_nutrient);
+			nutrient.setId("food-data");
 			//TODO: get rid of the magic numbers
 			TextField min = new TextField();
 			min.setPromptText("-");
 			min.setMaxWidth(70);
+			min.setId("food-data");
 			TextField max = new TextField();
 			max.setPromptText("-");
 			max.setMaxWidth(70);
+			max.setId("food-data");
 			//TODO: look into TextFormatter? To limit input to numbers?
 			//https://stackoverflow.com/questions/8381374/how-to-implement-a-numberfield-in-javafx-2-0
 			this.mins.put(id, min);

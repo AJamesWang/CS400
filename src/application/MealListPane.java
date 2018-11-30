@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -56,10 +57,12 @@ public class MealListPane extends BorderPane {
     }
     
     public VBox mealAnalysis(int cal, int fat, int pro, int fib) {
+    	this.setId("food-data");//sets the default font to food-data (see CSS)
         Label mealAnalysis = new Label("Meal Analysis: ");
+        mealAnalysis.setId("section-heading");
         HBox hBox1 = new HBox();
         hBox1.getChildren().add(mealAnalysis);
-        hBox1.setAlignment(Pos.BASELINE_CENTER);
+        hBox1.setAlignment(Pos.TOP_LEFT);
         Label totalCals = new Label("Total calories:");
         HBox subBox1 = new HBox();
         Label numCals = new Label(" " + cal);
@@ -91,9 +94,10 @@ public class MealListPane extends BorderPane {
     }
     public VBox mealPane() {
             Label mealLabel = new Label("Meal:");
+            mealLabel.setId("section-heading");
             HBox hBox1 = new HBox();
             hBox1.getChildren().add(mealLabel);
-            hBox1.setAlignment(Pos.BASELINE_CENTER);
+            hBox1.setAlignment(Pos.TOP_LEFT);
             Button analyzeMeal = new Button("Analyze Meal");
             myHandler analyzeButton = new myHandler(analyzeMeal);
             analyzeMeal.setOnAction(analyzeButton);
@@ -160,7 +164,8 @@ public class MealListPane extends BorderPane {
             list.add("Peach");
 
             mealList.setItems(list);
-            mealList.setMaxSize(700, 900);
+//            mealList.setMinHeight(Screen.getPrimary().getBounds().getHeight());
+            mealList.setMaxSize(100, 100);
    //         vBox.getChildren().addAll(hBox1, mealList, hBox2);
             vBox.getChildren().addAll(hBox1, mealTable, hBox2);
             return vBox;
