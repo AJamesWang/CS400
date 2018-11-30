@@ -122,7 +122,7 @@ public class FoodPane extends BorderPane{
      * FIXME: The TableView type requires exact getters for every column
      * it contains in order to read and display the data from the objects
      * passed to it. Getters will need to be added to the FoodItem class
-     * in order to enable this funtionality. 
+     * in order to enable this functionality. 
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
@@ -151,10 +151,10 @@ public class FoodPane extends BorderPane{
         proteinCol.setCellValueFactory(new PropertyValueFactory("Protein"));
         
         // add all columns to table
-        foodTable.getColumns().setAll(nameCol, caloriesCol, fatCol, carbsCol, fiberCol, proteinCol);
+        this.foodTable.getColumns().setAll(nameCol, caloriesCol, fatCol, carbsCol, fiberCol, proteinCol);
         
         // set the height of Food Table to a ratio of the screen's height
-        foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
+        this.foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
     }
 
 }

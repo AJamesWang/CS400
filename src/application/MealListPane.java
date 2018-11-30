@@ -111,31 +111,21 @@ public class MealListPane extends BorderPane {
             scroll.setOrientation(Orientation.VERTICAL);
             VBox vBox = new VBox();
             
-            mealTable.setMaxWidth(500);
             TableColumn name = new TableColumn("Name");
-          //  name.setMinWidth(100);
-         //   name.setCellValueFactory(new PropertyValueFactory("Name"));
+            name.setCellValueFactory(new PropertyValueFactory("Name"));
             TableColumn cals = new TableColumn("Calories");
-          //  cals.setMinWidth(20);
-        //    cals.setCellValueFactory(new PropertyValueFactory("Calories"));
+            cals.setCellValueFactory(new PropertyValueFactory("Calories"));
             TableColumn fat = new TableColumn("Fat");
-          //  fat.setMinWidth(20);
-        //    fat.setCellValueFactory(new PropertyValueFactory("Fat"));
+            fat.setCellValueFactory(new PropertyValueFactory("Fat"));
             TableColumn protein = new TableColumn("Protein");
-          //  protein.setMinWidth(20);
-        //    protein.setCellValueFactory(new PropertyValueFactory("Protein"));
+           protein.setCellValueFactory(new PropertyValueFactory("Protein"));
             TableColumn fiber = new TableColumn("Fiber");
-          //  fiber.setMinWidth(20);
-        //    fiber.setCellFactory(new PropertyValueFactory("fiber"));
+            fiber.setCellValueFactory(new PropertyValueFactory("fiber"));
             TableColumn carbs = new TableColumn("Carbs");
-          //  carbs.setMinWidth(20);
-        //    carbs.setCellFactory(new PropertyValueFactory("Carbs"));
-            
-            mealTable.getColumns().addAll(name, cals, fat, carbs, fiber, protein);
-
-            mealTable.setMinHeight((0.40) * Screen.getPrimary().getBounds().getHeight());
-           this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
+            carbs.setCellValueFactory(new PropertyValueFactory("Carbs"));
+            this.mealTable.getColumns().setAll(name, cals, fat, carbs, fiber, protein);
+            this.mealTable.setMinHeight((0.30) * Screen.getPrimary().getBounds().getHeight());
+            this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             vBox.getChildren().addAll(hBox1, mealTable, hBox2);
             return vBox;
     }

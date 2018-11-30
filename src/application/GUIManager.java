@@ -37,8 +37,7 @@ public class GUIManager extends Application {
 			
 			// load food data into food pane
 			updateFoodPane(fp, tempStaticArr);
-		
-			mlp.setMinHeight(primaryStage.getHeight());
+			updateMealListPane(mlp, tempStaticArr);
 			
 			GridPane root = new GridPane();
 //			root.add(ip, 2, 0);
