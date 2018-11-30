@@ -1,6 +1,8 @@
 package application;
 	
+import java.util.ArrayList;
 import java.util.Optional;
+import data.FoodItem;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -21,10 +23,23 @@ public class GUIManager extends Application {
 			InfoPane ip = new InfoPane();
 			GridPane root = new GridPane();
 			MealListPane mlp = new MealListPane();
+	        FoodPane fp = new FoodPane();
 //			root.add(fp, 0, 0, 10, 10);
 			root.add(sp, 10, 0);
 			root.add(ip, 10, 10);
 			root.add(mlp, 40, 0);
+			root.add(fp, 1, 0);
+
+			
+			// FIXME: TEMPORARY STATIC ARRAY OF FOODITEMS FOR 
+			// DISPLAYING IN MILESTONE 2, DELETE LATER
+			ArrayList<FoodItem> tempStaticArr = new ArrayList<FoodItem>();
+			tempStaticArr.add(new FoodItem("apple", "apple"));
+			tempStaticArr.add(new FoodItem("banana", "banana"));
+			
+			// load food data into food pane
+			updateFoodPane(fp, tempStaticArr);
+		
 			
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -57,6 +72,8 @@ public class GUIManager extends Application {
 	 * Once a food is selected, sends data to infoPane to be displayed
 	 */
 	protected void updateInfoPane(){
+	    // call getNewItems() from FoodPane
+	    // load food into info pane one by one
 		System.out.println("updateInfoPane NOT IMPLEMENTED YET");
 	}
 	/*
@@ -79,7 +96,20 @@ public class GUIManager extends Application {
 	 protected void clearConstraints(){
 		 System.out.println("clearConstraints NOT IMPLEMENTED YET");
 	 }
-	
+	 
+     //////////////////////
+	 // FoodPane methods //
+     //////////////////////
+    /*
+     * Receives an ArrayList of FoodItems
+     * and loads them into the passed in FoodPane
+     * @param fp The FoodPane to be updated
+     * @param food An ArrayList of FoodItems
+     */
+	 protected void updateFoodPane(FoodPane fp, ArrayList<FoodItem> food) {
+	     fp.setInitialTableData(food);
+	 }
+	 
 	
 	public static void main(String[] args) {
 		launch(args);
