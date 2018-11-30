@@ -18,11 +18,10 @@ public class GUIManager extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-//			FrontPage fp = new FrontPage();
-			SearchPane sp = new SearchPane(this);
 			InfoPane ip = new InfoPane();
-			GridPane root = new GridPane();
+			SearchPane sp = new SearchPane(this);
 			MealListPane mlp = new MealListPane();
+<<<<<<< HEAD
 	        FoodPane fp = new FoodPane();
 //			root.add(fp, 0, 0, 10, 10);
 			root.add(sp, 10, 0);
@@ -40,10 +39,19 @@ public class GUIManager extends Application {
 			// load food data into food pane
 			updateFoodPane(fp, tempStaticArr);
 		
+=======
+			mlp.setMinHeight(primaryStage.getHeight());
+			
+			GridPane root = new GridPane();
+			root.add(ip, 2, 0);
+			root.add(sp, 2,1);
+			root.add(mlp, 0, 0);
+>>>>>>> refs/remotes/origin/master
 			
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setMaximized(true);
 			primaryStage.show();
 			
 			TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");

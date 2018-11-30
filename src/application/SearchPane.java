@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -113,8 +114,6 @@ public class SearchPane extends VBox{
 	private void generateTitle(){
 		Text title = new Text("Filter foods by nutrients:");
 		title.setId("section-heading");
-//			title.setFont(Font.font("Comic Sans", FontWeight.BOLD, 20));
-//			title.setUnderline(true);
 		
 		this.titlePane = new BorderPane();
 		this.titlePane.setCenter(title);
@@ -142,13 +141,16 @@ public class SearchPane extends VBox{
 			String id = FoodItem.NUTRIENT_IDS[i];
 			String _nutrient = FoodItem.NUTRIENT_NAMES[i];
 			Label nutrient = new Label(_nutrient);
+			nutrient.setId("food-data");
 			//TODO: get rid of the magic numbers
 			TextField min = new TextField();
 			min.setPromptText("-");
 			min.setMaxWidth(70);
+			min.setId("food-data");
 			TextField max = new TextField();
 			max.setPromptText("-");
 			max.setMaxWidth(70);
+			max.setId("food-data");
 			//TODO: look into TextFormatter? To limit input to numbers?
 			//https://stackoverflow.com/questions/8381374/how-to-implement-a-numberfield-in-javafx-2-0
 			this.mins.put(id, min);
@@ -161,6 +163,7 @@ public class SearchPane extends VBox{
 			this.dataPane.add(min, 1, row);
 			this.dataPane.add(max, 2, row);
 		}
+		this.dataPane.setAlignment(Pos.CENTER);
 		this.getChildren().add(this.dataPane);
 	}
 	
@@ -174,6 +177,7 @@ public class SearchPane extends VBox{
 		resetButton.setOnAction(e->clearData());
 		this.buttonPane = new HBox();
 		this.buttonPane.getChildren().addAll(searchButton, resetButton);
+		this.buttonPane.setAlignment(Pos.CENTER);
 		this.getChildren().add(this.buttonPane);
 	}
 	
