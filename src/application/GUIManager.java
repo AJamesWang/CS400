@@ -21,13 +21,7 @@ public class GUIManager extends Application {
 			InfoPane ip = new InfoPane();
 			SearchPane sp = new SearchPane(this);
 			MealListPane mlp = new MealListPane();
-<<<<<<< HEAD
 	        FoodPane fp = new FoodPane();
-//			root.add(fp, 0, 0, 10, 10);
-			root.add(sp, 10, 0);
-			root.add(ip, 10, 10);
-			root.add(mlp, 40, 0);
-			root.add(fp, 1, 0);
 
 			
 			// FIXME: TEMPORARY STATIC ARRAY OF FOODITEMS FOR 
@@ -39,14 +33,13 @@ public class GUIManager extends Application {
 			// load food data into food pane
 			updateFoodPane(fp, tempStaticArr);
 		
-=======
 			mlp.setMinHeight(primaryStage.getHeight());
 			
 			GridPane root = new GridPane();
 			root.add(ip, 2, 0);
 			root.add(sp, 2,1);
 			root.add(mlp, 0, 0);
->>>>>>> refs/remotes/origin/master
+			root.add(fp, 1, 0);
 			
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
