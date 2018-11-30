@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 public class FoodPane extends BorderPane{
     private TableView foodTable = new TableView(); // table to display food options
@@ -150,6 +151,8 @@ public class FoodPane extends BorderPane{
         // add all columns to table
         foodTable.getColumns().setAll(nameCol, caloriesCol, fatCol, carbsCol, fiberCol, proteinCol);
         
+        // set the height of Food Table to a ratio of the screen's height
+        foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
     }
 
 }

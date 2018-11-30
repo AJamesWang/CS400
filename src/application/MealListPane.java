@@ -138,7 +138,7 @@ public class MealListPane extends BorderPane {
             list.add( "Pineapple");
             list.add("Apple");
             mealList.setItems(list);
-            mealTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
+            mealTable.setMinHeight((0.40) * Screen.getPrimary().getBounds().getHeight());
 //            mealList.setMinHeight(Screen.getPrimary().getBounds().getHeight());
             mealList.setMaxSize(100, 100);
    //         vBox.getChildren().addAll(hBox1, mealList, hBox2);
