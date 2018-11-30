@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 
@@ -45,12 +46,15 @@ public class GUIManager extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setMaximized(true);
+			primaryStage.setTitle("COOLEST CS400 PROJECT EVER WE ARE THE PROFESSORS NAO");
 			primaryStage.show();
 			
 			TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
 			dialog.setTitle("Meal Planner");
+			dialog.setGraphic(null);
 			dialog.setHeaderText("Enter path to Food Data");
 			dialog.setContentText("Path:");
+			dialog.getDialogPane().setMinWidth(500);
 
 			// Traditional way to get the response value.
 			Optional<String> path = dialog.showAndWait();

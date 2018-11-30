@@ -4,11 +4,6 @@
 	-fx-font-weight:bold;
 	-fx-underline: true;
 }
-#food-name{
-	-fx-font-family: "Comic Sans MS";
-	-fx-font-size: 15pt;
-	-fx-font-weight: bold;
-}
 #food-data{
 	-fx-font-family: "Comic Sans MS";
 	-fx-font-size: 12pt;
