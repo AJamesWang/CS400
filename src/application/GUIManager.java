@@ -18,15 +18,12 @@ public class GUIManager extends Application {
 		try {
 			InfoPane ip = new InfoPane();
 			SearchPane sp = new SearchPane(this);
-			Label flp = new Label("Food List");
-			flp.setMinWidth(1000);
 			MealListPane mlp = new MealListPane();
 			mlp.setMinHeight(primaryStage.getHeight());
 			
 			GridPane root = new GridPane();
 			root.add(ip, 2, 0);
 			root.add(sp, 2,1);
-			root.add(flp, 1, 0);
 			root.add(mlp, 0, 0);
 			
 			Scene scene = new Scene(root,1400,1000);
