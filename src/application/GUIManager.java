@@ -56,7 +56,7 @@ public class GUIManager extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			// primaryStage.setMaximized(true); CAUSES ERROR ON MAC OS MOJAVE
-			primaryStage.setTitle("COOLEST CS400 PROJECT EVER WE ARE THE PROFESSORS NAO");
+			primaryStage.setTitle("COOLEST CS400 PROJECT EVER!!!11!11111!!");
 			primaryStage.show();
 			
 			TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
