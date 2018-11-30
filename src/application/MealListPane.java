@@ -130,7 +130,6 @@ public class MealListPane extends BorderPane {
  //           fiber.setCellFactory(new PropertyValueFactory<Food, Integer>("fiber"));
             
             mealTable.getColumns().addAll(name, cals, fat, carbs, fiber, protein);
-            
             ListView mealList = new ListView();
             ObservableList<String> list = FXCollections.observableArrayList();
             
