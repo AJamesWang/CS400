@@ -60,36 +60,6 @@ public class GUIManager extends Application {
 			dialog.setContentText("Path:");
 			dialog.getDialogPane().setMinWidth(500);
 
-            // FIXME: TEMPORARY STATIC ARRAY OF FOODITEMS FOR 
-            // DISPLAYING IN MILESTONE 2, DELETE LATER!
-            ArrayList<FoodItem> tempStaticArr = new ArrayList<FoodItem>();
-            tempStaticArr.add(new FoodItem("apple", "apple"));
-            tempStaticArr.add(new FoodItem("banana", "banana"));
-
-            // load food data into food pane
-            updateFoodPane(fp, tempStaticArr);
-            
-            //load food data into meal pane
-            updateMealListPane(mlp, tempStaticArr);
-
-            mlp.setMinHeight(primaryStage.getHeight());
-
-            GridPane root = new GridPane();
-            //			root.add(ip, 2, 0);
-            root.add(sp, 0,0);
-            root.add(mlp, 1, 0);
-            root.add(fp, 0, 1);
-
-            Scene scene = new Scene(root,1400,1000);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.setMaximized(true);
-            primaryStage.show();
-
-            TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
-            dialog.setTitle("Meal Planner");
-            dialog.setHeaderText("Enter path to Food Data");
-            dialog.setContentText("Path:");
 
             // Traditional way to get the response value.
             Optional<String> path = dialog.showAndWait();
