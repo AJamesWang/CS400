@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import data.FoodItem;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
