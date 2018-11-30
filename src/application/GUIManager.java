@@ -25,7 +25,7 @@ public class GUIManager extends Application {
 
 			
 			// FIXME: TEMPORARY STATIC ARRAY OF FOODITEMS FOR 
-			// DISPLAYING IN MILESTONE 2, DELETE LATER
+			// DISPLAYING IN MILESTONE 2, DELETE LATER!
 			ArrayList<FoodItem> tempStaticArr = new ArrayList<FoodItem>();
 			tempStaticArr.add(new FoodItem("apple", "apple"));
 			tempStaticArr.add(new FoodItem("banana", "banana"));
