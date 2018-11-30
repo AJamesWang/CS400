@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -39,6 +40,7 @@ public class SearchPane extends VBox{
 	
 	protected SearchPane(GUIManager manager){
 		this.manager = manager;
+        this.setPadding(new Insets(20, 20, 20, 20));
 		this.generateTitle();
 		this.generateData();
 		this.generateButtons();
