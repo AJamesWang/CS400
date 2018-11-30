@@ -37,9 +37,9 @@ public class GUIManager extends Application {
 			
 			GridPane root = new GridPane();
 //			root.add(ip, 2, 0);
-			root.add(sp, 0,0);
-			root.add(mlp, 1, 0);
-			root.add(fp, 0, 1);
+			root.add(fp, 0, 0, 1, 2);
+			root.add(sp, 1,0);
+			root.add(mlp, 1, 1);
 			
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

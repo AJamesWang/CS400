@@ -42,6 +42,7 @@ public class FoodPane extends BorderPane{
      */
     public VBox foodPane() {
         Label foodLabel = new Label("Food List:");
+        foodLabel.setId("section-heading");
         Button addFoodBtn = new Button("Add food(s) to meal");
         
         // name the columns
@@ -55,6 +56,7 @@ public class FoodPane extends BorderPane{
         
         // Set up and display scene
         VBox foodPane = new VBox(10);
+        foodPane.setId("food-data");
         foodPane.setPadding(new Insets(20, 20, 20, 20));
         foodPane.getChildren().addAll(foodLabel, foodTable, addFoodBtn);
         

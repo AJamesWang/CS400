@@ -126,6 +126,7 @@ public class SearchPane extends VBox{
 	private void generateData(){
 		this.dataPane = new GridPane();
 		this.dataPane.setHgap(10);
+		this.dataPane.setId("food-data");
 		this.mins = new HashMap<String, TextField>();
 		this.maxes = new HashMap<String, TextField>();
 		this.curMins = new HashMap<String, Double>();
