@@ -59,7 +59,7 @@ public class Food {
      * Generates a unique id.
      * @return id
      */
-    public String idGenerator() {
+    private String idGenerator() {
         return "";
     }
     
