@@ -1,10 +1,11 @@
-package application;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import application.BPTree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 
