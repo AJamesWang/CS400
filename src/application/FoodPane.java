@@ -3,7 +3,6 @@ package application;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import java.util.ArrayList;
-import data.FoodItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

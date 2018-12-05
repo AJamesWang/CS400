@@ -1,8 +1,6 @@
 package application;
 	
 import java.util.HashMap;
-
-import data.FoodItem;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

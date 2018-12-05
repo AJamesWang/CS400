@@ -1,6 +1,5 @@
-package tests;
+package application;
 
-import data.BPTree;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;

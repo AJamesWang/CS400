@@ -1,7 +1,6 @@
 
 package application;
 
-import data.FoodItem;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
