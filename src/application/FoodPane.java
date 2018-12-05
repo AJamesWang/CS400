@@ -21,7 +21,6 @@ import javafx.stage.Screen;
 
 public class FoodPane extends BorderPane{
     private TableView foodTable = new TableView(); // table to display food options
-    private ArrayList<Food> currSelected = new ArrayList<Food>(); // current food items selected
     private MealListPane mlp; // reference to meal list pane
     TextField filterField;
     
@@ -77,16 +76,8 @@ public class FoodPane extends BorderPane{
                 for (Food f: selected) {
                     selectedArr.add(f);
                 }
-                
-                
+                                
                 updateMealListPane(selectedArr);
-               // updateSelectedFood(selectedArr);
-                
-                // FIXME: How to pass selected foods to MealListPane upon pressing button?
-                // May require allowing this class access to the MealListPane via the GUIManager.
-                // Perhaps passing a reference to the GUIManager instance in the FoodPane constructor, 
-                // And making the GUIManager instance a global variable in FoodPane, allowing FoodPane
-                // to call updateMealListPane()
             }
        });
         return foodPane;
@@ -129,39 +120,15 @@ public class FoodPane extends BorderPane{
         SortedList<Food> sortedData = new SortedList<Food>(filteredData);
         //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
         sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
-        this.foodTable.setItems(sortedData);
-        
-        // get data from food list to display in table
-//        this.foodTable.setItems(foodObsList);
+        this.foodTable.setItems(sortedData);        
       
     }
     
-    /*
-     * Returns an ArrayList containing the FoodItems 
-     * selected from the table.
-     * @return an ArrayList containing the selected FoodItems
-     */
-    public ArrayList<Food> getNewItems() {
-        return this.currSelected;
-    }
-    
-    /*
-     * Updates the selected food items in the table.
-     * @param selected An ArrayList of the newly selected items.
-     */
-    private void updateSelectedFood(ArrayList<Food> selected) {
-        this.currSelected = selected;
-    }
     
     /*
      * Sets up the columns in the table.
      * Sets up Name, Calories, Fat, Carbs, Fiber, and Protein
      * columns in that order.
-     * 
-     * FIXME: The TableView type requires exact getters for every column
-     * it contains in order to read and display the data from the objects
-     * passed to it. Getters will need to be added to the FoodItem class
-     * in order to enable this functionality. 
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
