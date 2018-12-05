@@ -22,6 +22,15 @@ public class Food implements Comparable {
      * @param fiber
      * @param protein
      */
+    /**
+     * @param id
+     * @param name
+     * @param calories
+     * @param fat
+     * @param carbs
+     * @param fiber
+     * @param protein
+     */
     Food(String id, String name, int calories, double fat, int carbs, double fiber, double protein) {
         this.id = id;
         this.name = name;

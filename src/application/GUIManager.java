@@ -18,32 +18,27 @@ import javafx.scene.layout.VBox;
 
 
 public class GUIManager extends Application {
+    private MealListPane mlp = new MealListPane();
+    private FoodPane fp = new FoodPane(mlp);
+    
     @Override
     public void start(Stage primaryStage) {
         try {
             //			InfoPane ip = new InfoPane();
             SearchPane sp = new SearchPane(this);
-            MealListPane mlp = new MealListPane();
-            FoodPane fp = new FoodPane();
-
-
 			
-            // FIXME: TEMPORARY STATIC ARRAY OF FOODITEMS FOR 
-			// DISPLAYING IN MILESTONE 2, DELETE LATER!
-			ArrayList<FoodItem> tempStaticArr = new ArrayList<FoodItem>();
-			FoodItem apple = new FoodItem("apple", "apple");
-			apple.addNutrient("Calories", 20);
-			apple.addNutrient("Carbs", 200);
-			apple.addNutrient("Fiber", 0);
-			FoodItem banana = new FoodItem("banana", "banana");
-			banana.addNutrient("Fat", 100);
-			banana.addNutrient("protein", 20);
-			tempStaticArr.add(apple);
-			tempStaticArr.add(banana);
-			
-			// load food data into food pane
-			updateFoodPane(fp, tempStaticArr);
-			updateMealListPane(mlp, tempStaticArr);
+			// load food data into food pane			
+			ArrayList<Food> tempFoodArr = new ArrayList<Food>();
+			tempFoodArr.add(new Food("Pear"));
+			tempFoodArr.add(new Food("Coffee"));
+			tempFoodArr.add(new Food("Peach"));
+			tempFoodArr.add(new Food("Mint"));
+			tempFoodArr.add(new Food("Ice Cream"));
+			tempFoodArr.add(new Food("Orange"));
+			tempFoodArr.add(new Food("Water"));
+			tempFoodArr.add(new Food("Soup"));
+			tempFoodArr.add(new Food("Celery"));
+			updateFoodPane(tempFoodArr);
 			
 			GridPane root = new GridPane();
 //			root.add(ip, 2, 0);
@@ -54,7 +49,6 @@ public class GUIManager extends Application {
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			// primaryStage.setMaximized(true); CAUSES ERROR ON MAC OS MOJAVE
 			primaryStage.setTitle("COOLEST CS400 PROJECT EVER!!!11!11111!!");
 			primaryStage.show();
 			
@@ -117,12 +111,12 @@ public class GUIManager extends Application {
     //////////////////////
     /*
      * Receives an ArrayList of FoodItems
-     * and loads them into the passed in FoodPane
-     * @param fp The FoodPane to be updated
+     * and loads them into the FoodPane
+     * 
      * @param food An ArrayList of FoodItems
      */
-    protected void updateFoodPane(FoodPane fp, ArrayList<FoodItem> food) {
-        fp.setInitialTableData(food);
+    protected void updateFoodPane(ArrayList<Food> food) {
+        this.fp.updateFoodPaneData(food);
     }
 
     //////////////////////
@@ -130,12 +124,12 @@ public class GUIManager extends Application {
     //////////////////////
     /*
      * Receives an ArrayList of FoodItems
-     * and loads them into the passed in mealListPane
-     * @param mlp the mealListPane to be updated
+     * and loads them into the mealListPane
+     * 
      * @param food An ArrayList of FoodItems
      */
-    protected void updateMealListPane(MealListPane mlp, ArrayList<FoodItem> food) {
-        mlp.updateMlpData(food);
+    protected void updateMealListPane(ArrayList<Food> food) {
+        this.mlp.updateMlpData(food);
     }
 
 

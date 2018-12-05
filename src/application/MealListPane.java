@@ -33,7 +33,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MealListPane extends BorderPane {
     private TableView mealTable = new TableView();
-    private ArrayList<FoodItem> currSelected = new ArrayList<FoodItem>();
+    private ArrayList<Food> mealArr = new ArrayList<Food>(); // list of current Foods in meal
+    
     public MealListPane(){
         try {
             VBox borderPaneRight = new VBox();
@@ -133,9 +134,11 @@ public class MealListPane extends BorderPane {
             return vBox;
     }
     
-    public void updateMlpData(ArrayList<FoodItem> food) {
-        ObservableList<FoodItem> foodObsList = FXCollections.observableList(food);
-        this.mealTable.setItems(foodObsList);
+    public void updateMlpData(ArrayList<Food> food) {
+        this.mealArr.addAll(food);
+        ObservableList<Food> mealObsList = FXCollections.observableList(mealArr);
+        this.mealTable.setItems(mealObsList);
+   
     }
 
 }

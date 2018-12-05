@@ -9,28 +9,29 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 public class FoodPane extends BorderPane{
     private TableView foodTable = new TableView(); // table to display food options
-    private ArrayList<FoodItem> currSelected = new ArrayList<FoodItem>(); // current food items selected
+    private ArrayList<Food> currSelected = new ArrayList<Food>(); // current food items selected
+    private MealListPane mlp; // reference to meal list pane
     TextField filterField;
     
     /*
      * Constructs a FoodPane containing information
      * about the name and nutritional content of various foods.
+     * @param mlp A reference to the MealListPane that will be fed data from the FoodPane.
      */
-    public FoodPane() {
+    public FoodPane(MealListPane mlp) {
         try {
+            this.mlp = mlp;
             this.setRight(foodPane());
         } catch(Exception e) {
             e.printStackTrace();
@@ -69,14 +70,16 @@ public class FoodPane extends BorderPane{
             
             @Override
             public void handle(ActionEvent event) {
-                ObservableList<FoodItem> selected = foodTable.getSelectionModel().getSelectedItems();
-                ArrayList<FoodItem> selectedArr = new ArrayList<FoodItem>();
+                ObservableList<Food> selected = foodTable.getSelectionModel().getSelectedItems();
+                ArrayList<Food> selectedArr = new ArrayList<Food>();
                
-                for (FoodItem f: selected) {
+                for (Food f: selected) {
                     selectedArr.add(f);
                 }
                 
-                updateSelectedFood(selectedArr);
+                
+                updateMealListPane(selectedArr);
+               // updateSelectedFood(selectedArr);
                 
                 // FIXME: How to pass selected foods to MealListPane upon pressing button?
                 // May require allowing this class access to the MealListPane via the GUIManager.
@@ -88,6 +91,10 @@ public class FoodPane extends BorderPane{
         return foodPane;
     }
     
+    protected void updateMealListPane(ArrayList<Food> selectedArr) {
+        this.mlp.updateMlpData(selectedArr);       
+    }
+
     /*
      * Takes in an ArrayList of FoodItems and fills the Table
      * with those foods.
@@ -95,10 +102,10 @@ public class FoodPane extends BorderPane{
      */
      //TODO: maybe make foodObsList a class variable? I think to add new elements, you'll need to access it
      //Or maybe filteredData?
-    public void setInitialTableData(ArrayList<FoodItem> food) {      
-        ObservableList<FoodItem> foodObsList = FXCollections.observableList(food);
+    public void updateFoodPaneData(ArrayList<Food> food) {
+        ObservableList<Food> foodObsList = FXCollections.observableList(food);
         //taken from https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
-        FilteredList<FoodItem> filteredData = new FilteredList<FoodItem>(foodObsList, p->true);
+        FilteredList<Food> filteredData = new FilteredList<Food>(foodObsList, p->true);
         this.filterField.textProperty().addListener((observable, oldVal, newVal) -> {
         	filteredData.setPredicate( target -> {
 				if (newVal==null || newVal.isEmpty()){
@@ -125,7 +132,7 @@ public class FoodPane extends BorderPane{
      * selected from the table.
      * @return an ArrayList containing the selected FoodItems
      */
-    public ArrayList<FoodItem> getNewItems() {
+    public ArrayList<Food> getNewItems() {
         return this.currSelected;
     }
     
@@ -133,7 +140,7 @@ public class FoodPane extends BorderPane{
      * Updates the selected food items in the table.
      * @param selected An ArrayList of the newly selected items.
      */
-    private void updateSelectedFood(ArrayList<FoodItem> selected) {
+    private void updateSelectedFood(ArrayList<Food> selected) {
         this.currSelected = selected;
     }
     
