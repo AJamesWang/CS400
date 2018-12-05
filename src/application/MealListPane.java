@@ -96,7 +96,7 @@ public class MealListPane extends BorderPane {
         
         VBox vBox1 = new VBox();
         vBox1.getChildren().addAll(hBox1, hBox2, hBox3, hBox4, hBox5, hBox6);
-   
+        
         return vBox1;
     }
     public VBox mealPane() {
@@ -130,7 +130,9 @@ public class MealListPane extends BorderPane {
             this.mealTable.getColumns().setAll(name, cals, fat, carbs, fiber, protein);
             this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
             this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            hBox2.setMinHeight(20);
             vBox.getChildren().addAll(hBox1, mealTable, hBox2);
+            
             return vBox;
     }
     
