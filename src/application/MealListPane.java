@@ -39,6 +39,8 @@ public class MealListPane extends BorderPane {
     private int carbs;
     private int fib;
     private int pro;
+    private VBox mealAnalysisBox;
+
     
     public MealListPane(){
         try {
@@ -91,7 +93,14 @@ public class MealListPane extends BorderPane {
         }
     }    
     
+    
+    public VBox getMealAnalysisBox() {
+        return mealAnalysisBox;
+    }
+    
+    
     public VBox mealAnalysis( int cal, int fat, int carbs, int fib, int pro) {
+        mealAnalysisBox = new VBox();
     	this.setId("food-data");//sets the default font to food-data (see CSS)
         Label mealAnalysis = new Label("Meal Analysis: ");
         mealAnalysis.setId("section-heading");
@@ -126,10 +135,8 @@ public class MealListPane extends BorderPane {
         hBox6.getChildren().addAll(totalProtein, proNum);
         hBox5.getChildren().addAll(totalFiber, fibNum);
         
-        VBox vBox1 = new VBox();
-        vBox1.getChildren().addAll(hBox1, hBox2, hBox3, hBox4, hBox5, hBox6);
-        
-        return vBox1;
+        mealAnalysisBox.getChildren().addAll(hBox1, hBox2, hBox3, hBox4, hBox5, hBox6);
+        return mealAnalysisBox;
     }
     public VBox mealPane() {
             Label mealLabel = new Label("Meal:");
