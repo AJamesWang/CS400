@@ -34,11 +34,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class MealListPane extends BorderPane {
     private TableView mealTable = new TableView();
     private ArrayList<Food> mealArr = new ArrayList<Food>(); // list of current Foods in meal
+    private int cal;
+    private int fat;
+    private int carbs;
+    private int fib;
+    private int pro;
     
     public MealListPane(){
         try {
             VBox borderPaneRight = new VBox();
-            borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis(20, 100, 200, 0, 20));
+            borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis(cal, fat, carbs, fib, pro));
             this.setRight(borderPaneRight);
         } catch(Exception e) {
             e.printStackTrace();
@@ -59,6 +64,7 @@ public class MealListPane extends BorderPane {
         }
     }
     
+
     class DeleteHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
         Button deleteButton;
        DeleteHandler(Button deleteButton) {this.deleteButton = deleteButton; }
@@ -68,6 +74,22 @@ public class MealListPane extends BorderPane {
             mealTable.getItems().remove(selectedFood);
         }
     }
+
+    public void calculateTotals(ArrayList<Food> food) {
+        cal = 0;
+        fat = 0;
+        carbs = 0;
+        fib = 0;
+        pro = 0;
+        
+        for (Food item : food) {
+            cal += item.getCalories();
+            fat += item.getFat();
+            carbs += item.getCarbs();
+            fib += item.getFiber();
+            pro += item.getProtein();
+        }
+    }    
     
     public VBox mealAnalysis( int cal, int fat, int carbs, int fib, int pro) {
     	this.setId("food-data");//sets the default font to food-data (see CSS)
@@ -161,7 +183,6 @@ public class MealListPane extends BorderPane {
         this.mealArr.addAll(food);
         ObservableList<Food> mealObsList = FXCollections.observableList(mealArr);
         this.mealTable.setItems(mealObsList);
-   
     }
 
 }
