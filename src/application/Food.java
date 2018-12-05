@@ -128,6 +128,35 @@ public class Food implements Comparable {
     public void setProtein(double protein) {
         this.protein = protein;
     }
+    
+    public double getNutrientValue(String id){
+    	switch(id){
+    		case("calories"):
+    			return this.getCalories();
+    		case("fat"):
+    			return this.getFat();
+    		case("carbohydrate"):
+    			return this.getCarbs();
+    		case("fiber"):
+    			return this.getFiber();
+    		case("protein"):
+    			return this.getProtein();
+    		default:
+    			throw new RuntimeException("Damnit, ID not recognized");
+    	}
+    }
+    /*
+     * Cuts off all trailing zeroes and converts value to String
+     */
+	private static final double LIMIT = .01;
+	public static String format(Double val){
+		if(val==null) return "-";
+		if(Math.abs(val-val.intValue()) < LIMIT){//the double is close enough to an int
+			return Integer.toString(val.intValue());
+		} else{
+			return Double.toString(val);//Not val.toString b/c want to match above line 
+		}
+	}
 
     /*
      * Compares Food object to another Food object based on
@@ -136,6 +165,7 @@ public class Food implements Comparable {
      * @return -1 If the ID is lesser
      * @return 0 If the IDs are equal
      * @return 1 If the ID is greater
+	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
      */
     @Override
     public int compareTo(Object o) {

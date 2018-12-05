@@ -8,15 +8,15 @@ import java.util.List;
  * 
  * @author sapan (sapan@cs.wisc.edu)
  */
-public class FoodData implements FoodDataADT<FoodItem> {
+public class FoodData implements FoodDataADT<Food> {
     //change
     //change
     //change
     // List of all the food items.
-    private List<FoodItem> foodItemList;
+    private List<Food> foodItemList;
 
     // Map of nutrients and their corresponding index
-    private HashMap<String, BPTree<Double, FoodItem>> indexes;
+    private HashMap<String, BPTree<Double, Food>> indexes;
     
    
     /**
@@ -41,7 +41,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      * @see skeleton.FoodDataADT#filterByName(java.lang.String)
      */
     @Override
-    public List<FoodItem> filterByName(String substring) {
+    public List<Food> filterByName(String substring) {
         // TODO : Complete
         return null;
     }
@@ -51,7 +51,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      * @see skeleton.FoodDataADT#filterByNutrients(java.util.List)
      */
     @Override
-    public List<FoodItem> filterByNutrients(List<String> rules) {
+    public List<Food> filterByNutrients(List<String> rules) {
         // TODO : Complete
         return null;
     }
@@ -61,7 +61,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      * @see skeleton.FoodDataADT#addFoodItem(skeleton.FoodItem)
      */
     @Override
-    public void addFoodItem(FoodItem foodItem) {
+    public void addFoodItem(Food food) {
         // TODO : Complete
     }
 
@@ -70,7 +70,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      * @see skeleton.FoodDataADT#getAllFoodItems()
      */
     @Override
-    public List<FoodItem> getAllFoodItems() {
+    public List<Food> getAllFoodItems() {
         // TODO : Complete
         return null;
     }

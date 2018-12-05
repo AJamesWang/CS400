@@ -50,9 +50,9 @@ public class SearchPane extends VBox{
 	 protected void update(){
 		 for(String id : Food.NUTRIENT_IDS){
 			 mins.get(id).clear();
-			 mins.get(id).setPromptText(FoodItem.format(curMins.get(id)));
+			 mins.get(id).setPromptText(Food.format(curMins.get(id)));
 			 maxes.get(id).clear();
-			 maxes.get(id).setPromptText(FoodItem.format(curMaxes.get(id)));
+			 maxes.get(id).setPromptText(Food.format(curMaxes.get(id)));
 		 }
 	 }
 	/*

@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 
 
 public class InfoPane extends VBox{
-	FoodItem target;
+	Food target;
 	BorderPane titlePane;
 	GridPane dataPane;
 	HBox buttonPane;
@@ -34,7 +34,7 @@ public class InfoPane extends VBox{
 	/*
 	 * updates the food which InfoPane looks at
 	 */
-	protected void setFood(FoodItem target){
+	protected void setFood(Food target){
 		this.target = target;
 		this.update();
 	}
@@ -57,7 +57,7 @@ public class InfoPane extends VBox{
 			String id = Food.NUTRIENT_IDS[i];
 			Text nutrient = new Text(Food.NUTRIENT_NAMES[i]);
 			nutrient.setId("food-data");
-			Text value = new Text(FoodItem.format(target.getNutrientValue(id)));
+			Text value = new Text(Food.format(target.getNutrientValue(id)));
 			value.setId("food-data");
 			Text units = new Text(Food.NUTRIENT_UNITS[i]);
 			units.setId("food-data");
