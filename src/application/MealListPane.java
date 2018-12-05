@@ -150,7 +150,7 @@ public class MealListPane extends BorderPane {
             VBox vBox = new VBox();
             
             // Delete Food Button
-            Button deleteButton = new Button("Delete Food(s)");
+            Button deleteButton = new Button("Delete Food");
             DeleteHandler deleteHandler = new DeleteHandler(deleteButton);
             deleteButton.setOnAction(deleteHandler);            
             HBox hBox3 = new HBox();
