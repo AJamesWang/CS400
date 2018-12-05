@@ -1,6 +1,9 @@
 package application;
 
 public class Food implements Comparable {
+	public static final String[] NUTRIENT_UNITS = {" Cal", " g", " g", " g", " g"};
+	public static final String[] NUTRIENT_NAMES = {"Calories: ", "Fat: ", "Carbs: ", "Fiber: ", "Protein: "};
+	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
     private String name;
     private int calories;
     private double fat;

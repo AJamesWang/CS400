@@ -52,14 +52,14 @@ public class InfoPane extends VBox{
 		dataPane.add(name, 0, 0);
 		dataPane.add(new Label("     "), 1, 0);//padding so the numbers aren't too close to the labels 
 		
-		for(int i=0; i<FoodItem.NUTRIENT_IDS.length; i++){
+		for(int i=0; i<Food.NUTRIENT_IDS.length; i++){
 			int row = i+1;
-			String id = FoodItem.NUTRIENT_IDS[i];
-			Text nutrient = new Text(FoodItem.NUTRIENT_NAMES[i]);
+			String id = Food.NUTRIENT_IDS[i];
+			Text nutrient = new Text(Food.NUTRIENT_NAMES[i]);
 			nutrient.setId("food-data");
 			Text value = new Text(FoodItem.format(target.getNutrientValue(id)));
 			value.setId("food-data");
-			Text units = new Text(FoodItem.NUTRIENT_UNITS[i]);
+			Text units = new Text(Food.NUTRIENT_UNITS[i]);
 			units.setId("food-data");
 			
 			GridPane.setHalignment(value, HPos.RIGHT);
@@ -75,7 +75,7 @@ public class InfoPane extends VBox{
 	 * Pads dataPane with empty labels to keep it from collapsing once data is cleared
 	 */
 	private void padDataPane(){
-		for(int i=0; i<FoodItem.NUTRIENT_IDS.length+1; i++){
+		for(int i=0; i<Food.NUTRIENT_IDS.length+1; i++){
 			this.dataPane.add(new Label(), 0, i);
 		}
 	}

@@ -48,7 +48,7 @@ public class SearchPane extends VBox{
 	 * Sets all the values in the text boxes to whatever's listed in CurVals
 	 */
 	 protected void update(){
-		 for(String id : FoodItem.NUTRIENT_IDS){
+		 for(String id : Food.NUTRIENT_IDS){
 			 mins.get(id).clear();
 			 mins.get(id).setPromptText(FoodItem.format(curMins.get(id)));
 			 maxes.get(id).clear();
@@ -59,7 +59,7 @@ public class SearchPane extends VBox{
 	 * Updates curMins and curMaxes data values
 	 */
 	 private void updateCurVals(){
-		 for(String id : FoodItem.NUTRIENT_IDS){
+		 for(String id : Food.NUTRIENT_IDS){
 			 try{
 				 this.curMins.put(id, Double.parseDouble(this.mins.get(id).getText()));
 			 } catch(NumberFormatException e){
@@ -103,7 +103,7 @@ public class SearchPane extends VBox{
 	 
 	 private void printData(){
 		 //TODO: implement the GUIManager method so I can delete this
-		 for(String id : FoodItem.NUTRIENT_IDS){
+		 for(String id : Food.NUTRIENT_IDS){
 			 System.out.println(String.format("ID:%s\tMin:%s\tMax:%s\t", id, this.curMins.get(id), this.curMaxes.get(id)));
 		 }
 	 }
@@ -137,10 +137,10 @@ public class SearchPane extends VBox{
 		this.dataPane.add(new Label("Min     "), 1, 0);
 		this.dataPane.add(new Label("Max     "), 2, 0);
 		/*Input fields*/
-		for(int i=0; i<FoodItem.NUTRIENT_IDS.length; i++){
+		for(int i=0; i<Food.NUTRIENT_IDS.length; i++){
 			int row = i+1;
-			String id = FoodItem.NUTRIENT_IDS[i];
-			String _nutrient = FoodItem.NUTRIENT_NAMES[i];
+			String id = Food.NUTRIENT_IDS[i];
+			String _nutrient = Food.NUTRIENT_NAMES[i];
 			Label nutrient = new Label(_nutrient);
 			nutrient.setId("food-data");
 			//TODO: get rid of the magic numbers
