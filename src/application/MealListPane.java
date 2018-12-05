@@ -135,7 +135,16 @@ public class MealListPane extends BorderPane {
         hBox6.getChildren().addAll(totalProtein, proNum);
         hBox5.getChildren().addAll(totalFiber, fibNum);
         
-        mealAnalysisBox.getChildren().addAll(hBox1, hBox2, hBox3, hBox4, hBox5, hBox6);
+        
+     // Analyze Meal Button
+        Button analyzeMeal = new Button("Analyze Meal");
+        myHandler analyzeButton = new myHandler(analyzeMeal);
+        analyzeMeal.setOnAction(analyzeButton);         
+        HBox analyzeButtonBox= new HBox();
+        analyzeButtonBox.getChildren().add(analyzeMeal);
+        analyzeButtonBox.setAlignment(Pos.BASELINE_CENTER);
+        
+        mealAnalysisBox.getChildren().addAll(analyzeButtonBox, hBox1, hBox2, hBox3, hBox4, hBox5, hBox6);
         return mealAnalysisBox;
     }
     public VBox mealPane() {
@@ -181,7 +190,7 @@ public class MealListPane extends BorderPane {
             this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
             this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             hBox2.setMinHeight(20);
-            vBox.getChildren().addAll(hBox1, mealTable, hBox2, hBox3);
+            vBox.getChildren().addAll(hBox1, mealTable, hBox3);
             
             return vBox;
     }
