@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -39,13 +40,18 @@ public class MealListPane extends BorderPane {
     private int carbs = 0;
     private int fib = 0;
     private int pro = 0;
+    private TableView mealAnalysisTable = new TableView();
     private VBox mealAnalysisBox;
-
+    HBox calBox = new HBox();
+    HBox fatBox = new HBox();
+    HBox carbBox = new HBox();
+    HBox fibBox = new HBox();
+    HBox proBox = new HBox();
 
     public MealListPane(){
         try {
             VBox borderPaneRight = new VBox();
-            borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis(cal, fat, carbs, fib, pro));
+            borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis());
             this.setRight(borderPaneRight);
         } catch(Exception e) {
             e.printStackTrace();
@@ -65,7 +71,7 @@ public class MealListPane extends BorderPane {
             if (mealArr.isEmpty()) {
                 calculateTotals(mealArr);
             }
-            mealAnalysis(cal, fat, carbs, fib, pro);
+            mealAnalysis();
         }
     }
 
@@ -92,12 +98,7 @@ public class MealListPane extends BorderPane {
     }    
 
 
-    public VBox getMealAnalysisBox() {
-        return mealAnalysisBox;
-    }
-
-
-    public VBox mealAnalysis( int cal, int fat, int carbs, int fib, int pro) {
+    public VBox mealAnalysis() {
         mealAnalysisBox = new VBox();
         this.setId("food-data");//sets the default font to food-data (see CSS)
         Label mealAnalysis = new Label("Meal Analysis: ");
@@ -117,18 +118,11 @@ public class MealListPane extends BorderPane {
         Label totalFiber = new Label("Total fiber:");
         Label fibNum = new Label(" " + fib);
 
-
-        HBox hBox2 = new HBox();
-        HBox hBox3 = new HBox();
-        HBox hBox4 = new HBox();
-        HBox hBox5 = new HBox();
-        HBox hBox6 = new HBox();
-
-        hBox2.getChildren().addAll(totalCals, calNum);
-        hBox3.getChildren().addAll(totalFat, fatNum);
-        hBox4.getChildren().addAll(totalCarbs, carbNum);
-        hBox6.getChildren().addAll(totalProtein, proNum);
-        hBox5.getChildren().addAll(totalFiber, fibNum);
+        calBox.getChildren().setAll(totalCals, calNum);
+        fatBox.getChildren().setAll(totalFat, fatNum);
+        carbBox.getChildren().setAll(totalCarbs, carbNum);
+        proBox.getChildren().setAll(totalProtein, proNum);
+        fibBox.getChildren().setAll(totalFiber, fibNum);
 
 
         // Analyze Meal Button
@@ -138,8 +132,7 @@ public class MealListPane extends BorderPane {
         HBox analyzeButtonBox= new HBox();
         analyzeButtonBox.getChildren().add(analyzeMeal);
         analyzeButtonBox.setAlignment(Pos.BASELINE_CENTER);
-
-        mealAnalysisBox.getChildren().addAll(analyzeButtonBox, hBox1, hBox2, hBox3, hBox4, hBox5, hBox6);
+        mealAnalysisBox.getChildren().setAll(analyzeButtonBox, hBox1, calBox, fatBox, carbBox, proBox, fibBox);
         return mealAnalysisBox;
     }
     public VBox mealPane() {
@@ -186,7 +179,6 @@ public class MealListPane extends BorderPane {
         this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         hBox2.setMinHeight(20);
         vBox.getChildren().addAll(hBox1, mealTable, hBox3);
-
         return vBox;
     }
 
