@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -102,17 +103,21 @@ public class FoodPane extends BorderPane{
      */
      //TODO: maybe make foodObsList a class variable? I think to add new elements, you'll need to access it
      //Or maybe filteredData?
+
     public void updateFoodPaneData(ArrayList<Food> food) {
         ObservableList<Food> foodObsList = FXCollections.observableList(food);
         //taken from https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
         FilteredList<Food> filteredData = new FilteredList<Food>(foodObsList, p->true);
+
         this.filterField.textProperty().addListener((observable, oldVal, newVal) -> {
+        	//I think the predicate determines what's shown and what isn't
         	filteredData.setPredicate( target -> {
+        		//Empty filter, show everything
 				if (newVal==null || newVal.isEmpty()){
 					return true;
 				}
 				
-				String input = newVal.toLowerCase();
+				String input = newVal.toLowerCase();//filter isn't case sensitive
 				if(target.getName().toLowerCase().contains(input)){
 					return true;
 				} else{
@@ -121,9 +126,13 @@ public class FoodPane extends BorderPane{
 				
         	});
         });
+        SortedList<Food> sortedData = new SortedList<Food>(filteredData);
+        //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
+        sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
+        this.foodTable.setItems(sortedData);
         
         // get data from food list to display in table
-        this.foodTable.setItems(foodObsList);
+//        this.foodTable.setItems(foodObsList);
       
     }
     
