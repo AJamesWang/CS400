@@ -51,7 +51,7 @@ public class MealListPane extends BorderPane {
     public MealListPane(){
         try {
             VBox borderPaneRight = new VBox();
-            borderPaneRight.getChildren().addAll(mealPane(), mealAnalysis());
+            borderPaneRight.getChildren().addAll(mealPane());
             this.setRight(borderPaneRight);
         } catch(Exception e) {
             e.printStackTrace();
@@ -142,15 +142,6 @@ public class MealListPane extends BorderPane {
         hBox1.getChildren().add(mealLabel);
         hBox1.setAlignment(Pos.TOP_LEFT);
 
-        // Analyze Meal Button
-        Button analyzeMeal = new Button("Analyze Meal");
-        myHandler analyzeButton = new myHandler(analyzeMeal);
-        analyzeMeal.setOnAction(analyzeButton);         
-        HBox hBox2 = new HBox();
-        hBox2.getChildren().add(analyzeMeal);
-        hBox2.setAlignment(Pos.BASELINE_CENTER);
-        ScrollBar scroll = new ScrollBar();
-        scroll.setOrientation(Orientation.VERTICAL);
         VBox vBox = new VBox();
 
         // Delete Food Button
@@ -177,7 +168,6 @@ public class MealListPane extends BorderPane {
         this.mealTable.getColumns().setAll(name, cals, fat, carbs, fiber, protein);
         this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
         this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        hBox2.setMinHeight(20);
         vBox.getChildren().addAll(hBox1, mealTable, hBox3);
         return vBox;
     }
