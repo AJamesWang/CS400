@@ -59,6 +59,16 @@ public class MealListPane extends BorderPane {
         }
     }
     
+    class DeleteHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
+        Button deleteButton;
+       DeleteHandler(Button deleteButton) {this.deleteButton = deleteButton; }
+        @Override
+        public void handle(ActionEvent event) {
+            Food selectedFood = (Food) mealTable.getSelectionModel().getSelectedItem();
+            mealTable.getItems().remove(selectedFood);
+        }
+    }
+    
     public VBox mealAnalysis( int cal, int fat, int carbs, int fib, int pro) {
     	this.setId("food-data");//sets the default font to food-data (see CSS)
         Label mealAnalysis = new Label("Meal Analysis: ");
@@ -105,15 +115,26 @@ public class MealListPane extends BorderPane {
             HBox hBox1 = new HBox();
             hBox1.getChildren().add(mealLabel);
             hBox1.setAlignment(Pos.TOP_LEFT);
+            
+            // Analyze Meal Button
             Button analyzeMeal = new Button("Analyze Meal");
             myHandler analyzeButton = new myHandler(analyzeMeal);
-            analyzeMeal.setOnAction(analyzeButton);
+            analyzeMeal.setOnAction(analyzeButton);         
             HBox hBox2 = new HBox();
             hBox2.getChildren().add(analyzeMeal);
             hBox2.setAlignment(Pos.BASELINE_CENTER);
             ScrollBar scroll = new ScrollBar();
             scroll.setOrientation(Orientation.VERTICAL);
             VBox vBox = new VBox();
+            
+            // Delete Food Button
+            Button deleteButton = new Button("Delete Food(s)");
+            DeleteHandler deleteHandler = new DeleteHandler(deleteButton);
+            deleteButton.setOnAction(deleteHandler);            
+            HBox hBox3 = new HBox();
+            hBox3.getChildren().add(deleteButton);
+            hBox3.setAlignment(Pos.BASELINE_CENTER);
+
             
             TableColumn name = new TableColumn("Name");
             name.setCellValueFactory(new PropertyValueFactory("Name"));
@@ -131,7 +152,7 @@ public class MealListPane extends BorderPane {
             this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
             this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             hBox2.setMinHeight(20);
-            vBox.getChildren().addAll(hBox1, mealTable, hBox2);
+            vBox.getChildren().addAll(hBox1, mealTable, hBox2, hBox3);
             
             return vBox;
     }
