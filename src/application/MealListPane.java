@@ -34,11 +34,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class MealListPane extends BorderPane {
     private TableView mealTable = new TableView();
     private ArrayList<Food> mealArr = new ArrayList<Food>(); // list of current Foods in meal
-    private int cal;
-    private int fat;
-    private int carbs;
-    private int fib;
-    private int pro;
+    private int cal = 0;
+    private int fat = 0;
+    private int carbs = 0;
+    private int fib = 0;
+    private int pro = 0;
     private VBox mealAnalysisBox;
 
 
@@ -62,7 +62,7 @@ public class MealListPane extends BorderPane {
         myHandler(Button analyzeButton) {this.analyzeButton = analyzeButton; }
         @Override
         public void handle(ActionEvent event) {
-            if (mealArr!=null) {
+            if (mealArr.isEmpty()) {
                 calculateTotals(mealArr);
             }
             mealAnalysis(cal, fat, carbs, fib, pro);
@@ -81,18 +81,13 @@ public class MealListPane extends BorderPane {
     }
 
     public void calculateTotals(ArrayList<Food> food) {
-        cal = 0;
-        fat = 0;
-        carbs = 0;
-        fib = 0;
-        pro = 0;
 
         for (Food item : food) {
-            cal += item.getCalories();
-            fat += item.getFat();
-            carbs += item.getCarbs();
-            fib += item.getFiber();
-            pro += item.getProtein();
+            this.cal += item.getCalories();
+            this.fat += item.getFat();
+            this.carbs += item.getCarbs();
+            this.fib += item.getFiber();
+            this.pro += item.getProtein();
         }
     }    
 
