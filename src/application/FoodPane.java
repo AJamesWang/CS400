@@ -98,15 +98,17 @@ public class FoodPane extends BorderPane{
      //Or maybe filteredData?
     public void setInitialTableData(ArrayList<FoodItem> food) {      
         ObservableList<FoodItem> foodObsList = FXCollections.observableList(food);
-        //taken from https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
+        //see https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/ to figure out what's going on here
         FilteredList<FoodItem> filteredData = new FilteredList<FoodItem>(foodObsList, p->true);
         this.filterField.textProperty().addListener((observable, oldVal, newVal) -> {
+        	//I think the predicate determines what's shown and what isn't
         	filteredData.setPredicate( target -> {
+        		//Empty filter, show everything
 				if (newVal==null || newVal.isEmpty()){
 					return true;
 				}
 				
-				String input = newVal.toLowerCase();
+				String input = newVal.toLowerCase();//filter isn't case sensitive
 				if(target.getName().toLowerCase().contains(input)){
 					return true;
 				} else{
@@ -116,6 +118,7 @@ public class FoodPane extends BorderPane{
         	});
         });
         SortedList<FoodItem> sortedData = new SortedList<FoodItem>(filteredData);
+        //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
         sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
         this.foodTable.setItems(sortedData);
         
