@@ -1,6 +1,6 @@
 package application;
 
-public class Food {
+public class Food implements Comparable {
     private String name;
     private int calories;
     private double fat;
@@ -57,10 +57,16 @@ public class Food {
     
     /*
      * Generates a unique id.
+     * 
+     * FIXME: IMPLEMENT
      * @return id
      */
     private String idGenerator() {
         return "";
+    }
+
+    public String getID() {
+        return this.id;
     }
     
     public String getName() {
@@ -109,5 +115,18 @@ public class Food {
     
     public void setProtein(double protein) {
         this.protein = protein;
+    }
+
+    /*
+     * Compares Food object to another Food object based on
+     * the IDs.
+     * 
+     * @return -1 If the ID is lesser
+     * @return 0 If the IDs are equal
+     * @return 1 If the ID is greater
+     */
+    @Override
+    public int compareTo(Object o) {
+        return this.id.compareTo(((Food)o).getID());
     }
 }
