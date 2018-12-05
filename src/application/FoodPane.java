@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -114,9 +115,12 @@ public class FoodPane extends BorderPane{
 				
         	});
         });
+        SortedList<FoodItem> sortedData = new SortedList<FoodItem>(filteredData);
+        sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
+        this.foodTable.setItems(sortedData);
         
         // get data from food list to display in table
-        this.foodTable.setItems(foodObsList);
+//        this.foodTable.setItems(foodObsList);
       
     }
     
