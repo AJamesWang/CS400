@@ -103,14 +103,6 @@ public class MealListPane extends BorderPane {
         totalFood.setFiber(0);
         totalFood.setName("Total Food");
         totalFood.setProtein(0);
-
-//        for (Food item : food) {
-//            this.cal += item.getCalories();
-//            this.fat += item.getFat();
-//            this.carbs += item.getCarbs();
-//            this.fib += item.getFiber();
-//            this.pro += item.getProtein();
-//        }
         
         for (Food item : food) {
             totalFood.setCalories(totalFood.getCalories()+ item.getCalories());
@@ -210,6 +202,7 @@ public class MealListPane extends BorderPane {
      * Sets up the columns in the table.
      * Sets up Name, Calories, Fat, Carbs, Fiber, and Protein
      * columns in that order.
+     * @param table TableView to be set up
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns(TableView table) {
