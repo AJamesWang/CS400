@@ -28,20 +28,32 @@ public class CSVReader {
                 // use comma as separator
                 String[] foodData = line.split(csvSplitBy);
                 
+                // line does not have the proper amount of data points, so skip
                 if (foodData.length != 12) {
                     continue;
                 }
-
-                String id = foodData[0];
-                String name = foodData[1];
-                double calories = Double.parseDouble(foodData[3]);
-                double fat = Double.parseDouble(foodData[5]);
-                double carbs = Double.parseDouble(foodData[7]);
-                double fiber = Double.parseDouble(foodData[9]);
-                double protein = Double.parseDouble(foodData[11]);
+               
+                String id = "invalidID";
+                String name = "invalidName";
+                double calories = -1;
+                double fat = -1;
+                double carbs = -1;
+                double fiber = -1;
+                double protein = -1;
+                
+                try {
+                    id = foodData[0];
+                    name = foodData[1];
+                    calories = Double.parseDouble(foodData[3]);
+                    fat = Double.parseDouble(foodData[5]);
+                    carbs = Double.parseDouble(foodData[7]);
+                    fiber = Double.parseDouble(foodData[9]);
+                    protein = Double.parseDouble(foodData[11]);
+                } catch (NumberFormatException e) {
+                   continue;
+                }
                 
                 foodList.add(new Food(id, name, calories, fat, carbs, fiber, protein));               
-
             }          
         } catch (FileNotFoundException e) {
             e.printStackTrace();
