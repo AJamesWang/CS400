@@ -261,7 +261,7 @@ public class FoodPane extends BorderPane{
      * from here.
      */
     public void saveFoodToFile() {
-        TextInputDialog dialog = new TextInputDialog("ex: FoodList.csv");
+        TextInputDialog dialog = new TextInputDialog("ex: FoodList");
         dialog.setTitle("Meal Planner");
         dialog.setGraphic(null);
         dialog.setHeaderText("Enter name of file to be created.");

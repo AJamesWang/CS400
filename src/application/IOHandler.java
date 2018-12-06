@@ -95,7 +95,7 @@ public class IOHandler {
         String csvSplitBy = ","; // split lines based on commas
         
         try {
-            fl = new FileWriter(filePath);
+            fl = new FileWriter(filePath + ".csv");
             
             for (Food food: foods) {
                 fl.append(food.getID() + csvSplitBy);
