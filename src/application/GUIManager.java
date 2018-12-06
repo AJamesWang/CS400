@@ -33,7 +33,7 @@ public class GUIManager extends Application {
 			root.add(fp, 0, 0, 1, 2);
 			root.add(sp, 1,0);
 			root.add(mlp, 1, 1);
-	        root.add(mlp.mealAnalysis(), 2, 1);
+	        root.add(mlp.initializeMealAnalysis(), 2, 1);
 
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -121,7 +121,6 @@ public class GUIManager extends Application {
      */
     protected void updateMealListPane(ArrayList<Food> food) {
         this.mlp.updateMlpData(food);
-        this.mlp.mealAnalysis();
     }
 
 
