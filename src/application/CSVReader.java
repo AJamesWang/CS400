@@ -19,7 +19,7 @@ public class CSVReader {
      */
     public ArrayList<Food> read(String filePath) {
         ArrayList<Food> foodList = new ArrayList<Food>(); // ArrayList of Foods from the file
-        BufferedReader br = null;
+        BufferedReader br = null; 
         String line = "";
         String csvSplitBy = ","; // split lines based on commas
         
@@ -35,6 +35,7 @@ public class CSVReader {
                     continue;
                 }
                
+                // convert input to proper format, create Food and add to list
                 String id = "invalidID";
                 String name = "invalidName";
                 double calories = -1;

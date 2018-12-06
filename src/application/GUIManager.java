@@ -38,10 +38,6 @@ public class GUIManager extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("COOLEST CS400 PROJECT EVER!!!11!11111!!");
 			primaryStage.show();
-
-            // The Java 8 way to get the response value (with lambda expression).
-            //result.ifPresent(name -> System.out.println("Your name: " + name));
-
         } catch(Exception e) {
             e.printStackTrace();
         }

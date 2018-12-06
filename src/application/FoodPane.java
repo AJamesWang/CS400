@@ -181,6 +181,16 @@ public class FoodPane extends BorderPane{
                     carbs = Double.parseDouble(carbsField.getText());
                     fiber = Double.parseDouble(fiberField.getText());
                     protein = Double.parseDouble(proteinField.getText());
+                    
+                    // verify that all nutrient fields are non negative
+                    if (calories < 0 || fat < 0 || carbs < 0 || fiber < 0 || protein < 0) {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Negative Value(s) Not Permitted");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Negative values for nutrient fields are not permitted.");
+                        alert.showAndWait();
+                        return null;
+                    }
                 } catch (NumberFormatException e) {
                     // tell user that error occurred and food was not added
                     Alert alert = new Alert(AlertType.INFORMATION);

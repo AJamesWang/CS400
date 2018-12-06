@@ -13,7 +13,7 @@ public class Food implements Comparable {
     private String id;
     
     /*
-     * Constructs a Food object with name, calories, fat, carbs, 
+     * Constructs a Food object with id, name, calories, fat, carbs, 
      * fiber, and protein specified.
      * 
      * Preconditions: All nutrient related fields must be nonnegative.
@@ -44,6 +44,28 @@ public class Food implements Comparable {
         this.protein = protein;       
     }
     
+    /*
+     * Constructs a Food object with name, calories, fat, carbs, 
+     * fiber, and protein specified.
+     * 
+     * Preconditions: All nutrient related fields must be nonnegative.
+     * 
+     * @param name
+     * @param calories
+     * @param fat
+     * @param carbs
+     * @param fiber
+     * @param protein
+     */
+    /**
+     * @param id
+     * @param name
+     * @param calories
+     * @param fat
+     * @param carbs
+     * @param fiber
+     * @param protein
+     */
     Food(String name, double calories, double fat, double carbs, double fiber, double protein) {
         this.name = name;
         this.calories = calories;
