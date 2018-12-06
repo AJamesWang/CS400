@@ -25,9 +25,7 @@ public class GUIManager extends Application {
     public void start(Stage primaryStage) {
         try {
             //			InfoPane ip = new InfoPane();
-            SearchPane sp = new SearchPane(this);
-			
-			
+            SearchPane sp = new SearchPane(this);			
 			GridPane root = new GridPane();
 //			root.add(ip, 2, 0);
 			root.add(fp, 0, 0, 1, 2);

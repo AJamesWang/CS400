@@ -35,19 +35,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class MealListPane extends BorderPane {
     private TableView mealTable = new TableView();
     private ArrayList<Food> mealArr = new ArrayList<Food>(); // list of current Foods in meal
-    private int cal = 0;
-    private int fat = 0;
-    private int carbs = 0;
-    private int fib = 0;
-    private int pro = 0;
     private VBox mealAnalysisBox;
-    HBox calBox = new HBox();
-    HBox fatBox = new HBox();
-    HBox carbBox = new HBox();
-    HBox fibBox = new HBox();
-    HBox proBox = new HBox();
     private TableView mealAnalysisTable = new TableView();
-    private Food totalFood;
     private ArrayList<Food> totalFoodList = new ArrayList<Food>();
 
     public MealListPane(){
@@ -97,7 +86,7 @@ public class MealListPane extends BorderPane {
     }
 
     public Food calculateTotals(ArrayList<Food> food) {
-        totalFood = new Food();
+        Food totalFood = new Food();
         totalFood.setCalories(0);
         totalFood.setCalories(0);
         totalFood.setFat(0);
@@ -112,7 +101,7 @@ public class MealListPane extends BorderPane {
             totalFood.setFiber(totalFood.getFiber()+ item.getFiber());
             totalFood.setProtein(totalFood.getProtein()+ item.getProtein());
         }
-        
+      
         return totalFood;
     }    
 
@@ -128,24 +117,6 @@ public class MealListPane extends BorderPane {
         HBox hBox1 = new HBox();
         hBox1.getChildren().add(mealAnalysis);
         hBox1.setAlignment(Pos.TOP_CENTER);
-//        Label totalCals = new Label("Total calories:");
-//        Label calNum = new Label(" " + cal);
-//        Label carbsNum = new Label(" " + carbs);
-//        Label totalCarbs = new Label("Total carbs:");
-//        Label carbNum = new Label(" " + cal);
-//        Label totalFat = new Label("Total fat:");
-//        Label fatNum = new Label(" " + fat);
-//        Label totalProtein = new Label("Total protein:");
-//        Label proNum = new Label(" " + pro);
-//        Label totalFiber = new Label("Total fiber:");
-//        Label fibNum = new Label(" " + fib);
-//
-//        calBox.getChildren().setAll(totalCals, calNum);
-//        fatBox.getChildren().setAll(totalFat, fatNum);
-//        carbBox.getChildren().setAll(totalCarbs, carbNum);
-//        proBox.getChildren().setAll(totalProtein, proNum);
-//        fibBox.getChildren().setAll(totalFiber, fibNum);
-
 
         // Analyze Meal Button
         Button analyzeMeal = new Button("Analyze Meal");
@@ -154,19 +125,11 @@ public class MealListPane extends BorderPane {
         HBox analyzeButtonBox= new HBox();
         analyzeButtonBox.getChildren().add(analyzeMeal);
         analyzeButtonBox.setAlignment(Pos.TOP_CENTER);
-  //      mealAnalysisBox.getChildren().setAll(analyzeButtonBox, hBox1, calBox, fatBox, carbBox, proBox, fibBox);
         setupColumns(mealAnalysisTable);
         mealAnalysisBox.getChildren().setAll(hBox1, analyzeButtonBox, mealAnalysisTable);
         return mealAnalysisBox;
     }
-    
-    public void updateMealAnalysis() {
-        this.totalFoodList.add(totalFood);
-        ObservableList<Food> totalFoodList = FXCollections.observableList(this.totalFoodList);
-        this.mealAnalysisTable.setItems(totalFoodList);
-    }
-    
-    
+       
     public VBox mealPane() {
         Label mealLabel = new Label("Meal:");
         mealLabel.setId("section-heading");
@@ -184,11 +147,12 @@ public class MealListPane extends BorderPane {
         hBox3.getChildren().add(deleteButton);
         hBox3.setAlignment(Pos.BASELINE_CENTER);
 
-        
-        
+        // set up Meal Table      
         setupColumns(this.mealTable);
         this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
         this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
+        
         vBox.getChildren().addAll(hBox1, mealTable, hBox3);
         return vBox;
     }
