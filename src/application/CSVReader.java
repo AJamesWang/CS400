@@ -56,9 +56,9 @@ public class CSVReader {
                 foodList.add(new Food(id, name, calories, fat, carbs, fiber, protein));               
             }          
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // FIXME: Writeup says "displayed to user" might need to add a popup window instead.
+            System.out.println("File not found");
         } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             if (br != null) {
                 try {
