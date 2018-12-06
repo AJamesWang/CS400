@@ -188,7 +188,7 @@ public class FoodPane extends BorderPane{
                 double fiber = -1;
                 double protein = -1;
                 
-                try {
+                try {                    
                     name = nameField.getText();
                     calories = Double.parseDouble(calsField.getText());
                     fat = Double.parseDouble(fatField.getText());
@@ -315,7 +315,8 @@ public class FoodPane extends BorderPane{
         SortedList<Food> sortedData = new SortedList<Food>(filteredData);
         //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
         sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
-        this.foodTable.setItems(sortedData);        
+        this.foodTable.setItems(sortedData);   
+
       
     }
     
@@ -356,6 +357,8 @@ public class FoodPane extends BorderPane{
         
         // set the height of Food Table to a ratio of the screen's height
         this.foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
+        
+        this.foodTable.getSortOrder().add(nameCol);
     }
 
 }
