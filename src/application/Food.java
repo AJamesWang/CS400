@@ -44,6 +44,16 @@ public class Food implements Comparable {
         this.protein = protein;       
     }
     
+    Food(String name, double calories, double fat, double carbs, double fiber, double protein) {
+        this.name = name;
+        this.calories = calories;
+        this.fat = fat;
+        this.carbs = carbs;
+        this.fiber = fiber;
+        this.protein = protein;  
+        this.id = idGenerator();
+    }
+    
     
     Food(String name) {
         this.name = name;

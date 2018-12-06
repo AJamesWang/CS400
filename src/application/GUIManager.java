@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -24,10 +26,8 @@ public class GUIManager extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            //			InfoPane ip = new InfoPane();
             SearchPane sp = new SearchPane(this);			
 			GridPane root = new GridPane();
-//			root.add(ip, 2, 0);
 			root.add(fp, 0, 0, 1, 2);
 			root.add(sp, 1,0);
 			root.add(mlp, 1, 1);
@@ -38,28 +38,30 @@ public class GUIManager extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("COOLEST CS400 PROJECT EVER!!!11!11111!!");
 			primaryStage.show();
-			
-			TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
-			dialog.setTitle("Meal Planner");
-			dialog.setGraphic(null);
-			dialog.setHeaderText("Enter path to Food Data");
-			dialog.setContentText("Path:");
-			dialog.getDialogPane().setMinWidth(500);
-
-
-            // Get filepath from user and load data into Food List
-            Optional<String> path = dialog.showAndWait();
-            if (path.isPresent()) {
-                CSVReader csvReader = new CSVReader();
-                updateFoodPane(csvReader.read(path.get()));
-                dialog.close();
-            }
 
             // The Java 8 way to get the response value (with lambda expression).
             //result.ifPresent(name -> System.out.println("Your name: " + name));
 
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    public void loadNewFoodFile() {
+        TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
+        dialog.setTitle("Meal Planner");
+        dialog.setGraphic(null);
+        dialog.setHeaderText("Enter path to Food Data");
+        dialog.setContentText("Path:");
+        dialog.getDialogPane().setMinWidth(500);
+
+
+        // Get filepath from user and load data into Food List
+        Optional<String> path = dialog.showAndWait();
+        if (path.isPresent()) {
+            CSVReader csvReader = new CSVReader();
+            updateFoodPane(FXCollections.observableList(csvReader.read(path.get())));
+            dialog.close();
         }
     }
 
@@ -99,13 +101,13 @@ public class GUIManager extends Application {
     // FoodPane methods //
     //////////////////////
     /*
-     * Receives an ArrayList of FoodItems
+     * Receives an ObservableList of FoodItems
      * and loads them into the FoodPane
      * 
      * @param food An ArrayList of FoodItems
      */
-    protected void updateFoodPane(ArrayList<Food> food) {
-        this.fp.updateFoodPaneData(food);
+    protected void updateFoodPane(ObservableList<Food> food) {
+        this.fp.updateFoodPane(food);
     }
 
     //////////////////////
@@ -118,7 +120,7 @@ public class GUIManager extends Application {
      * @param food An ArrayList of FoodItems
      */
     protected void updateMealListPane(ArrayList<Food> food) {
-        this.mlp.updateMlpData(food);
+        this.mlp.updateMealListPane(food);
     }
 
 

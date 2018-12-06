@@ -157,9 +157,10 @@ public class MealListPane extends BorderPane {
         return vBox;
     }
 
-    public void updateMlpData(ArrayList<Food> food) {
+    public void updateMealListPane(ArrayList<Food> food) {
         this.mealArr.addAll(food);
         ObservableList<Food> mealObsList = FXCollections.observableList(mealArr);
+
         this.mealTable.setItems(mealObsList);
     }
     

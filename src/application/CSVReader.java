@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class CSVReader {
    
@@ -56,15 +58,18 @@ public class CSVReader {
                 foodList.add(new Food(id, name, calories, fat, carbs, fiber, protein));               
             }          
         } catch (FileNotFoundException e) {
-            // FIXME: Writeup says "displayed to user" might need to add a popup window instead.
-            System.out.println("File not found");
+            // tell user that file could not be found
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("File Not Found");
+            alert.setHeaderText(null);
+            alert.setContentText("The file " + filePath + " could not be found. Could not load data.");
+            alert.showAndWait();
         } catch (IOException e) {
         } finally {
             if (br != null) {
                 try {
                     br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException e) {                   
                 }
             }
         }        
