@@ -49,7 +49,7 @@ public class GUIManager extends Application {
 			dialog.getDialogPane().setMinWidth(500);
 
 
-            // Traditional way to get the response value.
+            // Get filepath from user and load data into Food List
             Optional<String> path = dialog.showAndWait();
             if (path.isPresent()) {
                 CSVReader csvReader = new CSVReader();

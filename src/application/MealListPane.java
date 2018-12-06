@@ -47,12 +47,6 @@ public class MealListPane extends BorderPane {
     HBox fibBox = new HBox();
     HBox proBox = new HBox();
     private TableView mealAnalysisTable = new TableView();
-    TableColumn nameCol = new TableColumn("Name");
-    TableColumn calsCol = new TableColumn("Calories");
-    TableColumn fatCol = new TableColumn("Fat");
-    TableColumn proteinCol = new TableColumn("Protein");
-    TableColumn fiberCol = new TableColumn("Fiber");
-    TableColumn carbsCol = new TableColumn("Carbs");
     private Food totalFood;
     private ArrayList<Food> totalFoodList = new ArrayList<Food>();
 
@@ -71,15 +65,22 @@ public class MealListPane extends BorderPane {
         public void handle(T event);
     }
 
-    class myHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
+    class AnalysisHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
         Button analyzeButton;
-        myHandler(Button analyzeButton) {this.analyzeButton = analyzeButton; }
+        Food totalFoodData;
+        ArrayList<Food> totalFoodDataArr = new ArrayList<Food>();
+        AnalysisHandler(Button analyzeButton) {this.analyzeButton = analyzeButton; }
         @Override
         public void handle(ActionEvent event) {
             if (!mealArr.isEmpty()) {
-                calculateTotals(mealArr);
+                totalFoodData = calculateTotals(mealArr);
             }
-            updateMealAnalysis();
+            
+            totalFoodDataArr.add(totalFoodData);
+            ObservableList<Food> totalObsList = FXCollections.observableList(totalFoodDataArr);
+            mealAnalysisTable.setItems(totalObsList);
+            
+           // updateMealAnalysis();
         }
     }
 
@@ -94,7 +95,7 @@ public class MealListPane extends BorderPane {
         }
     }
 
-    public void calculateTotals(ArrayList<Food> food) {
+    public Food calculateTotals(ArrayList<Food> food) {
         totalFood = new Food();
         totalFood.setCalories(0);
         totalFood.setCalories(0);
@@ -118,11 +119,12 @@ public class MealListPane extends BorderPane {
             totalFood.setFiber(totalFood.getFiber()+ item.getFiber());
             totalFood.setProtein(totalFood.getProtein()+ item.getProtein());
         }
+        
+        return totalFood;
     }    
 
 
     public VBox initializeMealAnalysis() {
-        this.mealAnalysisTable.getColumns().setAll(nameCol, calsCol, fatCol, carbsCol, fiberCol, proteinCol);
         this.mealAnalysisTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.mealAnalysisTable.setMinHeight(0.5 * Screen.getPrimary().getBounds().getHeight());
         mealAnalysisBox = new VBox();
@@ -154,13 +156,14 @@ public class MealListPane extends BorderPane {
 
         // Analyze Meal Button
         Button analyzeMeal = new Button("Analyze Meal");
-        myHandler analyzeButton = new myHandler(analyzeMeal);
+        AnalysisHandler analyzeButton = new AnalysisHandler(analyzeMeal);
         analyzeMeal.setOnAction(analyzeButton);         
         HBox analyzeButtonBox= new HBox();
         analyzeButtonBox.getChildren().add(analyzeMeal);
         analyzeButtonBox.setAlignment(Pos.TOP_CENTER);
   //      mealAnalysisBox.getChildren().setAll(analyzeButtonBox, hBox1, calBox, fatBox, carbBox, proBox, fibBox);
-        mealAnalysisBox.getChildren().setAll(hBox1, analyzeButtonBox, mealAnalysisTable );
+        setupColumns(mealAnalysisTable);
+        mealAnalysisBox.getChildren().setAll(hBox1, analyzeButtonBox, mealAnalysisTable);
         return mealAnalysisBox;
     }
     
@@ -188,20 +191,9 @@ public class MealListPane extends BorderPane {
         hBox3.getChildren().add(deleteButton);
         hBox3.setAlignment(Pos.BASELINE_CENTER);
 
-
-        TableColumn name = new TableColumn("Name");
-        name.setCellValueFactory(new PropertyValueFactory("Name"));
-        TableColumn cals = new TableColumn("Calories");
-        cals.setCellValueFactory(new PropertyValueFactory("Calories"));
-        TableColumn fat = new TableColumn("Fat");
-        fat.setCellValueFactory(new PropertyValueFactory("Fat"));
-        TableColumn protein = new TableColumn("Protein");
-        protein.setCellValueFactory(new PropertyValueFactory("Protein"));
-        TableColumn fiber = new TableColumn("Fiber");
-        fiber.setCellValueFactory(new PropertyValueFactory("fiber"));
-        TableColumn carbs = new TableColumn("Carbs");
-        carbs.setCellValueFactory(new PropertyValueFactory("Carbs"));
-        this.mealTable.getColumns().setAll(name, cals, fat, carbs, fiber, protein);
+        
+        
+        setupColumns(this.mealTable);
         this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
         this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         vBox.getChildren().addAll(hBox1, mealTable, hBox3);
@@ -212,6 +204,44 @@ public class MealListPane extends BorderPane {
         this.mealArr.addAll(food);
         ObservableList<Food> mealObsList = FXCollections.observableList(mealArr);
         this.mealTable.setItems(mealObsList);
+    }
+    
+    /*
+     * Sets up the columns in the table.
+     * Sets up Name, Calories, Fat, Carbs, Fiber, and Protein
+     * columns in that order.
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private void setupColumns(TableView table) {
+        // name
+        TableColumn nameCol = new TableColumn("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory("Name"));
+        
+        // calories
+        TableColumn caloriesCol = new TableColumn("Calories");
+        caloriesCol.setCellValueFactory(new PropertyValueFactory("Calories"));
+        
+        // fat
+        TableColumn fatCol = new TableColumn("Fat");
+        fatCol.setCellValueFactory(new PropertyValueFactory("Fat"));
+        
+        // carbs
+        TableColumn carbsCol = new TableColumn("Carbs");
+        carbsCol.setCellValueFactory(new PropertyValueFactory("Carbs"));
+        
+        // fiber
+        TableColumn fiberCol = new TableColumn("Fiber");
+        fiberCol.setCellValueFactory(new PropertyValueFactory("Fiber"));
+        
+        // protein
+        TableColumn proteinCol = new TableColumn("Protein");
+        proteinCol.setCellValueFactory(new PropertyValueFactory("Protein"));
+        
+        // add all columns to table
+        table.getColumns().setAll(nameCol, caloriesCol, fatCol, carbsCol, fiberCol, proteinCol);
+        
+        // set the height of Food Table to a ratio of the screen's height
+       // table.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
     }
 
 }
