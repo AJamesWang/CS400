@@ -5,9 +5,9 @@ public class Food implements Comparable {
 	public static final String[] NUTRIENT_NAMES = {"Calories: ", "Fat: ", "Carbs: ", "Fiber: ", "Protein: "};
 	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
     private String name;
-    private int calories;
+    private double calories;
     private double fat;
-    private int carbs;
+    private double carbs;
     private double fiber;
     private double protein;
     private String id;
@@ -34,7 +34,7 @@ public class Food implements Comparable {
      * @param fiber
      * @param protein
      */
-    Food(String id, String name, int calories, double fat, int carbs, double fiber, double protein) {
+    Food(String id, String name, double calories, double fat, double carbs, double fiber, double protein) {
         this.id = id;
         this.name = name;
         this.calories = calories;
@@ -89,11 +89,11 @@ public class Food implements Comparable {
         this.name = name;
     }
     
-    public int getCalories() {
+    public Double getCalories() {
         return this.calories;
     }
     
-    public void setCalories(int calories) {
+    public void setCalories(double calories) {
         this.calories = calories;
     }
     
@@ -105,11 +105,11 @@ public class Food implements Comparable {
         this.fat = fat;
     }
     
-    public int getCarbs() {
+    public double getCarbs() {
         return this.carbs;
     }
     
-    public void setCarbs(int carbs) {
+    public void setCarbs(double carbs) {
         this.carbs = carbs;
     }
     

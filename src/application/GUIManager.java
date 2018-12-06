@@ -27,18 +27,6 @@ public class GUIManager extends Application {
             //			InfoPane ip = new InfoPane();
             SearchPane sp = new SearchPane(this);
 			
-			// load food data into food pane			
-			ArrayList<Food> tempFoodArr = new ArrayList<Food>();
-			tempFoodArr.add(new Food("Pear"));
-			tempFoodArr.add(new Food("Coffee"));
-			tempFoodArr.add(new Food("Peach"));
-			tempFoodArr.add(new Food("Mint"));
-			tempFoodArr.add(new Food("Ice Cream"));
-			tempFoodArr.add(new Food("Orange"));
-			tempFoodArr.add(new Food("Water"));
-			tempFoodArr.add(new Food("Soup"));
-			tempFoodArr.add(new Food("Celery"));
-			updateFoodPane(tempFoodArr);
 			
 			GridPane root = new GridPane();
 //			root.add(ip, 2, 0);
@@ -64,6 +52,8 @@ public class GUIManager extends Application {
             // Traditional way to get the response value.
             Optional<String> path = dialog.showAndWait();
             if (path.isPresent()) {
+                CSVReader csvReader = new CSVReader();
+                updateFoodPane(csvReader.read(path.get()));
                 dialog.close();
             }
 

@@ -27,12 +27,16 @@ public class CSVReader {
 
                 // use comma as separator
                 String[] foodData = line.split(csvSplitBy);
+                
+                if (foodData.length != 12) {
+                    continue;
+                }
 
                 String id = foodData[0];
                 String name = foodData[1];
-                int calories = Integer.parseInt(foodData[3]);
+                double calories = Double.parseDouble(foodData[3]);
                 double fat = Double.parseDouble(foodData[5]);
-                int carbs = Integer.parseInt(foodData[7]);
+                double carbs = Double.parseDouble(foodData[7]);
                 double fiber = Double.parseDouble(foodData[9]);
                 double protein = Double.parseDouble(foodData[11]);
                 
