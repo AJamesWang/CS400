@@ -131,6 +131,7 @@ public class GUIManager extends Application {
      */
     protected void updateMealListPane(ArrayList<Food> food) {
         this.mlp.updateMlpData(food);
+        this.mlp.mealAnalysis();
     }
 
 

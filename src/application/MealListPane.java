@@ -40,13 +40,21 @@ public class MealListPane extends BorderPane {
     private int carbs = 0;
     private int fib = 0;
     private int pro = 0;
-    private TableView mealAnalysisTable = new TableView();
     private VBox mealAnalysisBox;
     HBox calBox = new HBox();
     HBox fatBox = new HBox();
     HBox carbBox = new HBox();
     HBox fibBox = new HBox();
     HBox proBox = new HBox();
+    private TableView mealAnalysisTable = new TableView();
+    TableColumn nameCol = new TableColumn("Name");
+    TableColumn calsCol = new TableColumn("Calories");
+    TableColumn fatCol = new TableColumn("Fat");
+    TableColumn proteinCol = new TableColumn("Protein");
+    TableColumn fiberCol = new TableColumn("Fiber");
+    TableColumn carbsCol = new TableColumn("Carbs");
+    private Food totalFood;
+    private ArrayList<Food> totalFoodList = new ArrayList<Food>();
 
     public MealListPane(){
         try {
@@ -68,7 +76,7 @@ public class MealListPane extends BorderPane {
         myHandler(Button analyzeButton) {this.analyzeButton = analyzeButton; }
         @Override
         public void handle(ActionEvent event) {
-            if (mealArr.isEmpty()) {
+            if (!mealArr.isEmpty()) {
                 calculateTotals(mealArr);
             }
             mealAnalysis();
@@ -87,6 +95,13 @@ public class MealListPane extends BorderPane {
     }
 
     public void calculateTotals(ArrayList<Food> food) {
+        totalFood = new Food();
+        totalFood.setCalories(0);
+        totalFood.setCalories(0);
+        totalFood.setFat(0);
+        totalFood.setFiber(0);
+        totalFood.setName("Total Food");
+        totalFood.setProtein(0);
 
         for (Food item : food) {
             this.cal += item.getCalories();
@@ -95,10 +110,22 @@ public class MealListPane extends BorderPane {
             this.fib += item.getFiber();
             this.pro += item.getProtein();
         }
+        for (Food item : food) {
+            totalFood.setCalories(totalFood.getCalories()+ item.getCalories());
+            totalFood.setFat(totalFood.getFat()+ item.getFat());
+            totalFood.setCarbs(totalFood.getCarbs()+ item.getCarbs());
+            totalFood.setFiber(totalFood.getFiber()+ item.getFiber());
+            totalFood.setProtein(totalFood.getProtein()+ item.getProtein());
+        }
     }    
 
 
     public VBox mealAnalysis() {
+        this.mealAnalysisTable.getColumns().setAll(nameCol, calsCol, fatCol, carbsCol, fiberCol, proteinCol);
+        this.totalFoodList.add(totalFood);
+        ObservableList<Food> totalFoodList = FXCollections.observableList(this.totalFoodList);
+        this.mealAnalysisTable.setItems(totalFoodList);
+        
         mealAnalysisBox = new VBox();
         this.setId("food-data");//sets the default font to food-data (see CSS)
         Label mealAnalysis = new Label("Meal Analysis: ");
@@ -132,7 +159,8 @@ public class MealListPane extends BorderPane {
         HBox analyzeButtonBox= new HBox();
         analyzeButtonBox.getChildren().add(analyzeMeal);
         analyzeButtonBox.setAlignment(Pos.BASELINE_CENTER);
-        mealAnalysisBox.getChildren().setAll(analyzeButtonBox, hBox1, calBox, fatBox, carbBox, proBox, fibBox);
+  //      mealAnalysisBox.getChildren().setAll(analyzeButtonBox, hBox1, calBox, fatBox, carbBox, proBox, fibBox);
+        mealAnalysisBox.getChildren().setAll(analyzeButtonBox, mealAnalysisTable );
         return mealAnalysisBox;
     }
     public VBox mealPane() {
