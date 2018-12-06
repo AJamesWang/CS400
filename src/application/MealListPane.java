@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.stage.Screen;
@@ -38,6 +39,9 @@ public class MealListPane extends BorderPane {
     private VBox mealAnalysisBox;
     private TableView mealAnalysisTable = new TableView();
     private ArrayList<Food> totalFoodList = new ArrayList<Food>();
+    private Button analyzeMeal;
+    private HBox analyzeButtonBox;
+    private HBox titleBox;
 
     public MealListPane(){
         try {
@@ -61,15 +65,16 @@ public class MealListPane extends BorderPane {
         AnalysisHandler(Button analyzeButton) {this.analyzeButton = analyzeButton; }
         @Override
         public void handle(ActionEvent event) {
-            if (!mealArr.isEmpty()) {
-                totalFoodData = calculateTotals(mealArr);
-            }
+            totalFoodData = calculateTotals(mealArr);
             
-            totalFoodDataArr.clear();
-            totalFoodDataArr.add(totalFoodData);
-            ObservableList<Food> totalObsList = FXCollections.observableList(totalFoodDataArr);
-            mealAnalysisTable.setItems(totalObsList);
-            
+            Label totalCals = new Label("Total Calories: " + totalFoodData.getCalories());
+            Label totalFat = new Label("Total Fat: " + totalFoodData.getFat());
+            Label totalCarbs = new Label("Total Fat: " + totalFoodData.getCarbs());
+            Label totalFiber = new Label("Total Fiber: " + totalFoodData.getFiber());
+            Label totalProtein = new Label("Total Protein: " + totalFoodData.getProtein());
+            VBox totalBox = new VBox();
+            totalBox.getChildren().addAll(totalCals, totalFat, totalCarbs, totalFiber, totalProtein);
+            mealAnalysisBox.getChildren().setAll(titleBox, analyzeButtonBox, totalBox);
            // updateMealAnalysis();
         }
     }
@@ -108,19 +113,31 @@ public class MealListPane extends BorderPane {
         this.setId("food-data");//sets the default font to food-data (see CSS)
         Label mealAnalysis = new Label("Meal Analysis: ");
         mealAnalysis.setId("section-heading");
-        HBox hBox1 = new HBox();
-        hBox1.getChildren().add(mealAnalysis);
-        hBox1.setAlignment(Pos.TOP_CENTER);
+        titleBox = new HBox();
+        titleBox.getChildren().add(mealAnalysis);
+        titleBox.setAlignment(Pos.TOP_CENTER);
 
         // Analyze Meal Button
-        Button analyzeMeal = new Button("Analyze Meal");
+        analyzeMeal = new Button("Analyze Meal");
         AnalysisHandler analyzeButton = new AnalysisHandler(analyzeMeal);
         analyzeMeal.setOnAction(analyzeButton);         
-        HBox analyzeButtonBox= new HBox();
+        analyzeButtonBox= new HBox();
         analyzeButtonBox.getChildren().add(analyzeMeal);
         analyzeButtonBox.setAlignment(Pos.TOP_CENTER);
         setupColumns(mealAnalysisTable);
-        mealAnalysisBox.getChildren().setAll(hBox1, analyzeButtonBox, mealAnalysisTable);
+        
+        
+        // Meal Analysis Box
+        Label totalCals = new Label("Total Calories: " + 0);
+        Label totalFat = new Label("Total Fat: " + 0);
+        Label totalCarbs = new Label("Total Fat: " + 0);
+        Label totalFiber = new Label("Total Fiber: " + 0);
+        Label totalProtein = new Label("Total Protein: " + 0);
+        
+        VBox totalBox = new VBox();
+        totalBox.getChildren().addAll(totalCals, totalFat, totalCarbs, totalFiber, totalProtein);
+        mealAnalysisBox.getChildren().setAll(titleBox, analyzeButtonBox, totalBox);
+        mealAnalysisBox.setPadding(new Insets(20, 20, 20, 20));
         return mealAnalysisBox;
     }
        
@@ -145,7 +162,7 @@ public class MealListPane extends BorderPane {
         setupColumns(this.mealTable);
         this.mealTable.setMinHeight((0.27) * Screen.getPrimary().getBounds().getHeight());
         this.mealTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        
+        this.setPadding(new Insets(20, 20, 20, 20));
         
         vBox.getChildren().addAll(hBox1, mealTable, hBox3);
         return vBox;
