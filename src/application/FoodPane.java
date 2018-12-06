@@ -107,7 +107,7 @@ public class FoodPane extends BorderPane{
             }
        });
         
-     // when load new food list from file is pressed, deploy form and load new data into list
+        // when load new food list from file is pressed, deploy form and load new data into list
         loadAddtnlFoodBtn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -119,6 +119,10 @@ public class FoodPane extends BorderPane{
         return foodPane;
     }
     
+    /*
+     * Deploys a form to get user input about a food and then
+     * adds that food to the food list.
+     */
     public void addSingularFood() {
         //Creating a GridPane container
         GridPane grid = new GridPane();
@@ -207,15 +211,19 @@ public class FoodPane extends BorderPane{
             return null;
         });
         
+        // add food to food list
         Optional<Food> foodData = dialog.showAndWait();
         if (foodData.isPresent()) {
             foodObsList.add(foodData.get());
             updateFoodPane(foodObsList);
             dialog.close();
-        }
-    
+        }   
     }
     
+    /*
+     * Deploys form to get path to food file from the user
+     * and then loads those foods into the food list.
+     */
     public void loadNewFoodFile() {
         TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
         dialog.setTitle("Meal Planner");

@@ -86,13 +86,7 @@ public class MealListPane extends BorderPane {
     }
 
     public Food calculateTotals(ArrayList<Food> food) {
-        Food totalFood = new Food();
-        totalFood.setCalories(0);
-        totalFood.setCalories(0);
-        totalFood.setFat(0);
-        totalFood.setFiber(0);
-        totalFood.setName("Total Food");
-        totalFood.setProtein(0);
+        Food totalFood = new Food("Total Food", 0, 0, 0, 0, 0);
         
         for (Food item : food) {
             totalFood.setCalories(totalFood.getCalories()+ item.getCalories());

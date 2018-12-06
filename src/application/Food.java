@@ -18,6 +18,7 @@ public class Food implements Comparable {
      * 
      * Preconditions: All nutrient related fields must be nonnegative.
      * 
+     * @param id
      * @param name
      * @param calories
      * @param fat
@@ -46,7 +47,7 @@ public class Food implements Comparable {
     
     /*
      * Constructs a Food object with name, calories, fat, carbs, 
-     * fiber, and protein specified.
+     * fiber, and protein specified. ID generated internally.
      * 
      * Preconditions: All nutrient related fields must be nonnegative.
      * 
@@ -58,7 +59,6 @@ public class Food implements Comparable {
      * @param protein
      */
     /**
-     * @param id
      * @param name
      * @param calories
      * @param fat
@@ -74,29 +74,6 @@ public class Food implements Comparable {
         this.fiber = fiber;
         this.protein = protein;  
         this.id = idGenerator();
-    }
-    
-    
-    Food(String name) {
-        this.name = name;
-        this.id = idGenerator();
-        this.calories = -1;
-        this.fat = -1;
-        this.carbs = -1;
-        this.fiber = -1; 
-        this.protein = -1;
-    }
-    
-    /*
-     * Default empty constructor.
-     */
-    Food() {
-        this.name = "";
-        this.calories = -1;
-        this.fat = -1;
-        this.carbs = -1;
-        this.fiber = -1; 
-        this.protein = -1;
     }
     
     /*
