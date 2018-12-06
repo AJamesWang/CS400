@@ -2,13 +2,14 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class CSVReader {
+public class IOHandler {
    
     /*
      * Reads info from CSV file and returns an ArrayList of 
@@ -80,6 +81,44 @@ public class CSVReader {
             }
         }        
         return foodList;
+    }
+    
+    /*
+     * Writes food data to CSV file specified by filepath. 
+     * If file doesn't already exist, it is created in the local directory.
+     * 
+     * @param filePath String containing path to CSV file
+     * @param foods ArrayList of Food items to be saved
+     */
+    public void write(String filePath, ArrayList<Food> foods) {
+        FileWriter fl = null;
+        String csvSplitBy = ","; // split lines based on commas
+        
+        try {
+            fl = new FileWriter(filePath);
+            
+            for (Food food: foods) {
+                fl.append(food.getID() + csvSplitBy);
+                fl.append(food.getName() + csvSplitBy);
+                fl.append("calories," + food.getCalories() + csvSplitBy);
+                fl.append("fat," + food.getFat() + csvSplitBy);
+                fl.append("carbohydrate," + food.getCarbs() + csvSplitBy);
+                fl.append("fiber," + food.getFiber() + csvSplitBy);
+                fl.append("protein," + food.getProtein() + csvSplitBy);
+                fl.append("\n");
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            try {
+                fl.flush();
+                fl.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+        }
     }
         
  }

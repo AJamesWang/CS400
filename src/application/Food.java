@@ -83,7 +83,7 @@ public class Food implements Comparable {
      * @return id
      */
     private String idGenerator() {
-        return "";
+        return "IMPLEMENT ID GENERATOR IN FOOD CLASS";
     }
 
     public String getID() {

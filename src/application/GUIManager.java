@@ -55,8 +55,8 @@ public class GUIManager extends Application {
         // Get filepath from user and load data into Food List
         Optional<String> path = dialog.showAndWait();
         if (path.isPresent()) {
-            CSVReader csvReader = new CSVReader();
-            updateFoodPane(FXCollections.observableList(csvReader.read(path.get())));
+            IOHandler csvReader = new IOHandler();
+            updateFoodPane(csvReader.read(path.get()));
             dialog.close();
         }
     }
@@ -102,7 +102,7 @@ public class GUIManager extends Application {
      * 
      * @param food An ArrayList of FoodItems
      */
-    protected void updateFoodPane(ObservableList<Food> food) {
+    protected void updateFoodPane(ArrayList<Food> food) {
         this.fp.updateFoodPane(food);
     }
 

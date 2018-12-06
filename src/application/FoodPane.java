@@ -31,7 +31,7 @@ import javafx.util.Pair;
 public class FoodPane extends BorderPane{
     private TableView foodTable = new TableView(); // table to display food options
     private MealListPane mlp; // reference to meal list pane
-    private ObservableList<Food> foodObsList = FXCollections.observableList(new ArrayList<Food>());
+    private ArrayList<Food> foodArrList = new ArrayList<Food>();
     TextField filterField;
     
     /*
@@ -61,7 +61,7 @@ public class FoodPane extends BorderPane{
         Button addFoodToMealBtn = new Button("Add food(s) to meal");
         Button addSingleFoodBtn = new Button("Add single food to food list");
         Button loadAddtnlFoodBtn = new Button("Load new food list from file");
-        Button saveFoodsBtn = new Button("Save current food list.");
+        Button saveFoodsBtn = new Button("Save current food list");
         
         // name the columns
         setupColumns();
@@ -122,7 +122,7 @@ public class FoodPane extends BorderPane{
             
             @Override
             public void handle(ActionEvent event) {
-               // FIXME: IMPLEMENT ME
+               saveFoodToFile();
             }
        });
         
@@ -224,8 +224,8 @@ public class FoodPane extends BorderPane{
         // add food to food list
         Optional<Food> foodData = dialog.showAndWait();
         if (foodData.isPresent()) {
-            foodObsList.add(foodData.get());
-            updateFoodPane(foodObsList);
+            foodArrList.add(foodData.get());
+            updateFoodPane(foodArrList);
             dialog.close();
         }   
     }
@@ -246,12 +246,37 @@ public class FoodPane extends BorderPane{
         // Get filepath from user and load data into Food List
         Optional<String> path = dialog.showAndWait();
         if (path.isPresent()) {
-            CSVReader csvReader = new CSVReader();
-            updateFoodPane(FXCollections.observableList(csvReader.read(path.get())));
+            IOHandler csvReader = new IOHandler();
+            updateFoodPane(csvReader.read(path.get()));
             dialog.close();
         }
     }
     
+    /*
+     * Deploys form to get name of food file from the user
+     * and then saves the currently filtered foods to that file.
+     * 
+     * FIXME: Not sure if saving filtered data or all foods available.
+     * Ask James how the filtering works/how to access the filtered data
+     * from here.
+     */
+    public void saveFoodToFile() {
+        TextInputDialog dialog = new TextInputDialog("ex: FoodList.csv");
+        dialog.setTitle("Meal Planner");
+        dialog.setGraphic(null);
+        dialog.setHeaderText("Enter name of file to be created.");
+        dialog.setContentText("Name:");
+        dialog.getDialogPane().setMinWidth(500);
+        
+        // Get file name from user and load current filtered foods into new file
+        Optional<String> fileName = dialog.showAndWait();
+        if (fileName.isPresent()) {
+            IOHandler csvWriter = new IOHandler();
+            csvWriter.write(fileName.get(), foodArrList);
+            dialog.close();
+        }
+        
+    }
     protected void updateMealListPane(ArrayList<Food> selectedArr) {
         this.mlp.updateMealListPane(selectedArr);       
     }
@@ -264,10 +289,11 @@ public class FoodPane extends BorderPane{
      //TODO: maybe make foodObsList a class variable? I think to add new elements, you'll need to access it
      //Or maybe filteredData?
 
-    public void updateFoodPane(ObservableList<Food> food) {
-        this.foodObsList = food;
+    public void updateFoodPane(ArrayList<Food> food) {
+        this.foodArrList = food;
+
         //taken from https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
-        FilteredList<Food> filteredData = new FilteredList<Food>(food, p->true);
+        FilteredList<Food> filteredData = new FilteredList<Food>(FXCollections.observableList(foodArrList), p->true);
 
         this.filterField.textProperty().addListener((observable, oldVal, newVal) -> {
         	//I think the predicate determines what's shown and what isn't
