@@ -192,7 +192,7 @@ public class FoodPane extends BorderPane{
                 }
                 
                 return new Food(name, calories, fat, carbs, fiber, protein);
-                                
+                                 
             }
             return null;
         });
