@@ -61,6 +61,7 @@ public class FoodPane extends BorderPane{
         Button addFoodToMealBtn = new Button("Add food(s) to meal");
         Button addSingleFoodBtn = new Button("Add single food to food list");
         Button loadAddtnlFoodBtn = new Button("Load new food list from file");
+        Button saveFoodsBtn = new Button("Save current food list.");
         
         // name the columns
         setupColumns();
@@ -76,7 +77,7 @@ public class FoodPane extends BorderPane{
         foodPane.setId("food-data");
         foodPane.setPadding(new Insets(20, 20, 20, 20));
         foodPane.getChildren().addAll(foodLabel, filterField, foodTable, addFoodToMealBtn, addSingleFoodBtn,
-                        loadAddtnlFoodBtn);
+                        loadAddtnlFoodBtn, saveFoodsBtn);
         
         ///////////////////////////
         // Button Event Handling //
@@ -113,6 +114,15 @@ public class FoodPane extends BorderPane{
             @Override
             public void handle(ActionEvent event) {
                 loadNewFoodFile();
+            }
+       });
+        
+        // when load save food list button is pressed, deploy form for user to name the file then export the data
+        saveFoodsBtn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+               // FIXME: IMPLEMENT ME
             }
        });
         

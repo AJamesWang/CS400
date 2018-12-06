@@ -47,10 +47,15 @@ public class CSVReader {
                 try {
                     id = foodData[0];
                     name = foodData[1];
+                    if (!foodData[2].equals("calories")) { continue; }
                     calories = Double.parseDouble(foodData[3]);
+                    if (!foodData[4].equals("fat")) { continue; }
                     fat = Double.parseDouble(foodData[5]);
+                    if (!foodData[6].equals("carbohydrate")) { continue; }
                     carbs = Double.parseDouble(foodData[7]);
+                    if (!foodData[8].equals("fiber")) { continue; }
                     fiber = Double.parseDouble(foodData[9]);
+                    if (!foodData[10].equals("protein")) { continue; }
                     protein = Double.parseDouble(foodData[11]);
                 } catch (NumberFormatException e) {
                    continue;
