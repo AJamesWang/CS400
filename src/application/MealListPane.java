@@ -76,6 +76,7 @@ public class MealListPane extends BorderPane {
                 totalFoodData = calculateTotals(mealArr);
             }
             
+            totalFoodDataArr.clear();
             totalFoodDataArr.add(totalFoodData);
             ObservableList<Food> totalObsList = FXCollections.observableList(totalFoodDataArr);
             mealAnalysisTable.setItems(totalObsList);
