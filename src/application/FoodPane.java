@@ -358,6 +358,7 @@ public class FoodPane extends BorderPane{
         // set the height of Food Table to a ratio of the screen's height
         this.foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
         
+        // make alphabetically sorted based on name
         this.foodTable.getSortOrder().add(nameCol);
     }
 
