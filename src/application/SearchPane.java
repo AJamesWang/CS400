@@ -72,10 +72,23 @@ public class SearchPane extends VBox{
 	 }
 	
 	/*
-	 * sends min/max data to GUIManager
+	 * tells GUIManager filter was updated
 	 */
-	private void sendData(){
-		this.manager.updateConstraints();
+	private void promptGUIManager(){
+		this.manager.constraintsUpdated();
+	}
+	
+	/*
+	 * gets current min constraints
+	 */
+	protected Map<String, Double> getMins(){
+		return this.curMins;
+	}
+	/*
+	 * gets current max constraints
+	 */
+	protected Map<String, Double> getMaxes(){
+		return this.curMaxes;
 	}
 	
 	/*
@@ -83,10 +96,8 @@ public class SearchPane extends VBox{
 	 */
 	 private void search(){
 		 this.updateCurVals();
-		 this.sendData();
-		 this.printData();
+		 this.promptGUIManager();
 		 update();
-		 System.out.println("Searching...");
 	 }
 	
 	/*
@@ -95,17 +106,8 @@ public class SearchPane extends VBox{
 	 private void clearData(){
 		 this.curMins.clear();
 		 this.curMaxes.clear();
-		 this.manager.clearConstraints();
+		 this.manager.constraintsUpdated();
 		 this.update();
-		 this.printData();
-		 System.out.println("Clearing...");
-	 }
-	 
-	 private void printData(){
-		 //TODO: implement the GUIManager method so I can delete this
-		 for(String id : Food.NUTRIENT_IDS){
-			 System.out.println(String.format("ID:%s\tMin:%s\tMax:%s\t", id, this.curMins.get(id), this.curMaxes.get(id)));
-		 }
 	 }
 	 
 	/*

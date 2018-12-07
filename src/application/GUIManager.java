@@ -21,12 +21,13 @@ import javafx.scene.layout.VBox;
 
 public class GUIManager extends Application {
     private MealListPane mlp = new MealListPane();
-    private FoodPane fp = new FoodPane(mlp);
+    private FoodPane fp = new FoodPane(mlp, this);
+    private SearchPane sp = new SearchPane(this);
+    private FoodList fl = new FoodList();
     
     @Override
     public void start(Stage primaryStage) {
         try {
-            SearchPane sp = new SearchPane(this);			
 			GridPane root = new GridPane();
 			root.add(fp, 0, 0, 1, 2);
 			root.add(sp, 1,0);
@@ -44,42 +45,6 @@ public class GUIManager extends Application {
         }
     }
     
-    public void loadNewFoodFile() {
-        TextInputDialog dialog = new TextInputDialog("ex: User/Desktop/FoodList.csv");
-        dialog.setTitle("Meal Planner");
-        dialog.setGraphic(null);
-        dialog.setHeaderText("Enter path to Food Data");
-        dialog.setContentText("Path:");
-        dialog.getDialogPane().setMinWidth(500);
-
-
-        // Get filepath from user and load data into Food List
-        Optional<String> path = dialog.showAndWait();
-        if (path.isPresent()) {
-            IOHandler csvReader = new IOHandler();
-            updateFoodPane(csvReader.read(path.get()));
-            dialog.close();
-        }
-    }
-
-    ////////////////////
-    //InfoPane methods//
-    ////////////////////
-    /*
-     * Once a food is selected, sends data to infoPane to be displayed
-     */
-    protected void updateInfoPane(){
-        // call getNewItems() from FoodPane
-        // load food into info pane one by one
-        System.out.println("updateInfoPane NOT IMPLEMENTED YET");
-    }
-    /*
-     * Once a food is deselected, clears infoPane
-     */
-    protected void clearInfoPane(){
-        System.out.println("clearInfoPane NOT IMPLEMENTED YET");
-    }
-
     //////////////////////
     //SearchPane methods//
     //////////////////////
@@ -87,11 +52,8 @@ public class GUIManager extends Application {
      * receives a list of constraints from SearchPane
      * updates FoodList accordingly
      */
-    protected void updateConstraints(){
-        System.out.println("updateConstraints NOT IMPLEMENTED YET");
-    }
-    protected void clearConstraints(){
-        System.out.println("clearConstraints NOT IMPLEMENTED YET");
+    protected void constraintsUpdated(){
+    	this.updateFoodPane();
     }
 
     //////////////////////
@@ -103,8 +65,9 @@ public class GUIManager extends Application {
      * 
      * @param food An ArrayList of FoodItems
      */
-    protected void updateFoodPane(ArrayList<Food> food) {
-        this.fp.updateFoodPane(food);
+    protected void updateFoodPane() {
+    	ArrayList<Food> shownFoods = this.fl.filterFoods(sp.getMins(), sp.getMaxes());
+        this.fp.updateFoodArrList(shownFoods);
     }
 
     //////////////////////
@@ -116,8 +79,14 @@ public class GUIManager extends Application {
      * 
      * @param food An ArrayList of FoodItems
      */
-    protected void updateMealListPane(ArrayList<Food> food) {
-        this.mlp.updateMealListPane(food);
+    protected void updateMealListPane(ArrayList<Food> foods) {
+        this.mlp.updateMealListPane(foods);
+    }
+    /*
+     * Adds food to FoodList, updates FoodPane accordingly
+     */
+    protected void addFood(Food food){
+    	this.fl.addFood(food);
     }
 
 

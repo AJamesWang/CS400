@@ -1,10 +1,9 @@
 package application;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,24 +12,27 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import javafx.util.Pair;
 
 public class FoodPane extends BorderPane{
+	private GUIManager guiManager;
     private TableView foodTable = new TableView(); // table to display food options
     private MealListPane mlp; // reference to meal list pane
+    private FoodList foodList = new FoodList();
     private ArrayList<Food> foodArrList = new ArrayList<Food>();
     TextField filterField;
     
@@ -39,8 +41,9 @@ public class FoodPane extends BorderPane{
      * about the name and nutritional content of various foods.
      * @param mlp A reference to the MealListPane that will be fed data from the FoodPane.
      */
-    public FoodPane(MealListPane mlp) {
+    public FoodPane(MealListPane mlp, GUIManager guiManager) {
         try {
+        	this.guiManager =  guiManager;
             this.mlp = mlp;
             this.setRight(foodPane());
         } catch(Exception e) {
@@ -224,8 +227,7 @@ public class FoodPane extends BorderPane{
         // add food to food list
         Optional<Food> foodData = dialog.showAndWait();
         if (foodData.isPresent()) {
-            foodArrList.add(foodData.get());
-            updateFoodPane(foodArrList);
+        	this.guiManager.addFood(foodData.get());
             dialog.close();
         }   
     }
@@ -247,7 +249,10 @@ public class FoodPane extends BorderPane{
         Optional<String> path = dialog.showAndWait();
         if (path.isPresent()) {
             IOHandler csvReader = new IOHandler();
-            updateFoodPane(csvReader.read(path.get()));
+            for(Food food:csvReader.read(path.get())){
+            	this.guiManager.addFood(food);
+            }
+            this.guiManager.updateFoodPane();
             dialog.close();
         }
     }
@@ -280,6 +285,15 @@ public class FoodPane extends BorderPane{
     protected void updateMealListPane(ArrayList<Food> selectedArr) {
         this.mlp.updateMealListPane(selectedArr);       
     }
+    
+    /*
+     * updates foodArrayList
+     */
+    protected void updateFoodArrList(ArrayList<Food> foodArrList){
+    	this.foodArrList=foodArrList;
+		updateFoodPane();
+    }
+    
 
     /*
      * Takes in an ArrayList of FoodItems and fills the Table
@@ -289,9 +303,7 @@ public class FoodPane extends BorderPane{
      //TODO: maybe make foodObsList a class variable? I think to add new elements, you'll need to access it
      //Or maybe filteredData?
 
-    public void updateFoodPane(ArrayList<Food> food) {
-        this.foodArrList = food;
-
+    public void updateFoodPane() {
         //taken from https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
         FilteredList<Food> filteredData = new FilteredList<Food>(FXCollections.observableList(foodArrList), p->true);
 

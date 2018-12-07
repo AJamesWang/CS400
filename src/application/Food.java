@@ -180,4 +180,9 @@ public class Food implements Comparable {
     public int compareTo(Object o) {
         return this.id.compareTo(((Food)o).getID());
     }
+
+    @Override
+    public int hashCode(){
+    	return this.id.hashCode();
+    }
 }

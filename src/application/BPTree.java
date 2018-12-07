@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 /**
  * Implementation of a B+ tree to allow efficient access to
@@ -274,9 +275,12 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	//if exceeds branching factor, split
         	if(target.isOverflow()){
         		Node newChild = target.split();
-        		if(index+1 < this.children.size()){
+        		if(index+1 < this.children.size()){//not adding new child to end of array
 					this.children.add(index+1, newChild);
-					this.keys.add(index+1, newChild.getFirstLeafKey());
+					this.keys.add(index, newChild.getFirstLeafKey());
+					try{
+					} catch(Exception e){}
+					
         		} else{
 					this.children.add(newChild);
 					this.keys.add(newChild.getFirstLeafKey());
@@ -397,6 +401,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	
         	//links the leaf nodes together
         	newChild.setNext(this.next);
+        	if(this.next!=null) this.next.setPrev(newChild);
         	newChild.setPrev(this);
         	this.setNext(newChild);
         	return newChild;
@@ -482,26 +487,23 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
 					return this.moveLeft(index);
         	} else{
         		if(index == start && this.previous!=null)//possible that there's a duplicate key in the previous node
-        			return this.previous.rangeSearch(key, comparator);
-        		else
+        			{
+        			return this.previous.rangeSearch(key, comparator);}
+        		else{
         			if(comparator.equals(">="))
-						return this.moveRight(index);
+        			{
+						return this.moveRight(index);}
         			else //==
         				return this.moveEquals(index, key);
+        		}
         	}
         }
         
         void setNext(LeafNode next){
         	this.next = next;
         }
-        LeafNode getNext(){
-        	return this.next;
-        }
         void setPrev(LeafNode prev){
         	this.previous = prev;
-        }
-        LeafNode getPrev(){
-        	return this.previous;
         }
     } // End of class LeafNode
     
@@ -513,31 +515,31 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
      * 
      * @param args
      */
-//    public static void main(String[] args) {
-//        // create empty BPTree with branching factor of 3
-//        BPTree<Double, Double> bpTree = new BPTree<>(3);
-//
-//        // create a pseudo random number generator
-//        Random rnd1 = new Random();
-//
-//        // some value to add to the BPTree
-//        Double[] dd = {0.0d, 0.5d, 0.2d, 0.8d};
-//
-//        // build an ArrayList of those value and add to BPTree also
-//        // allows for comparing the contents of the ArrayList 
-//        // against the contents and functionality of the BPTree
-//        // does not ensure BPTree is implemented correctly
-//        // just that it functions as a data structure with
-//        // insert, rangeSearch, and toString() working.
-//        List<Double> list = new ArrayList<>();
-//        for (int i = 0; i < 400; i++) {
-//            Double j = dd[rnd1.nextInt(4)];
-//            list.add(j);
-//            bpTree.insert(j, j);
-//            System.out.println("\n\nTree structure:\n" + bpTree.toString());
-//        }
-//        List<Double> filteredValues = bpTree.rangeSearch(0.2d, ">=");
-//        System.out.println("Filtered values: " + filteredValues.toString());
-//    }
+    public static void main(String[] args) {
+        // create empty BPTree with branching factor of 3
+        BPTree<Double, Double> bpTree = new BPTree<>(3);
+
+        // create a pseudo random number generator
+        Random rnd1 = new Random();
+
+        // some value to add to the BPTree
+        Double[] dd = {0.0d, 0.5d, 0.2d, 0.8d};
+
+        // build an ArrayList of those value and add to BPTree also
+        // allows for comparing the contents of the ArrayList 
+        // against the contents and functionality of the BPTree
+        // does not ensure BPTree is implemented correctly
+        // just that it functions as a data structure with
+        // insert, rangeSearch, and toString() working.
+        List<Double> list = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            Double j = dd[rnd1.nextInt(4)];
+            list.add(j);
+            bpTree.insert(j, j);
+            System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        }
+        List<Double> filteredValues = bpTree.rangeSearch(0.2d, ">=");
+        System.out.println("Filtered values: " + filteredValues.toString());
+    }
 
 } // End of class BPTree

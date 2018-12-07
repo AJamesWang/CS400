@@ -23,7 +23,6 @@ class TestBPTree {
 		this.bpt = null;
 	}
 	
-	
 	@Test
 	void testFirstInsert(){
 		print("\ntestFirstInsert...");
@@ -57,7 +56,7 @@ class TestBPTree {
 	/**
 	 * No assertions, to test must inspect visually
 	 */
-	@Test
+//	@Test
 	void testNonRootSplits(){
 		print("\ntestNonRootSplits...");
 		for(int i=0; i<50; i++){
@@ -72,7 +71,7 @@ class TestBPTree {
 	/**
 	 * No assertions, to test must inspect visually
 	 */
-	 @Test
+//	 @Test
 	 void testDuplicates(){
 		 print("\ntestDuplicates...");
 		 for(int i=0; i<10; i++){
@@ -87,8 +86,6 @@ class TestBPTree {
 		 printTree();
 		 print("didn't crash!");
 	 }
-		 
-	 
 
 	@Test
 	void testSimpleRangeSearch() {
@@ -148,6 +145,21 @@ class TestBPTree {
 		assertArrayEquals(new String[]{"3", "3", "3", "3", "3"}, vals_5.toArray());
 		print("passed!");
 	}
+
+	/*
+	 * Figuring out what's going on with multiple inserts
+	 * {[0.0, 0.0, 0.2], [0.2, 0.2]}, {[0.2, 0.2, 0.2], [0.5, 0.5]}, {[0.5, 0.5], [0.8, 0.8], [0.8, 0.8, 0.8]}
+	 * insert 0
+	 */
+	 @Test
+	 void test1(){
+		 Double[] in = new Double[]{.0, .3, .3, .2, .0, .0};
+		 BPTree<Double, String> tree = new BPTree<Double, String>(3);
+		 for(Double d:in){
+			 tree.insert(d, "");
+			print(String.format("\n%s", tree.toString()));
+		 }
+	 }
 
 	private static void printTree(){
 		print(String.format("\n%s", bpt.toString()));
