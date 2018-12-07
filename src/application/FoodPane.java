@@ -63,18 +63,18 @@ public class FoodPane extends BorderPane{
      * @return VBox of TableView displaying the food data
      */
     public VBox foodPane() {
-        foodLabel = new Label("Food List:");
-        foodCount = new Label("Number of Food Items: 0");
-        headerFPane = new HBox();
-        headerFPane.getChildren().addAll(foodLabel, foodCount);
+        this.foodLabel = new Label("Food List:");
+        this.foodCount = new Label("Number of Food Items: 0");
+        this.headerFPane = new HBox();
+        this.headerFPane.getChildren().addAll(foodLabel, foodCount);
 
         foodLabel.setId("section-heading");
         this.filterField = new TextField();
         this.filterField.setPromptText("filter name here");
-        Button addFoodToMealBtn = new Button("Add food(s) to meal");
-        Button addSingleFoodBtn = new Button("Add single food to food list");
-        Button loadAddtnlFoodBtn = new Button("Load new food list from file");
-        Button saveFoodsBtn = new Button("Save current food list");
+        this.addFoodToMealBtn = new Button("Add food(s) to meal");
+        this.addSingleFoodBtn = new Button("Add single food to food list");
+        this.loadAddtnlFoodBtn = new Button("Load new food list from file");
+        this.saveFoodsBtn = new Button("Save current food list");
 
         // name the columns
         setupColumns();
@@ -86,11 +86,11 @@ public class FoodPane extends BorderPane{
         this.foodTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         // Set up and display scene
-        VBox foodPane = new VBox(10);
-        foodPane.setId("food-data");
-        foodPane.setPadding(new Insets(20, 20, 20, 20));
-        foodPane.getChildren().addAll(headerFPane, filterField, foodTable, addFoodToMealBtn, addSingleFoodBtn,
-            loadAddtnlFoodBtn, saveFoodsBtn);
+        this.foodPane = new VBox(10);
+        this.foodPane.setId("food-data");
+        this.foodPane.setPadding(new Insets(20, 20, 20, 20));
+        this.foodPane.getChildren().addAll(this.headerFPane, this.filterField, this.foodTable, this.addFoodToMealBtn, 
+                        this.addSingleFoodBtn, this.loadAddtnlFoodBtn, this.saveFoodsBtn);
 
         ///////////////////////////
         // Button Event Handling //
@@ -325,16 +325,20 @@ public class FoodPane extends BorderPane{
 
             });
         });
+        
+        // reset food list to display filtered data
         SortedList<Food> sortedData = new SortedList<Food>(filteredData);
         //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
         sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
-        this.foodTable.setItems(sortedData);     
-        foodLabel = new Label("Food List:");
-       foodCount = new Label("Number of Food Items: " + foodArrList.size());
-        headerFPane = new HBox();
-        headerFPane.getChildren().addAll(foodLabel, foodCount);
-        foodPane.getChildren().setAll(headerFPane, filterField, foodTable, addFoodToMealBtn, addSingleFoodBtn,
-       loadAddtnlFoodBtn, saveFoodsBtn);
+        this.foodTable.setItems(sortedData);  
+        
+        // reset count of foods in the list
+        this.foodLabel = new Label("Food List:");
+        this.foodLabel.setId("section-heading");
+        this.foodCount = new Label("Number of Food Items: " + foodArrList.size());
+        this.headerFPane.getChildren().clear();
+        this.headerFPane.getChildren().addAll(foodLabel, foodCount);
+        
     }
 
 
