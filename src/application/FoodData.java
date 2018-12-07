@@ -1,4 +1,5 @@
 package application;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,22 +9,23 @@ import java.util.List;
  * 
  * @author sapan (sapan@cs.wisc.edu)
  */
-public class FoodData implements FoodDataADT<Food> {
+public class FoodData implements FoodDataADT<FoodItem> {
     //change
     //change
     //change
     // List of all the food items.
-    private List<Food> foodItemList;
+    private List<FoodItem> foodItemList;
 
     // Map of nutrients and their corresponding index
-    private HashMap<String, BPTree<Double, Food>> indexes;
+    private HashMap<String, BPTree<Double, FoodItem>> indexes;
     
    
     /**
      * Public constructor
      */
     public FoodData() {
-        // TODO : Complete
+        this.foodItemList = new ArrayList<FoodItem>();
+        this.indexes = new HashMap<String, BPTree<Double, FoodItem>>();
     }
     
     
@@ -33,7 +35,20 @@ public class FoodData implements FoodDataADT<Food> {
      */
     @Override
     public void loadFoodItems(String filePath) {
-        // TODO : Complete
+        IOHandler csvReader = new IOHandler();
+        ArrayList<Food> foodList = csvReader.read(filePath);
+        
+        for (Food food: foodList) {
+            FoodItem foodItem = new FoodItem(food.getID(), food.getName());
+            foodItem.addNutrient("calories", food.getCalories());
+            foodItem.addNutrient("fat", food.getFat());
+            foodItem.addNutrient("carbohydrate", food.getCarbs());
+            foodItem.addNutrient("fiber", food.getFiber());
+            foodItem.addNutrient("protein", food.getProtein());
+            
+            foodItemList.add(foodItem);
+            
+        }
     }
 
     /*
@@ -41,17 +56,23 @@ public class FoodData implements FoodDataADT<Food> {
      * @see skeleton.FoodDataADT#filterByName(java.lang.String)
      */
     @Override
-    public List<Food> filterByName(String substring) {
-        // TODO : Complete
-        return null;
+    public List<FoodItem> filterByName(String substring) {
+        List<FoodItem> filtered = new ArrayList<FoodItem>();
+        
+        for (FoodItem foodItem: foodItemList) {
+            if (foodItem.getName().contains(substring)) {
+                filtered.add(foodItem);
+            }
+        }
+        return filtered;
     }
-
+    
     /*
      * (non-Javadoc)
      * @see skeleton.FoodDataADT#filterByNutrients(java.util.List)
      */
     @Override
-    public List<Food> filterByNutrients(List<String> rules) {
+    public List<FoodItem> filterByNutrients(List<String> rules) {
         // TODO : Complete
         return null;
     }
@@ -61,7 +82,7 @@ public class FoodData implements FoodDataADT<Food> {
      * @see skeleton.FoodDataADT#addFoodItem(skeleton.FoodItem)
      */
     @Override
-    public void addFoodItem(Food food) {
+    public void addFoodItem(FoodItem food) {
         // TODO : Complete
     }
 
@@ -70,15 +91,14 @@ public class FoodData implements FoodDataADT<Food> {
      * @see skeleton.FoodDataADT#getAllFoodItems()
      */
     @Override
-    public List<Food> getAllFoodItems() {
-        // TODO : Complete
-        return null;
+    public List<FoodItem> getAllFoodItems() {
+        return this.foodItemList;
     }
 
 
 	@Override
 	public void saveFoodItems(String filename) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

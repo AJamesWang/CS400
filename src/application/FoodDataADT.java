@@ -6,7 +6,7 @@ import java.util.List;
  * 
  * @author sapan (sapan@cs.wisc.edu)
  */
-public interface FoodDataADT<F extends Food> {
+public interface FoodDataADT<F extends FoodItem> {
     /**
      * Loads the data in the .csv file
      * 
@@ -82,14 +82,14 @@ public interface FoodDataADT<F extends Food> {
      * Adds a food item to the loaded data.
      * @param foodItem the food item instance to be added
      */
-    public void addFoodItem(Food foodItem);
+    public void addFoodItem(FoodItem foodItem);
 
     
     /**
      * Gets the list of all food items.
      * @return list of FoodItem
      */
-    public List<Food> getAllFoodItems();
+    public List<FoodItem> getAllFoodItems();
     
     
     /**
