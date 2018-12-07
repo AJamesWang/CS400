@@ -1,5 +1,12 @@
 package application;
 
+/*
+ * Note: We implemented and used this separate Food class to have standard getters
+ * and setters to use in the TableView data structures. TableView requires types with 
+ * explicit getters in order to display data about the items it contains.
+ * 
+ * 
+ */
 public class Food implements Comparable {
 	public static final String[] NUTRIENT_UNITS = {" Cal", " g", " g", " g", " g"};
 	public static final String[] NUTRIENT_NAMES = {"Calories: ", "Fat: ", "Carbs: ", "Fiber: ", "Protein: "};
