@@ -87,6 +87,7 @@ public class GUIManager extends Application {
      */
     protected void addFood(Food food){
     	this.fl.addFood(food);
+    	this.updateFoodPane();
     }
 
 

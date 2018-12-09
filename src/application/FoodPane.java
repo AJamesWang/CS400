@@ -34,7 +34,7 @@ public class FoodPane extends BorderPane{
     private TableView foodTable = new TableView(); // table to display food options
     private MealListPane mlp; // reference to meal list pane
     private FoodList foodList = new FoodList();
-    private ArrayList<Food> foodArrList = new ArrayList<Food>();
+    private ArrayList<Food> foodArrList = new ArrayList<Food>();//list of currently displayed foods
     TextField filterField;
     private Label foodLabel;
     private Label foodCount;
