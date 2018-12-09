@@ -151,12 +151,12 @@ public class MealListPane extends BorderPane {
         VBox vBox = new VBox();
 
         // Delete Food Button
-        Button deleteButton = new Button("Delete Food");
+        Button deleteButton = new Button("Remove");
         DeleteHandler deleteHandler = new DeleteHandler(deleteButton);
         deleteButton.setOnAction(deleteHandler);            
         HBox hBox3 = new HBox();
         hBox3.getChildren().add(deleteButton);
-        hBox3.setAlignment(Pos.BASELINE_CENTER);
+        hBox3.setAlignment(Pos.BASELINE_CENTER);//change alignment maybe?
 
         // set up Meal Table      
         setupColumns(this.mealTable);

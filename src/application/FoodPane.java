@@ -1,7 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -25,8 +24,10 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 public class FoodPane extends BorderPane{
@@ -66,18 +67,28 @@ public class FoodPane extends BorderPane{
      * @return VBox of TableView displaying the food data
      */
     public VBox foodPane() {
-        this.foodLabel = new Label("Food List:");
-        this.foodCount = new Label("Number of Food Items: 0");
+        this.foodLabel = new Label("Food List (empty):");
+//        this.foodCount = new Label("Number of Food Items: 0");
         this.headerFPane = new HBox();
-        this.headerFPane.getChildren().addAll(foodLabel, foodCount);
+        this.headerFPane.getChildren().addAll(foodLabel);
 
         foodLabel.setId("section-heading");
         this.filterField = new TextField();
         this.filterField.setPromptText("filter name here");
-        this.addFoodToMealBtn = new Button("Add food(s) to meal");
-        this.addSingleFoodBtn = new Button("Add single food to food list");
-        this.loadAddtnlFoodBtn = new Button("Load new food list from file");
-        this.saveFoodsBtn = new Button("Save current food list");
+        
+        GridPane buttonGrid = new GridPane();//arranges buttons
+        this.addFoodToMealBtn = new Button("Add to meal");
+        this.addSingleFoodBtn = new Button("Add to list");
+        this.loadAddtnlFoodBtn = new Button("Load");
+        Region padding = new Region();
+        padding.setPrefWidth(400);
+        HBox.setHgrow(padding, Priority.ALWAYS);
+        this.saveFoodsBtn = new Button("Save");
+        buttonGrid.add(this.addSingleFoodBtn, 0, 0, 2, 1);
+        buttonGrid.add(this.loadAddtnlFoodBtn, 0, 2);
+        buttonGrid.add(this.saveFoodsBtn, 1, 2);
+        buttonGrid.add(padding, 1, 0);
+        buttonGrid.add(this.addFoodToMealBtn, 3, 0);
 
         // name the columns
         setupColumns();
@@ -92,8 +103,7 @@ public class FoodPane extends BorderPane{
         this.foodPane = new VBox(10);
         this.foodPane.setId("food-data");
         this.foodPane.setPadding(new Insets(20, 20, 20, 20));
-        this.foodPane.getChildren().addAll(this.headerFPane, this.filterField, this.foodTable, this.addFoodToMealBtn, 
-                        this.addSingleFoodBtn, this.loadAddtnlFoodBtn, this.saveFoodsBtn);
+        this.foodPane.getChildren().addAll(this.headerFPane, this.filterField, this.foodTable, buttonGrid);
 
         ///////////////////////////
         // Button Event Handling //
@@ -345,11 +355,11 @@ public class FoodPane extends BorderPane{
         this.foodTable.setItems(sortedData);  
         
         // reset count of foods in the list
-        this.foodLabel = new Label("Food List:");
+        this.foodLabel = new Label("Food List (" + foodArrList.size() + "):");
         this.foodLabel.setId("section-heading");
-        this.foodCount = new Label("Number of Food Items: " + foodArrList.size());
+//        this.foodCount = new Label("Number of Food Items: " + foodArrList.size());
         this.headerFPane.getChildren().clear();
-        this.headerFPane.getChildren().addAll(foodLabel, foodCount);
+        this.headerFPane.getChildren().addAll(foodLabel);
         
     }
 
