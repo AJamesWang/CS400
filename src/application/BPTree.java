@@ -94,9 +94,9 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
      */
     @Override
     public List<V> rangeSearch(K key, String comparator) {
-        if (!comparator.contentEquals(">=") 
+        if (this.root==null || (!comparator.contentEquals(">=") 
             && !comparator.contentEquals("==") 
-            && !comparator.contentEquals("<=") )
+            && !comparator.contentEquals("<=") ))
             return new ArrayList<V>();
         return this.root.rangeSearch(key, comparator);
     }

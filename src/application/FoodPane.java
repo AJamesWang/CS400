@@ -48,6 +48,7 @@ public class FoodPane extends BorderPane{
     private Button loadAddtnlFoodBtn;
     private Button saveFoodsBtn;
     private VBox foodPane;
+    private TableColumn nameCol;
 
     /*
      * Constructs a FoodPane containing information
@@ -367,8 +368,8 @@ public class FoodPane extends BorderPane{
         SortedList<Food> sortedData = new SortedList<Food>(filteredData);
         //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
         sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
-        this.foodTable.setItems(sortedData);  
-        
+        this.foodTable.setItems(sortedData); 
+        foodTable.getSortOrder().add(nameCol);
         // reset count of foods in the list
         this.foodLabel = new Label("Food List (" + (foodArrList.size()==0?"empty":foodArrList.size()) + "):");
         this.foodLabel.setId("section-heading");
@@ -387,7 +388,7 @@ public class FoodPane extends BorderPane{
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
         // name
-        TableColumn nameCol = new TableColumn("Name");
+        nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("Name"));
 
         // calories
