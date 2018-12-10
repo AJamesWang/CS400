@@ -100,7 +100,7 @@ public class Food implements Comparable {
         return this.id;
     }
     /**
-     * Returns Name
+     * Returns Name 
      */
     public String getName() {
         return this.name;

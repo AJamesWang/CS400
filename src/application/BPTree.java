@@ -15,7 +15,7 @@ import java.util.Random;
  * range search as compared to other types of data structures
  * due to the ability to perform log_m N lookups and
  * linear in-order traversals of the data items.
- * 
+ *  
  * @author sapan (sapan@cs.wisc.edu)
  *
  * @param <K> key - expect a string that is the type of id for each item
