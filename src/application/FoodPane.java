@@ -24,6 +24,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -83,13 +84,13 @@ public class FoodPane extends BorderPane{
         this.filterField.setPromptText("filter name here");
         
         GridPane buttonGrid = new GridPane();//arranges buttons
-        this.addFoodToMealBtn = new Button("Add to meal");
-        this.addSingleFoodBtn = new Button("Add to list");
-        this.loadAddtnlFoodBtn = new Button("Load");
+        this.addFoodToMealBtn = new Button("Add to meal (a)");
+        this.addSingleFoodBtn = new Button("Add to list (n)");
+        this.loadAddtnlFoodBtn = new Button("Load (ctrl-o)");
         Region padding = new Region();
         padding.setPrefWidth(400);
         HBox.setHgrow(padding, Priority.ALWAYS);
-        this.saveFoodsBtn = new Button("Save");
+        this.saveFoodsBtn = new Button("Save (ctrl-s)");
         buttonGrid.add(this.addSingleFoodBtn, 0, 0, 2, 1);
         buttonGrid.add(this.loadAddtnlFoodBtn, 0, 2);
         buttonGrid.add(this.saveFoodsBtn, 1, 2);
@@ -130,9 +131,8 @@ public class FoodPane extends BorderPane{
                 updateMealListPane(selectedArr);
             }
         });
-        
-        System.out.println(this.getScene());
-//        GUIManager.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A), ()->addFoodToMealBtn.fire());
+        KeyCodeCombination addToMeal = new KeyCodeCombination(KeyCode.A);
+        this.getScene().getAccelerators().put(addToMeal, ()->System.out.println("s;ldkfj"));
         
 
         // when add food to list is pressed, deploy form and add food to list
@@ -143,24 +143,28 @@ public class FoodPane extends BorderPane{
                 addSingularFood();
             }
         });
+        KeyCodeCombination addToList = new KeyCodeCombination(KeyCode.N);
+        this.getScene().getAccelerators().put(addToList, ()->addSingleFoodBtn.fire());
 
         // when load new food list from file is pressed, deploy form and load new data into list
-        loadAddtnlFoodBtn.setOnAction(new EventHandler<ActionEvent>() {
-
+        loadAddtnlFoodBtn.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
             public void handle(ActionEvent event) {
                 loadNewFoodFile();
             }
         });
+        KeyCodeCombination loadFromFile = new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN);
+        this.getScene().getAccelerators().put(loadFromFile, ()->loadAddtnlFoodBtn.fire());
 
         // when load save food list button is pressed, deploy form for user to name the file then export the data
-        saveFoodsBtn.setOnAction(new EventHandler<ActionEvent>() {
-
+        saveFoodsBtn.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
             public void handle(ActionEvent event) {
                 saveFoodToFile();
             }
         });
+        KeyCodeCombination saveToFile = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN);
+        this.getScene().getAccelerators().put(saveToFile, ()->saveFoodsBtn.fire());
 
         return foodPane;
     }
