@@ -36,7 +36,9 @@ public class SearchPane extends VBox{
 	Map<String, Double> curMaxes;
 	HBox buttonPane;
 	
-	protected SearchPane(GUIManager manager){
+	protected SearchPane(){
+	}
+	protected void create(GUIManager manager){
 		this.manager = manager;
         this.setPadding(new Insets(20, 20, 20, 20));
 		this.generateTitle();

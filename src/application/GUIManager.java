@@ -21,18 +21,14 @@ import javafx.scene.layout.VBox;
 
 public class GUIManager extends Application {
     private MealListPane mlp = new MealListPane();
-    private FoodPane fp = new FoodPane(mlp, this);
-    private SearchPane sp = new SearchPane(this);
+    private FoodPane fp = new FoodPane();
+    private SearchPane sp = new SearchPane();
     private FoodList fl = new FoodList();
     
     @Override
     public void start(Stage primaryStage) {
         try {
 			GridPane root = new GridPane();
-			root.add(fp, 0, 0, 1, 2);
-			root.add(sp, 1,0);
-			root.add(mlp, 1, 1);
-	        root.add(mlp.initializeMealAnalysis(), 2, 1);
 
 			Scene scene = new Scene(root,1400,1000);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -40,6 +36,15 @@ public class GUIManager extends Application {
 			primaryStage.setTitle("COOLEST CS400 PROJECT EVER!!!11!11111!!");
 			primaryStage.show();
 		//	loadNewFoodFile();
+		
+			//Moved to below scene creation b/c keyboard shortcuts need access to Scene
+			root.add(fp, 0, 0, 1, 2);
+			fp.create(mlp, this);
+			root.add(sp, 1,0);
+			sp.create(this);
+			root.add(mlp, 1, 1);
+			mlp.create();
+	        root.add(mlp.initializeMealAnalysis(), 2, 1);//awkward, convert to inner class later?
         } catch(Exception e) {
             e.printStackTrace();
         }

@@ -22,6 +22,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -51,7 +53,11 @@ public class FoodPane extends BorderPane{
      * about the name and nutritional content of various foods.
      * @param mlp A reference to the MealListPane that will be fed data from the FoodPane.
      */
-    public FoodPane(MealListPane mlp, GUIManager guiManager) {
+    public FoodPane(){
+    }
+    
+    //separated constructor from creation because now we have access to Scene
+    public void create(MealListPane mlp, GUIManager guiManager) {
         try {
         	this.guiManager =  guiManager;
             this.mlp = mlp;
@@ -124,6 +130,10 @@ public class FoodPane extends BorderPane{
                 updateMealListPane(selectedArr);
             }
         });
+        
+        System.out.println(this.getScene());
+//        GUIManager.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A), ()->addFoodToMealBtn.fire());
+        
 
         // when add food to list is pressed, deploy form and add food to list
         addSingleFoodBtn.setOnAction(new EventHandler<ActionEvent>() {

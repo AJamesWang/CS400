@@ -44,6 +44,8 @@ public class MealListPane extends BorderPane {
     private HBox titleBox;
 
     public MealListPane(){
+    }
+    protected void create(){
         try {
             VBox borderPaneRight = new VBox();
             borderPaneRight.getChildren().addAll(mealPane());
