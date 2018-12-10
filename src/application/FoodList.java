@@ -11,6 +11,10 @@ public class FoodList {
 	private HashMap<String, BPTree<Double, Food>> foodTrees;
 	private Set<Food> foods;
 	
+	/**
+	 * Constructor that creates a new hashmap, a new hashset of foods, and puts each 
+	 * food ID in the BP tree. 
+	 */
 	public FoodList(){
 		foodTrees = new HashMap<String, BPTree<Double, Food>>();
 		foods = new HashSet<Food>();
@@ -19,6 +23,13 @@ public class FoodList {
 		}
 	}
 	
+	/**
+	 * Goes through all of the mins and maxes that are desired for the food filter
+	 * option and only displays the ones that meet those requirements. 
+	 * @param mins the min number of things that are desired
+	 * @param maxes the max number of things that are desired
+	 * @return the arraylist of food that contains only the items that meet the criteria
+	 */
 	public ArrayList<Food> filterFoods(Map<String, Double> mins, Map<String, Double> maxes){
 		Set<Food> out = new HashSet<Food>();
 		out.addAll(this.foods);
@@ -32,8 +43,11 @@ public class FoodList {
 		return new ArrayList<Food>(out);
 	}
 	
-	/*
-	 * assumes that at least one of the doubles is non-null
+	/**
+	 * The method that actually goes through the food list and tests for if the food
+	 * meets the min and max criteria, andif so, it adds it to the list Out. 
+	 * 
+	 * Note: assumes that at least one of the doubles is non-null
 	 */
 	public List<Food> filterFoods(String id, Double min, Double max){
 		if(min==null){
@@ -53,6 +67,10 @@ public class FoodList {
 		}
 	}
 	
+	/**
+	 * Adds the food to the BP Tree
+	 * @param food
+	 */
 	public void addFood(Food food){
 		this.foods.add(food);
 		for(String id : Food.NUTRIENT_IDS){
