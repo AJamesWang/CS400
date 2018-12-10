@@ -290,10 +290,7 @@ public class FoodPane extends BorderPane{
         Optional<String> path = dialog.showAndWait();
         if (path.isPresent()) {
             IOHandler csvReader = new IOHandler();
-            for(Food food:csvReader.read(path.get())){
-            	this.guiManager.addFood(food);
-            }
-            this.guiManager.updateFoodPane();
+            this.guiManager.resetFoodPane(csvReader.read(path.get()));
             dialog.close();
         }
     }
