@@ -105,7 +105,7 @@ public class FoodPane extends BorderPane{
         // format table size and enable selection of multiple foods at once
         this.foodTable.setPrefWidth(500);
         this.foodTable.setPrefHeight(500);
-        this.foodTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+      //  this.foodTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.foodTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         // Set up and display scene
@@ -415,7 +415,12 @@ public class FoodPane extends BorderPane{
 
         // add all columns to table
         this.foodTable.getColumns().setAll(nameCol, caloriesCol, fatCol, carbsCol, fiberCol, proteinCol);
-
+        nameCol.prefWidthProperty().bind(foodTable.widthProperty().divide(2.4));
+        caloriesCol.prefWidthProperty().bind(foodTable.widthProperty().divide(7));
+        fatCol.prefWidthProperty().bind(foodTable.widthProperty().divide(11.0));
+        carbsCol.prefWidthProperty().bind(foodTable.widthProperty().divide(9.0));
+        fiberCol.prefWidthProperty().bind(foodTable.widthProperty().divide(10.0));
+        proteinCol.prefWidthProperty().bind(foodTable.widthProperty().divide(7.0));
         // set the height of Food Table to a ratio of the screen's height
         this.foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
     }
