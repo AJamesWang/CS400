@@ -33,8 +33,10 @@ public class MealListPane extends BorderPane {
     private HBox analyzeButtonBox;
     private HBox titleBox;
 
-    public MealListPane(){
-    }
+    /**
+     * Creates a meal list pane by setting the right of the pane to the VBox 
+     * that has all the info in it.
+     */
     protected void create(){
         try {
             VBox borderPaneRight = new VBox();
@@ -50,6 +52,11 @@ public class MealListPane extends BorderPane {
         public void handle(T event);
     }
 
+    /**
+     * creates a new food item with all of the total calories, fat, carbs, fiber, and protein in it.
+     * @author JoyNuelle
+     *
+     */
     class AnalysisHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
         Button analyzeButton;
         Food totalFoodData;
@@ -61,7 +68,7 @@ public class MealListPane extends BorderPane {
             
             Label totalCals = new Label("Total Calories: " + totalFoodData.getCalories());
             Label totalFat = new Label("Total Fat: " + totalFoodData.getFat());
-            Label totalCarbs = new Label("Total Fat: " + totalFoodData.getCarbs());
+            Label totalCarbs = new Label("Total Carbs: " + totalFoodData.getCarbs());
             Label totalFiber = new Label("Total Fiber: " + totalFoodData.getFiber());
             Label totalProtein = new Label("Total Protein: " + totalFoodData.getProtein());
             VBox totalBox = new VBox();
@@ -72,6 +79,11 @@ public class MealListPane extends BorderPane {
     }
 
 
+    /**
+     * Handles the remove from the meal List option.
+     * @author JoyNuelle
+     *
+     */
     class DeleteHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
         Button deleteButton;
         DeleteHandler(Button deleteButton) {this.deleteButton = deleteButton; }
@@ -82,6 +94,12 @@ public class MealListPane extends BorderPane {
         }
     }
 
+    /**
+     * Calculates the total amounts of cals, fat, carbs, fiber, and protein and stores
+     * them into a new food item.
+     * @param food   the total food item array list.
+     * @return the new food item that was created
+     */
     public Food calculateTotals(ArrayList<Food> food) {
         Food totalFood = new Food("Total Food", 0, 0, 0, 0, 0);
         
@@ -97,6 +115,11 @@ public class MealListPane extends BorderPane {
     }    
 
 
+    /**
+     * initializes the meal analysis section, creates the labels and boxes and sets
+     * the totals all to 0.
+     * @return  the VBox containing all of the mealAnalysis information
+     */
     public VBox initializeMealAnalysis() {
         this.mealAnalysisTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.mealAnalysisTable.setMinHeight(0.5 * Screen.getPrimary().getBounds().getHeight());
@@ -133,6 +156,10 @@ public class MealListPane extends BorderPane {
         return mealAnalysisBox;
     }
        
+    /**
+     * Creates the meal pane with the meal list in it. 
+     * @return the VBox that has the meal list in it.
+     */
     public VBox mealPane() {
         Label mealLabel = new Label("Meal:");
         mealLabel.setId("section-heading");
@@ -162,6 +189,10 @@ public class MealListPane extends BorderPane {
         return vBox;
     }
 
+    /**
+     * Updates the items in the meal list to be the list of foods passed in.
+     * @param food
+     */
     public void updateMealListPane(ArrayList<Food> food) {
         this.mealArr.addAll(food);
         ObservableList<Food> mealObsList = FXCollections.observableList(mealArr);
@@ -169,7 +200,7 @@ public class MealListPane extends BorderPane {
         this.mealTable.setItems(mealObsList);
     }
     
-    /*
+    /**
      * Sets up the columns in the table.
      * Sets up Name, Calories, Fat, Carbs, Fiber, and Protein
      * columns in that order.
