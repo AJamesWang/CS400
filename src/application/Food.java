@@ -32,7 +32,8 @@ public class Food implements Comparable {
      * @param carbs
      * @param fiber
      * @param protein
-     */
+     * 
+     */  
     /**
      * @param id
      * @param name
@@ -105,6 +106,7 @@ public class Food implements Comparable {
     public String getName() {
         return this.name;
     }
+    
     /**
      * Sets Name
      */
