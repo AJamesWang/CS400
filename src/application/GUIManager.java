@@ -75,6 +75,13 @@ public class GUIManager extends Application {
         this.fp.updateFoodArrList(shownFoods);
     }
 
+    protected void resetFoodPane(ArrayList<Food> newFoods){
+    	this.fl = new FoodList();
+    	for(Food food:newFoods){
+    		this.addFood(food);
+    	}
+    	this.updateFoodPane();
+    }
     //////////////////////
     // MealListPane methods //
     //////////////////////
