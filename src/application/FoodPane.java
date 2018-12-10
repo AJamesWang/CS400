@@ -24,7 +24,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -63,8 +62,6 @@ public class FoodPane extends BorderPane{
         	this.guiManager =  guiManager;
             this.mlp = mlp;
             this.setRight(foodPane());
-            this.requestFocus();//removes focus from filterField
-            this.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.ESCAPE), ()->this.requestFocus());
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -86,13 +83,13 @@ public class FoodPane extends BorderPane{
         this.filterField.setPromptText("filter by name");
        
         GridPane buttonGrid = new GridPane();//arranges buttons
-        this.addFoodToMealBtn = new Button("Add to meal (a)");
-        this.addSingleFoodBtn = new Button("Add to list (n)");
-        this.loadAddtnlFoodBtn = new Button("Load (ctrl-o)");
+        this.addFoodToMealBtn = new Button("Add to meal");
+        this.addSingleFoodBtn = new Button("Add to list");
+        this.loadAddtnlFoodBtn = new Button("Load");
         Region padding = new Region();
         padding.setPrefWidth(400);
         HBox.setHgrow(padding, Priority.ALWAYS);
-        this.saveFoodsBtn = new Button("Save (ctrl-s)");
+        this.saveFoodsBtn = new Button("Save");
         buttonGrid.add(this.addSingleFoodBtn, 0, 0, 2, 1);
         buttonGrid.add(this.loadAddtnlFoodBtn, 0, 2);
         buttonGrid.add(this.saveFoodsBtn, 1, 2);
@@ -133,8 +130,9 @@ public class FoodPane extends BorderPane{
                 updateMealListPane(selectedArr);
             }
         });
-        KeyCodeCombination addToMeal = new KeyCodeCombination(KeyCode.A);
-        this.getScene().getAccelerators().put(addToMeal, ()->addFoodToMealBtn.fire());
+        
+        System.out.println(this.getScene());
+//        GUIManager.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.A), ()->addFoodToMealBtn.fire());
         
 
         // when add food to list is pressed, deploy form and add food to list
@@ -145,28 +143,24 @@ public class FoodPane extends BorderPane{
                 addSingularFood();
             }
         });
-        KeyCodeCombination addToList = new KeyCodeCombination(KeyCode.N);
-        this.getScene().getAccelerators().put(addToList, ()->addSingleFoodBtn.fire());
 
         // when load new food list from file is pressed, deploy form and load new data into list
-        loadAddtnlFoodBtn.setOnAction(new EventHandler<ActionEvent>() { 
+        loadAddtnlFoodBtn.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent event) {
                 loadNewFoodFile();
             }
         });
-        KeyCodeCombination loadFromFile = new KeyCodeCombination(KeyCode.O, KeyCombination.SHORTCUT_DOWN);
-        this.getScene().getAccelerators().put(loadFromFile, ()->loadAddtnlFoodBtn.fire());
 
         // when load save food list button is pressed, deploy form for user to name the file then export the data
-        saveFoodsBtn.setOnAction(new EventHandler<ActionEvent>() { 
+        saveFoodsBtn.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent event) {
                 saveFoodToFile();
             }
         });
-        KeyCodeCombination saveToFile = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN);
-        this.getScene().getAccelerators().put(saveToFile, ()->saveFoodsBtn.fire());
 
         return foodPane;
     }
@@ -187,7 +181,6 @@ public class FoodPane extends BorderPane{
         nameField.setPromptText("Name");
         nameField.setPrefColumnCount(10);
         GridPane.setConstraints(nameField, 0, 0);
-        nameField.setId("focused");
 
         //Defining the Calories text field
         TextField calsField = new TextField();
@@ -219,7 +212,6 @@ public class FoodPane extends BorderPane{
         dialog.setTitle("Add Food");
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
-        dialog.getDialogPane().lookup("#focused").requestFocus();
 
         // get user input and add food to table
         dialog.setResultConverter((ButtonType button) -> {
@@ -370,7 +362,7 @@ public class FoodPane extends BorderPane{
         this.foodTable.setItems(sortedData);  
         
         // reset count of foods in the list
-        this.foodLabel = new Label("Food List (" + (foodArrList.size()==0?"empty":foodArrList.size()) + "):");
+        this.foodLabel = new Label("Food List (" + foodArrList.size() + "):");
         this.foodLabel.setId("section-heading");
 //        this.foodCount = new Label("Number of Food Items: " + foodArrList.size());
         this.headerFPane.getChildren().clear();
@@ -412,12 +404,15 @@ public class FoodPane extends BorderPane{
 
         // add all columns to table
         this.foodTable.getColumns().setAll(nameCol, caloriesCol, fatCol, carbsCol, fiberCol, proteinCol);
+        
         nameCol.prefWidthProperty().bind(foodTable.widthProperty().divide(2.4));
         caloriesCol.prefWidthProperty().bind(foodTable.widthProperty().divide(7));
         fatCol.prefWidthProperty().bind(foodTable.widthProperty().divide(11.0));
         carbsCol.prefWidthProperty().bind(foodTable.widthProperty().divide(9.0));
         fiberCol.prefWidthProperty().bind(foodTable.widthProperty().divide(10.0));
         proteinCol.prefWidthProperty().bind(foodTable.widthProperty().divide(7.0));
+
+     //   col2.prefWidthProperty().bind(table.widthProperty().multiply(0.7));
         // set the height of Food Table to a ratio of the screen's height
         this.foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
     }
