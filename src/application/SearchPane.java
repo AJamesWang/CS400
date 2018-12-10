@@ -1,28 +1,19 @@
 package application;
 	
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 
@@ -38,6 +29,7 @@ public class SearchPane extends VBox{
 	
 	protected SearchPane(){
 	}
+	
 	protected void create(GUIManager manager){
 		this.manager = manager;
         this.setPadding(new Insets(20, 20, 20, 20));
@@ -152,10 +144,12 @@ public class SearchPane extends VBox{
 			min.setPromptText("-");
 			min.setMaxWidth(70);
 			min.setId("food-data");
+			min.setOnKeyPressed((ke)->{if(ke.getCode().equals(KeyCode.ENTER))this.search();});
 			TextField max = new TextField();
 			max.setPromptText("-");
 			max.setMaxWidth(70);
 			max.setId("food-data");
+			max.setOnKeyPressed((ke)->{if(ke.getCode().equals(KeyCode.ENTER))this.search();});
 			//TODO: look into TextFormatter? To limit input to numbers?
 			//https://stackoverflow.com/questions/8381374/how-to-implement-a-numberfield-in-javafx-2-0
 			this.mins.put(id, min);
@@ -176,10 +170,15 @@ public class SearchPane extends VBox{
 	 * Generates all necessary buttons
 	 */
 	private void generateButtons(){
-		Button searchButton = new Button("search");//TODO: consider renaming to filter?
+		Button searchButton = new Button("search (enter)");//TODO: consider renaming to filter?
 		searchButton.setOnAction(e->search());
-		Button resetButton = new Button("reset");
+		KeyCodeCombination search = new KeyCodeCombination(KeyCode.F, KeyCodeCombination.SHORTCUT_DOWN);
+		this.getScene().getAccelerators().put(search, ()->searchButton.fire());
+		Button resetButton = new Button("reset (ctrl-r)");
 		resetButton.setOnAction(e->clearData());
+		KeyCodeCombination reset = new KeyCodeCombination(KeyCode.R, KeyCodeCombination.SHORTCUT_DOWN);
+		this.getScene().getAccelerators().put(reset, ()->resetButton.fire());
+		
 		this.buttonPane = new HBox();
 		this.buttonPane.getChildren().addAll(searchButton, resetButton);
 		this.buttonPane.setAlignment(Pos.CENTER);

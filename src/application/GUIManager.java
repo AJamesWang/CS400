@@ -82,9 +82,9 @@ public class GUIManager extends Application {
     	}
     	this.updateFoodPane();
     }
-    //////////////////////
+    //////////////////////////
     // MealListPane methods //
-    //////////////////////
+    //////////////////////////
     /*
      * Receives an ArrayList of FoodItems
      * and loads them into the mealListPane
