@@ -1,5 +1,8 @@
 package application;
 
+import java.util.UUID;
+import java.util.zip.CRC32;
+
 /*
  * Note: We implemented and used this separate Food class to have standard getters
  * and setters to use in the TableView data structures. TableView requires types with 
@@ -90,7 +93,16 @@ public class Food implements Comparable {
      * @return id
      */
     private String idGenerator() {
-        return "IMPLEMENT ID GENERATOR IN FOOD CLASS";
+        int id = name.hashCode()/Integer.toString((int)calories).hashCode();
+        id -= Integer.toString((int)fat).hashCode()/Integer.toString((int)carbs).hashCode();
+        id /= Integer.toString((int)fiber).hashCode();
+        id -= Integer.toString((int)protein).hashCode();
+        
+        System.out.println(id);
+        
+        return Integer.toString(id);
+        
+
     }
 
     public String getID() {
