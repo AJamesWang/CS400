@@ -63,6 +63,8 @@ public class FoodPane extends BorderPane{
         	this.guiManager =  guiManager;
             this.mlp = mlp;
             this.setRight(foodPane());
+            this.requestFocus();//removes focus from filterField
+            this.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.ESCAPE), ()->this.requestFocus());
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +83,7 @@ public class FoodPane extends BorderPane{
 
         foodLabel.setId("section-heading");
         this.filterField = new TextField();
-        this.filterField.setPromptText("filter name here");
+        this.filterField.setPromptText("filter by name");
         
         GridPane buttonGrid = new GridPane();//arranges buttons
         this.addFoodToMealBtn = new Button("Add to meal (a)");
@@ -132,7 +134,7 @@ public class FoodPane extends BorderPane{
             }
         });
         KeyCodeCombination addToMeal = new KeyCodeCombination(KeyCode.A);
-        this.getScene().getAccelerators().put(addToMeal, ()->System.out.println("s;ldkfj"));
+        this.getScene().getAccelerators().put(addToMeal, ()->addFoodToMealBtn.fire());
         
 
         // when add food to list is pressed, deploy form and add food to list
@@ -185,6 +187,7 @@ public class FoodPane extends BorderPane{
         nameField.setPromptText("Name");
         nameField.setPrefColumnCount(10);
         GridPane.setConstraints(nameField, 0, 0);
+        nameField.setId("focused");
 
         //Defining the Calories text field
         TextField calsField = new TextField();
@@ -216,6 +219,7 @@ public class FoodPane extends BorderPane{
         dialog.setTitle("Add Food");
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.OK);
+        dialog.getDialogPane().lookup("#focused").requestFocus();
 
         // get user input and add food to table
         dialog.setResultConverter((ButtonType button) -> {
@@ -369,7 +373,7 @@ public class FoodPane extends BorderPane{
         this.foodTable.setItems(sortedData);  
         
         // reset count of foods in the list
-        this.foodLabel = new Label("Food List (" + foodArrList.size() + "):");
+        this.foodLabel = new Label("Food List (" + (foodArrList.size()==0?"empty":foodArrList.size()) + "):");
         this.foodLabel.setId("section-heading");
 //        this.foodCount = new Label("Number of Food Items: " + foodArrList.size());
         this.headerFPane.getChildren().clear();

@@ -3,34 +3,24 @@ package application;
 
 import java.util.ArrayList;
 import java.util.EventListener;
-import java.util.List;
-import javax.swing.GroupLayout.Alignment;
-import javafx.application.Application;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 
 public class MealListPane extends BorderPane {
@@ -153,9 +143,11 @@ public class MealListPane extends BorderPane {
         VBox vBox = new VBox();
 
         // Delete Food Button
-        Button deleteButton = new Button("Remove");
+        Button deleteButton = new Button("Remove (r)");
         DeleteHandler deleteHandler = new DeleteHandler(deleteButton);
-        deleteButton.setOnAction(deleteHandler);            
+        deleteButton.setOnAction(deleteHandler);
+        KeyCodeCombination removeFood = new KeyCodeCombination(KeyCode.R);
+        this.getScene().getAccelerators().put(removeFood, ()->deleteButton.fire());
         HBox hBox3 = new HBox();
         hBox3.getChildren().add(deleteButton);
         hBox3.setAlignment(Pos.BASELINE_CENTER);//change alignment maybe?
