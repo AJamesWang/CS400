@@ -174,9 +174,9 @@ public class SearchPane extends VBox{
 		searchButton.setOnAction(e->search());
 		KeyCodeCombination search = new KeyCodeCombination(KeyCode.F, KeyCodeCombination.SHORTCUT_DOWN);
 		this.getScene().getAccelerators().put(search, ()->searchButton.fire());
-		Button resetButton = new Button("reset (ctrl-r)");
+		Button resetButton = new Button("clear (ctrl-c)");
 		resetButton.setOnAction(e->clearData());
-		KeyCodeCombination reset = new KeyCodeCombination(KeyCode.R, KeyCodeCombination.SHORTCUT_DOWN);
+		KeyCodeCombination reset = new KeyCodeCombination(KeyCode.C, KeyCodeCombination.SHORTCUT_DOWN);
 		this.getScene().getAccelerators().put(reset, ()->resetButton.fire());
 		
 		this.buttonPane = new HBox();

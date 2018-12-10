@@ -86,8 +86,8 @@ public class FoodPane extends BorderPane{
         this.filterField.setPromptText("filter by name");
        
         GridPane buttonGrid = new GridPane();//arranges buttons
-        this.addFoodToMealBtn = new Button("Add to meal (a)");
-        this.addSingleFoodBtn = new Button("Add to list (n)");
+        this.addFoodToMealBtn = new Button("Add to meal (ctrl-a)");
+        this.addSingleFoodBtn = new Button("Add to list (ctrl-n)");
         this.loadAddtnlFoodBtn = new Button("Load (ctrl-o)");
         Region padding = new Region();
         padding.setPrefWidth(400);
@@ -133,7 +133,7 @@ public class FoodPane extends BorderPane{
                 updateMealListPane(selectedArr);
             }
         });
-        KeyCodeCombination addToMeal = new KeyCodeCombination(KeyCode.A);
+        KeyCodeCombination addToMeal = new KeyCodeCombination(KeyCode.A, KeyCodeCombination.SHORTCUT_DOWN);
         this.getScene().getAccelerators().put(addToMeal, ()->addFoodToMealBtn.fire());
         
 
@@ -145,7 +145,7 @@ public class FoodPane extends BorderPane{
                 addSingularFood();
             }
         });
-        KeyCodeCombination addToList = new KeyCodeCombination(KeyCode.N);
+        KeyCodeCombination addToList = new KeyCodeCombination(KeyCode.N, KeyCodeCombination.SHORTCUT_DOWN);
         this.getScene().getAccelerators().put(addToList, ()->addSingleFoodBtn.fire());
 
         // when load new food list from file is pressed, deploy form and load new data into list

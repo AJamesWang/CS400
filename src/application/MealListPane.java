@@ -170,10 +170,10 @@ public class MealListPane extends BorderPane {
         VBox vBox = new VBox();
 
         // Delete Food Button
-        Button deleteButton = new Button("Remove (r)");
+        Button deleteButton = new Button("Remove (ctrl-r)");
         DeleteHandler deleteHandler = new DeleteHandler(deleteButton);
         deleteButton.setOnAction(deleteHandler);
-        KeyCodeCombination removeFood = new KeyCodeCombination(KeyCode.R);
+        KeyCodeCombination removeFood = new KeyCodeCombination(KeyCode.R, KeyCodeCombination.SHORTCUT_DOWN);
         this.getScene().getAccelerators().put(removeFood, ()->deleteButton.fire());
         HBox hBox3 = new HBox();
         hBox3.getChildren().add(deleteButton);
