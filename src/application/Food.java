@@ -92,59 +92,88 @@ public class Food implements Comparable {
     private String idGenerator() {
         return "IMPLEMENT ID GENERATOR IN FOOD CLASS";
     }
-
+    
+    /**
+     * Returns ID
+     */
     public String getID() {
         return this.id;
     }
-    
+    /**
+     * Returns Name
+     */
     public String getName() {
         return this.name;
     }
-    
+    /**
+     * Sets Name
+     */
     public void setName(String name) {
         this.name = name;
     }
-    
+    /**
+     * Returns Calories 
+     */
     public Double getCalories() {
         return this.calories;
     }
-    
+    /**
+     * Sets calories 
+     */
     public void setCalories(double calories) {
         this.calories = calories;
     }
-    
+    /**
+     * Returns Fat
+     */
     public double getFat() {
         return this.fat;
     }
-    
+    /**
+     * Sets Fat
+     */
     public void setFat(double fat) {
         this.fat = fat;
     }
-    
+    /**
+     * Returns Carbs
+     */
     public double getCarbs() {
         return this.carbs;
     }
-    
+    /**
+     * Sets Carbs
+     */
     public void setCarbs(double carbs) {
         this.carbs = carbs;
     }
-    
+    /**
+     * Returns Fiber
+     */
     public double getFiber() {
         return this.fiber;
     }
-    
+    /**
+     * Sets Fiber
+     */
     public void setFiber(double fiber) {
         this.fiber = fiber;
     }
-    
+    /**
+     * Returns Protein
+     */
     public double getProtein() {
         return this.protein;
     }
-    
+    /**
+     * Sets Protein 
+     */
     public void setProtein(double protein) {
         this.protein = protein;
     }
-    
+    /**
+     * Returns Nutrient Value
+     */
     public double getNutrientValue(String id){
     	switch(id){
     		case("calories"):
@@ -187,7 +216,10 @@ public class Food implements Comparable {
     public int compareTo(Object o) {
         return this.id.compareTo(((Food)o).getID());
     }
-
+    /*Returns ID's hashCode 
+     * (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode(){
     	return this.id.hashCode();
