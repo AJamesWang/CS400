@@ -48,6 +48,7 @@ public class FoodPane extends BorderPane{
     private Button loadAddtnlFoodBtn;
     private Button saveFoodsBtn;
     private VBox foodPane;
+    private TableColumn nameCol;
 
     /*
      * Constructs a FoodPane containing information
@@ -86,8 +87,8 @@ public class FoodPane extends BorderPane{
         this.filterField.setPromptText("filter by name");
        
         GridPane buttonGrid = new GridPane();//arranges buttons
-        this.addFoodToMealBtn = new Button("Add to meal (ctrl-a)");
-        this.addSingleFoodBtn = new Button("Add to list (ctrl-n)");
+        this.addFoodToMealBtn = new Button("Add to meal (a)");
+        this.addSingleFoodBtn = new Button("Add to list (n)");
         this.loadAddtnlFoodBtn = new Button("Load (ctrl-o)");
         Region padding = new Region();
         padding.setPrefWidth(400);
@@ -133,7 +134,7 @@ public class FoodPane extends BorderPane{
                 updateMealListPane(selectedArr);
             }
         });
-        KeyCodeCombination addToMeal = new KeyCodeCombination(KeyCode.A, KeyCodeCombination.SHORTCUT_DOWN);
+        KeyCodeCombination addToMeal = new KeyCodeCombination(KeyCode.A);
         this.getScene().getAccelerators().put(addToMeal, ()->addFoodToMealBtn.fire());
         
 
@@ -145,7 +146,7 @@ public class FoodPane extends BorderPane{
                 addSingularFood();
             }
         });
-        KeyCodeCombination addToList = new KeyCodeCombination(KeyCode.N, KeyCodeCombination.SHORTCUT_DOWN);
+        KeyCodeCombination addToList = new KeyCodeCombination(KeyCode.N);
         this.getScene().getAccelerators().put(addToList, ()->addSingleFoodBtn.fire());
 
         // when load new food list from file is pressed, deploy form and load new data into list
@@ -367,8 +368,8 @@ public class FoodPane extends BorderPane{
         SortedList<Food> sortedData = new SortedList<Food>(filteredData);
         //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
         sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
-        this.foodTable.setItems(sortedData);  
-        
+        this.foodTable.setItems(sortedData); 
+        foodTable.getSortOrder().add(nameCol);
         // reset count of foods in the list
         this.foodLabel = new Label("Food List (" + (foodArrList.size()==0?"empty":foodArrList.size()) + "):");
         this.foodLabel.setId("section-heading");
@@ -387,7 +388,7 @@ public class FoodPane extends BorderPane{
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void setupColumns() {
         // name
-        TableColumn nameCol = new TableColumn("Name");
+        nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("Name"));
 
         // calories
