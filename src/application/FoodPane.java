@@ -84,7 +84,7 @@ public class FoodPane extends BorderPane{
         foodLabel.setId("section-heading");
         this.filterField = new TextField();
         this.filterField.setPromptText("filter by name");
-        
+       
         GridPane buttonGrid = new GridPane();//arranges buttons
         this.addFoodToMealBtn = new Button("Add to meal (a)");
         this.addSingleFoodBtn = new Button("Add to list (n)");
