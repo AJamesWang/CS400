@@ -15,7 +15,7 @@ import java.util.Random;
  * range search as compared to other types of data structures
  * due to the ability to perform log_m N lookups and
  * linear in-order traversals of the data items.
- * 
+ *  
  * @author sapan (sapan@cs.wisc.edu)
  *
  * @param <K> key - expect a string that is the type of id for each item
@@ -32,13 +32,15 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
     
     
     /**
-     * Default constructor, branchingFactor = 5;
+     * Default constructor for BPTree with branchingFactor of 5;
      */
     public BPTree() {
     	this.branchingFactor = 5;
     }
     /**
-     * Public constructor
+     * Public constructor for BPTree, which handles the branching factor property.
+     * If branching factor is less than or equal to 2, an IlegalArgumentException
+     * is thrown. 
      * 
      * @param branchingFactor 
      */
@@ -50,14 +52,14 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         this.branchingFactor = branchingFactor;
     }
     
-    /*
+    /*Insert method for BPTree. 
      * (non-Javadoc)
      * @see BPTreeADT#insert(java.lang.Object, java.lang.Object)
      */
     @Override
     public void insert(K key, V value) {
     	if(this.root == null){
-    		this.root = new LeafNode();
+    		this.root = new LeafNode(); 
     	}
 		this.root.insert(key,  value);
 		if(this.root.isOverflow()){
@@ -70,7 +72,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
     }
     
     
-	/**
+	/**Comparing key values in BPTree. 
 	 * @return true if key1 [comparator] key2
 	 */
 	 private boolean matches(K k1, String comparator, K k2){
@@ -86,7 +88,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
 		 }
 	 }
 	 
-    /*
+    /*Searches through BPTree for the key. 
      * (non-Javadoc)
      * @see BPTreeADT#rangeSearch(java.lang.Object, java.lang.String)
      */
@@ -100,13 +102,13 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
     }
     
     /*
-     * prints out the tree, for debuggin
+     * prints out the tree, for debugging
      */
      private void printTree(){
     	 System.out.println(this.toString());
      }
     
-    /*
+    /*prints out the tree for debugging 
      * (non-Javadoc)
      * @see java.lang.Object#toString()
      */
@@ -233,7 +235,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	}
         }
         
-        /**
+        /**Gets the first leaf key of the BPTree. 
          * (non-Javadoc)
          * @see BPTree.Node#getFirstLeafKey()
          */
@@ -242,7 +244,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	return this.children.get(0).getFirstLeafKey();
         }
         
-        /**
+        /**Checks whether the branching factor has been violated
          * (non-Javadoc)
          * @see BPTree.Node#isOverflow()
          */
@@ -250,7 +252,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	return this.children.size() > branchingFactor;
         }
         
-        /**
+        /**Gets the index of the key in the BPTree. 
          * @return index of child which contains key
          */
         int getIndex(K key){
@@ -261,7 +263,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	//if it reaches this point, key is found in last child
         	return this.keys.size();//equivalent to this.children.size()-1
         }
-        /**
+        /**Inserts key and value into BPTree. 
          * (non-Javadoc)
          * @see BPTree.Node#insert(java.lang.Comparable, java.lang.Object)
          */
@@ -385,7 +387,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         	this.values.add(count, value);
         }
         
-        /**
+        /**Splits BPTree to adhere to the properties of the data structure
          * (non-Javadoc)
          * @see BPTree.Node#split()
          */
