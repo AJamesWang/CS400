@@ -6,13 +6,11 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class IOHandler {
-
+   
     /*
      * Reads info from CSV file and returns an ArrayList of 
      * the Food items it contains.
@@ -22,23 +20,22 @@ public class IOHandler {
      */
     public ArrayList<Food> read(String filePath) {
         ArrayList<Food> foodList = new ArrayList<Food>(); // ArrayList of Foods from the file
-        Set<String> idSet = new HashSet<String>();
         BufferedReader br = null; 
         String line = "";
         String csvSplitBy = ","; // split lines based on commas
-
+        
         try {
             br = new BufferedReader(new FileReader(filePath));
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator
                 String[] foodData = line.split(csvSplitBy);
-
+                
                 // line does not have the proper amount of data points, so skip
                 if (foodData.length != 12) {
                     continue;
                 }
-
+               
                 // convert input to proper format, create Food and add to list
                 String id = "invalidID";
                 String name = "invalidName";
@@ -47,7 +44,7 @@ public class IOHandler {
                 double carbs = -1;
                 double fiber = -1;
                 double protein = -1;
-
+                
                 try {
                     id = foodData[0];
                     name = foodData[1];
@@ -62,14 +59,10 @@ public class IOHandler {
                     if (!foodData[10].equals("protein")) { continue; }
                     protein = Double.parseDouble(foodData[11]);
                 } catch (NumberFormatException e) {
-                    continue;
+                   continue;
                 }
-
-                // NO DUPLICATE ID'S ALLOWED, it just won't add the second one.
-                if (!idSet.contains(id)) {
-                    idSet.add(id); 
-                    foodList.add(new Food(id, name, calories, fat, carbs, fiber, protein));  
-                }
+                
+                foodList.add(new Food(id, name, calories, fat, carbs, fiber, protein));               
             }          
         } catch (FileNotFoundException e) {
             // tell user that file could not be found
@@ -89,7 +82,7 @@ public class IOHandler {
         }        
         return foodList;
     }
-
+    
     /*
      * Writes food data to CSV file specified by filepath. 
      * If file doesn't already exist, it is created in the local directory.
@@ -100,10 +93,10 @@ public class IOHandler {
     public void write(String filePath, ArrayList<Food> foods) {
         FileWriter fl = null;
         String csvSplitBy = ","; // split lines based on commas
-
+        
         try {
             fl = new FileWriter(filePath + ".csv");
-
+            
             for (Food food: foods) {
                 fl.append(food.getID() + csvSplitBy);
                 fl.append(food.getName() + csvSplitBy);
@@ -124,8 +117,8 @@ public class IOHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            
         }
     }
-
-}
+        
+ }
