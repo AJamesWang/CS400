@@ -11,7 +11,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-//TODO: switch this to a popup?
+/**
+ * 
+ *
+ */
 public class FrontPage extends GridPane{
 
 	

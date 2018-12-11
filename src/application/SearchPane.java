@@ -15,7 +15,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
+/**
+ *
+ *
+ */
 
 public class SearchPane extends VBox{
 	GUIManager manager;
@@ -29,7 +32,9 @@ public class SearchPane extends VBox{
 	
 	protected SearchPane(){
 	}
-	
+	/*
+	 * Separated constructor for GUIManager. 
+	 */
 	protected void create(GUIManager manager){
 		this.manager = manager;
         this.setPadding(new Insets(20, 20, 20, 20));

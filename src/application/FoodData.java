@@ -21,7 +21,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
     
    
     /**
-     * Public constructor
+     * FoodData constructor 
      */
     public FoodData() {
         this.foodItemList = new ArrayList<FoodItem>();
@@ -29,7 +29,8 @@ public class FoodData implements FoodDataADT<FoodItem> {
     }
     
     
-    /*
+    /*Loads food items from file and retrieves nutrient information for each 
+     * one. 
      * (non-Javadoc)
      * @see skeleton.FoodDataADT#loadFoodItems(java.lang.String)
      */
@@ -51,7 +52,9 @@ public class FoodData implements FoodDataADT<FoodItem> {
         }
     }
 
-    /*
+    /*Sifts through food list for the items that match the searched for
+     * name.
+     * 
      * (non-Javadoc)
      * @see skeleton.FoodDataADT#filterByName(java.lang.String)
      */
@@ -86,7 +89,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
         // TODO : Complete
     }
 
-    /*
+    /*Returns a list of the food items. 
      * (non-Javadoc)
      * @see skeleton.FoodDataADT#getAllFoodItems()
      */

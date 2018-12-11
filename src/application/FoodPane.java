@@ -34,6 +34,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+/**
+ * 
+ * 
+ *
+ */
 
 public class FoodPane extends BorderPane{
 	private GUIManager guiManager; // reference to guiManager
@@ -45,12 +50,12 @@ public class FoodPane extends BorderPane{
     private Label foodLabel; // "Food List" label
     private Label foodCount; // shows number of foods diplayed in list
     private HBox headerFPane; // container for Food Pane header
-    private Button addFoodToMealBtn; 
-    private Button addSingleFoodBtn;
-    private Button loadAddtnlFoodBtn;
-    private Button helpBtn;
-    private Button saveFoodsBtn;
-    private VBox foodPane; 
+    private Button addFoodToMealBtn; // button for adding food to meal
+    private Button addSingleFoodBtn; //button for adding only one item to food list
+    private Button loadAddtnlFoodBtn; //button for loading file to food list
+    private Button helpBtn; //button for help for user
+    private Button saveFoodsBtn;//button for saving food to a file
+    private VBox foodPane; //container for headerFPane, filterField, food table, and button grid 
     private TableColumn nameCol; // visibility for filtering alphabetically based on names
     Set<String> idSet = new HashSet<String>(); // keeps track of unique ids of all foods in list
 

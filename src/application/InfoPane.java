@@ -1,5 +1,13 @@
-package application;
-	
+/**
+ * Main Class File: GUIManager.java
+ * File: InfoPane.java
+ * Semester: Fall 2018
+ * 
+ * Author: d-team 57
+ * 
+ * Credits: none
+ */
+package application;	
 import java.util.HashMap;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,7 +27,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-
+/**
+ * 
+ * 
+ * Bugs: 
+ * @author d-team 57
+ */
 public class InfoPane extends VBox{
 	Food target;
 	BorderPane titlePane;
@@ -31,7 +44,7 @@ public class InfoPane extends VBox{
 		this.generateButtons();
 	}
 	
-	/*
+	/**
 	 * updates the food which InfoPane looks at
 	 */
 	protected void setFood(Food target){
@@ -40,7 +53,7 @@ public class InfoPane extends VBox{
 	}
 	
 	
-	/*
+	/**
 	 * updates all the data info
 	 */
 	protected void update(){
@@ -80,7 +93,7 @@ public class InfoPane extends VBox{
 		}
 	}
 	
-	/*
+	/**
 	 * Clears selected food data
 	 * Consider removing, no purpose for it to exist?
 	 * At least, remove the button...
@@ -90,7 +103,7 @@ public class InfoPane extends VBox{
 		this.padDataPane();
 	}
 	
-	/*
+	/**
 	 * Generates title, makes it all pretty
 	 */
 	private void generateTitle(){
@@ -102,7 +115,7 @@ public class InfoPane extends VBox{
 		this.getChildren().add(this.titlePane);
 	}
 	
-	/*
+	/**
 	 * Generates the initial, blank dataPane
 	 */
 	private void generateData(){
@@ -111,7 +124,7 @@ public class InfoPane extends VBox{
 		this.getChildren().add(this.dataPane);
 	}
 	
-	/*
+	/**
 	 * Creates buttons
 	 * TODO: delete? Not sure if we need these buttons...
 	 */

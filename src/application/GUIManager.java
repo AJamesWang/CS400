@@ -1,5 +1,13 @@
+/**
+ * Main Class File: GUIManager.java
+ * File: GUIManager.java
+ * Semester: Fall 2018
+ * 
+ * Author: d-team 57
+ * 
+ * Credits: none
+ */
 package application;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +26,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * 
+ * 
+ * Bugs: 
+ * @author d-team 57
+ */
 public class GUIManager extends Application {
     private MealListPane mlp = new MealListPane();
     private FoodPane fp = new FoodPane();
     private SearchPane sp = new SearchPane();
     private FoodList fl = new FoodList();
     
+    /**
+     * Sets pane and scene.
+     */
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -35,7 +51,7 @@ public class GUIManager extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("COOLEST CS400 PROJECT EVER!!!11!11111!!");
 			primaryStage.show();
-		//	loadNewFoodFile();
+		   //loadNewFoodFile();
 		
 			//Moved to below scene creation b/c keyboard shortcuts need access to Scene
 			root.add(fp, 0, 0, 1, 2);
@@ -53,7 +69,7 @@ public class GUIManager extends Application {
     //////////////////////
     //SearchPane methods//
     //////////////////////
-    /*
+    /**
      * Receives a list of constraints from SearchPane
      * updates FoodList accordingly
      */
@@ -64,7 +80,7 @@ public class GUIManager extends Application {
     //////////////////////
     // FoodPane methods //
     //////////////////////
-    /*
+    /**
      * Receives an ObservableList of FoodItems
      * and loads them into the FoodPane
      * 
@@ -74,7 +90,10 @@ public class GUIManager extends Application {
     	ArrayList<Food> shownFoods = this.fl.filterFoods(sp.getMins(), sp.getMaxes());
         this.fp.updateFoodArrList(shownFoods);
     }
-
+    /**
+     * Updates Food Pane with new food list. 
+     * @param newFoods an array list of updated foods
+     */
     protected void resetFoodPane(ArrayList<Food> newFoods){
     	    this.fl = new FoodList();
       	for(Food food:newFoods){
@@ -87,7 +106,7 @@ public class GUIManager extends Application {
     // MealListPane methods //
     //////////////////////////
     
-    /*
+    /**
      * Receives an ArrayList of FoodItems
      * and loads them into the mealListPane
      * 
@@ -97,7 +116,7 @@ public class GUIManager extends Application {
         this.mlp.updateMealListPane(foods);
     }
     
-    /*
+    /**
      * Adds food to FoodList, updates FoodPane accordingly
      * @param Food to be added
      */
@@ -106,7 +125,10 @@ public class GUIManager extends Application {
      	this.updateFoodPane();
     }
 
-
+    /**
+     * Main method 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
