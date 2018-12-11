@@ -48,6 +48,7 @@ public class FoodPane extends BorderPane{
     private Button addFoodToMealBtn; 
     private Button addSingleFoodBtn;
     private Button loadAddtnlFoodBtn;
+    private Button helpBtn;
     private Button saveFoodsBtn;
     private VBox foodPane; 
     private TableColumn nameCol; // visibility for filtering alphabetically based on names
@@ -92,6 +93,7 @@ public class FoodPane extends BorderPane{
         this.addFoodToMealBtn = new Button("Add to meal (a)");
         this.addSingleFoodBtn = new Button("Add to list (n)");
         this.loadAddtnlFoodBtn = new Button("Load (ctrl-o)");
+        this.helpBtn = new Button("Help!");
         Region padding = new Region();
         padding.setPrefWidth(400);
         HBox.setHgrow(padding, Priority.ALWAYS);
@@ -101,6 +103,7 @@ public class FoodPane extends BorderPane{
         buttonGrid.add(this.saveFoodsBtn, 1, 2);
         buttonGrid.add(padding, 1, 0);
         buttonGrid.add(this.addFoodToMealBtn, 3, 0);
+        buttonGrid.add(this.helpBtn, 3, 2);
 
         // name the columns
         setupColumns();
@@ -170,6 +173,18 @@ public class FoodPane extends BorderPane{
         KeyCodeCombination saveToFile = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN);
         this.getScene().getAccelerators().put(saveToFile, ()->saveFoodsBtn.fire());
 
+        // when help button pressed, open up a text dialog that tells them how to select more than one food
+        helpBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Here's some info: ");
+                alert.setHeaderText("How to select more than one food to add to meal");
+                alert.setContentText("Hold down ctrl-c and click the food items you would "
+                    + "like to add");
+                alert.showAndWait();
+            }
+        });
         return foodPane;
     }
 
