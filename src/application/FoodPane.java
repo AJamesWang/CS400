@@ -184,7 +184,7 @@ public class FoodPane extends BorderPane{
                 alert.setContentText("Hold down ctrl-c and click the food items you would "
                     + "like to add");
                 alert.showAndWait();
-            }
+            } 
         });
         return foodPane;
     }
