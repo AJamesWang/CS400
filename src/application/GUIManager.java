@@ -54,11 +54,11 @@ public class GUIManager extends Application {
     //SearchPane methods//
     //////////////////////
     /*
-     * receives a list of constraints from SearchPane
+     * Receives a list of constraints from SearchPane
      * updates FoodList accordingly
      */
     protected void constraintsUpdated(){
-    	this.updateFoodPane();
+    	    this.updateFoodPane();
     }
 
     //////////////////////
@@ -76,15 +76,17 @@ public class GUIManager extends Application {
     }
 
     protected void resetFoodPane(ArrayList<Food> newFoods){
-    	this.fl = new FoodList();
-    	for(Food food:newFoods){
-    		this.addFood(food);
-    	}
-    	this.updateFoodPane();
+    	    this.fl = new FoodList();
+      	for(Food food:newFoods){
+    		    this.addFood(food);
+     	}
+      	this.updateFoodPane();
     }
+    
     //////////////////////////
     // MealListPane methods //
     //////////////////////////
+    
     /*
      * Receives an ArrayList of FoodItems
      * and loads them into the mealListPane
@@ -94,12 +96,14 @@ public class GUIManager extends Application {
     protected void updateMealListPane(ArrayList<Food> foods) {
         this.mlp.updateMealListPane(foods);
     }
+    
     /*
      * Adds food to FoodList, updates FoodPane accordingly
+     * @param Food to be added
      */
     protected void addFood(Food food){
-    	this.fl.addFood(food);
-    	this.updateFoodPane();
+       	this.fl.addFood(food);
+     	this.updateFoodPane();
     }
 
 

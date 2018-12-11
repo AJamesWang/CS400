@@ -1,8 +1,5 @@
 package application;
 
-import java.util.UUID;
-import java.util.zip.CRC32;
-
 /*
  * Note: We implemented and used this separate Food class to have standard getters
  * and setters to use in the TableView data structures. TableView requires types with 
@@ -37,15 +34,6 @@ public class Food implements Comparable {
      * @param protein
      * 
      */  
-    /**
-     * @param id
-     * @param name
-     * @param calories
-     * @param fat
-     * @param carbs
-     * @param fiber
-     * @param protein
-     */
     Food(String id, String name, double calories, double fat, double carbs, double fiber, double protein) {
         this.id = id;
         this.name = name;

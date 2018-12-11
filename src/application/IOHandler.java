@@ -135,7 +135,7 @@ public class IOHandler {
      * foods with duplicate ids. 
      */
     public void shareIDSet(FoodPane fp) {
-        fp.setIDSet(this.idSet);;
+        fp.updateIDSet(this.idSet);;
     }
 
 }
