@@ -1,11 +1,14 @@
 package application;
 
 /*
+ * Stores all the necessary data for a food: calories, fat, carbs, fiber, protein.
+ * Cannot handle newly created nutrition catagories (e.g. sugar)
+ * 
  * Note: We implemented and used this separate Food class to have standard getters
  * and setters to use in the TableView data structures. TableView requires types with 
  * explicit getters in order to display data about the items it contains.
  * 
- * 
+ * @author d-Team 57
  */
 public class Food implements Comparable {
 	public static final String[] NUTRIENT_UNITS = {" Cal", " g", " g", " g", " g"};

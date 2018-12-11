@@ -7,6 +7,8 @@ import java.util.List;
  * This class represents the backend for managing all 
  * the operations associated with FoodItems
  * 
+ * Note: Not used. Solely implemented because the assignment said that this was required
+ * 
  * @author sapan (sapan@cs.wisc.edu)
  */
 public class FoodData implements FoodDataADT<FoodItem> {

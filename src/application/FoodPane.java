@@ -35,9 +35,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
- * 
- * 
- *
+ * Container for all GUI components related to foodList
+ * @author d-team 57
  */
 
 public class FoodPane extends BorderPane{
