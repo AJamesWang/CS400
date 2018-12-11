@@ -12,7 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class IOHandler {
-
+    private Set<String> idSet = new HashSet<String>(); // set of unique ids
+    
     /*
      * Reads info from CSV file and returns an ArrayList of 
      * the Food items it contains.
@@ -22,7 +23,6 @@ public class IOHandler {
      */
     public ArrayList<Food> read(String filePath) {
         ArrayList<Food> foodList = new ArrayList<Food>(); // ArrayList of Foods from the file
-        Set<String> idSet = new HashSet<String>();
         BufferedReader br = null; 
         String line = "";
         String csvSplitBy = ","; // split lines based on commas
@@ -66,8 +66,8 @@ public class IOHandler {
                 }
 
                 // NO DUPLICATE ID'S ALLOWED, it just won't add the second one.
-                if (!idSet.contains(id)) {
-                    idSet.add(id); 
+                if (!this.idSet.contains(id)) {
+                    this.idSet.add(id); 
                     foodList.add(new Food(id, name, calories, fat, carbs, fiber, protein));  
                 }
             }          
@@ -126,6 +126,16 @@ public class IOHandler {
             }
 
         }
+    }
+    
+    /*
+     * Shares current set of unique ids with FoodPane.
+     * 
+     * Workaround to prevent the addition of user created individual
+     * foods with duplicate ids. 
+     */
+    public void shareIDSet(FoodPane fp) {
+        fp.setIDSet(this.idSet);;
     }
 
 }

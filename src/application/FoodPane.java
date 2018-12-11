@@ -1,8 +1,9 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
-
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,22 +34,24 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+
 public class FoodPane extends BorderPane{
-	private GUIManager guiManager;
+	private GUIManager guiManager; // reference to guiManager
     private TableView foodTable = new TableView(); // table to display food options
     private MealListPane mlp; // reference to meal list pane
-    private FoodList foodList = new FoodList();
+    private FoodList foodList = new FoodList(); // list of food options
     private ArrayList<Food> foodArrList = new ArrayList<Food>();//list of currently displayed foods
-    TextField filterField;
-    private Label foodLabel;
-    private Label foodCount;
-    private HBox headerFPane;
-    private Button addFoodToMealBtn;
+    TextField filterField; // for filterning based on nutrients
+    private Label foodLabel; // "Food List" label
+    private Label foodCount; // shows number of foods diplayed in list
+    private HBox headerFPane; // container for Food Pane header
+    private Button addFoodToMealBtn; 
     private Button addSingleFoodBtn;
     private Button loadAddtnlFoodBtn;
     private Button saveFoodsBtn;
-    private VBox foodPane;
-    private TableColumn nameCol;
+    private VBox foodPane; 
+    private TableColumn nameCol; // visibility for filtering alphabetically based on names
+    Set<String> idSet = new HashSet<String>();
 
     /*
      * Constructs a FoodPane containing information
@@ -78,7 +81,6 @@ public class FoodPane extends BorderPane{
      */
     public VBox foodPane() {
         this.foodLabel = new Label("Food List (empty):");
-//        this.foodCount = new Label("Number of Food Items: 0");
         this.headerFPane = new HBox();
         this.headerFPane.getChildren().addAll(foodLabel);
 
@@ -86,7 +88,7 @@ public class FoodPane extends BorderPane{
         this.filterField = new TextField();
         this.filterField.setPromptText("filter by name");
        
-        GridPane buttonGrid = new GridPane();//arranges buttons
+        GridPane buttonGrid = new GridPane(); //arranges buttons
         this.addFoodToMealBtn = new Button("Add to meal (a)");
         this.addSingleFoodBtn = new Button("Add to list (n)");
         this.loadAddtnlFoodBtn = new Button("Load (ctrl-o)");
@@ -106,7 +108,6 @@ public class FoodPane extends BorderPane{
         // format table size and enable selection of multiple foods at once
         this.foodTable.setPrefWidth(500);
         this.foodTable.setPrefHeight(500);
-      //  this.foodTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         this.foodTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         // Set up and display scene
@@ -266,11 +267,22 @@ public class FoodPane extends BorderPane{
             return null;
         });
 
-        // add food to food list
+        // add food to food list if id is unique
         Optional<Food> foodData = dialog.showAndWait();
+        
         if (foodData.isPresent()) {
-        	this.guiManager.addFood(foodData.get());
-            dialog.close();
+            if (!this.idSet.contains(foodData.get().getID())) {
+          	    this.guiManager.addFood(foodData.get());
+          	    this.idSet.add(foodData.get().getID()); // add id to set
+                dialog.close();
+            } else {
+             // tell user that duplicate records cannot be added
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Duplicate Food");
+                alert.setHeaderText(null);
+                alert.setContentText("This food is already in the list. Duplicate records cannot be added.");
+                alert.showAndWait();
+            }
         }   
     }
 
@@ -292,6 +304,7 @@ public class FoodPane extends BorderPane{
         if (path.isPresent()) {
             IOHandler csvReader = new IOHandler();
             this.guiManager.resetFoodPane(csvReader.read(path.get()));
+            csvReader.shareIDSet(this); // update set of unique food ids in FoodPane instance
             dialog.close();
         }
     }
@@ -299,10 +312,6 @@ public class FoodPane extends BorderPane{
     /*
      * Deploys form to get name of food file from the user
      * and then saves the currently filtered foods to that file.
-     * 
-     * FIXME: Not sure if saving filtered data or all foods available.
-     * Ask James how the filtering works/how to access the filtered data
-     * from here.
      */
     public void saveFoodToFile() {
         TextInputDialog dialog = new TextInputDialog("ex: FoodList");
@@ -421,6 +430,10 @@ public class FoodPane extends BorderPane{
         proteinCol.prefWidthProperty().bind(foodTable.widthProperty().divide(7.0));
         // set the height of Food Table to a ratio of the screen's height
         this.foodTable.setMinHeight((0.60) * Screen.getPrimary().getBounds().getHeight());
+    }
+    
+    public void setIDSet(Set<String> set) {
+        this.idSet = set;
     }
 
 }

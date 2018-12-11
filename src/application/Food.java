@@ -88,22 +88,17 @@ public class Food implements Comparable {
     }
     
     /*
-     * Generates a unique id.
+     * Generates a unique id based on name, calorie, fat, 
+     * carb, fiber and protein fields.
      * 
-     * FIXME: IMPLEMENT
+     * Food objects with equal name, calorie, fat, carb, 
+     * fiber and protein fields will have the same ID. 
+     * 
      * @return id
      */
     private String idGenerator() {
-        int id = name.hashCode()/Integer.toString((int)calories).hashCode();
-        id -= Integer.toString((int)fat).hashCode()/Integer.toString((int)carbs).hashCode();
-        id /= Integer.toString((int)fiber).hashCode();
-        id -= Integer.toString((int)protein).hashCode();
-        
-        System.out.println(id);
-        
-        return Integer.toString(id);
-        
-
+        String id = name + calories + fat + carbs + fiber + protein;
+        return id;
     }
     
     /**
