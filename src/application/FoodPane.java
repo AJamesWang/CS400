@@ -35,11 +35,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 /**
+ * This class handles the bulk of operations dealing with the displayed
+ * list of foods. It creates a scrollable list of food items with a search bar
+ * where the user may search the foods by name, a counter which shows the number
+ * of foods available in the list, and multiple buttons. These buttons allow the user
+ * to load new foods into the list from a file, add individual, user created new foods to the list, 
+ * save the current foods displayed to a file, and add selected foods to the Meal List.
+ 
  * 
- * 
- *
+ *@authors d-team 57
  */
-
 public class FoodPane extends BorderPane{
 	private GUIManager guiManager; // reference to guiManager
     private TableView foodTable = new TableView(); // table to display food options
