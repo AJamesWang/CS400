@@ -22,8 +22,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 /**
- * 
+ * This class simulates a meal list that can be used to then calculate the total amount of 
+ * certain nutrients for the meal!
+ * The user can pick food items from the food list and then the foods are added to another
+ * arraylist, the meal arraylist, and that new list is shown in the table.
+ * The user can also click the button that says "Analyze Meal" and the labels that
+ * show the total calorie, fat, fiber, protein, and carb count for the meal by calculating
+ * the total numbers from the foods chosen.
  *
+ *@author d-team 57
  */
 
 public class MealListPane extends BorderPane {
