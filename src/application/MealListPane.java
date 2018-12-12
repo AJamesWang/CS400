@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -57,53 +58,6 @@ public class MealListPane extends BorderPane {
         }
     }
 
-    public interface EventHandler<T extends Event> extends EventListener
-    {
-        public void handle(T event);
-    }
-
-    /**
-     * creates a new food item with all of the total calories, fat, carbs, fiber, and protein in it.
-     * @author JoyNuelle
-     *
-     */
-    class AnalysisHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
-        Button analyzeButton;
-        Food totalFoodData;
-        ArrayList<Food> totalFoodDataArr = new ArrayList<Food>();
-        AnalysisHandler(Button analyzeButton) {this.analyzeButton = analyzeButton; }
-        @Override
-        public void handle(ActionEvent event) {
-            totalFoodData = calculateTotals(mealArr);
-            
-            Label totalCals = new Label("Total Calories: " + totalFoodData.getCalories());
-            Label totalFat = new Label("Total Fat: " + totalFoodData.getFat());
-            Label totalCarbs = new Label("Total Carbs: " + totalFoodData.getCarbs());
-            Label totalFiber = new Label("Total Fiber: " + totalFoodData.getFiber());
-            Label totalProtein = new Label("Total Protein: " + totalFoodData.getProtein());
-            VBox totalBox = new VBox();
-            totalBox.getChildren().addAll(totalCals, totalFat, totalCarbs, totalFiber, totalProtein);
-            mealAnalysisBox.getChildren().setAll(titleBox, analyzeButtonBox, totalBox);
-           // updateMealAnalysis();
-        }
-    }
-
-
-    /**
-     * Handles the remove from the meal List option.
-     * @author JoyNuelle
-     *
-     */
-    class DeleteHandler implements EventHandler<ActionEvent>, javafx.event.EventHandler<ActionEvent> {
-        Button deleteButton;
-        DeleteHandler(Button deleteButton) {this.deleteButton = deleteButton; }
-        @Override
-        public void handle(ActionEvent event) {
-            Food selectedFood = (Food) mealTable.getSelectionModel().getSelectedItem();
-            mealTable.getItems().remove(selectedFood);
-        }
-    }
-
     /**
      * Calculates the total amounts of cals, fat, carbs, fiber, and protein and stores
      * them into a new food item.
@@ -144,8 +98,23 @@ public class MealListPane extends BorderPane {
 
         // Analyze Meal Button
         analyzeMeal = new Button("Analyze Meal");
-        AnalysisHandler analyzeButton = new AnalysisHandler(analyzeMeal);
-        analyzeMeal.setOnAction(analyzeButton);         
+        analyzeMeal.setOnAction(new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle(ActionEvent Event) {
+                Food totalFoodData = calculateTotals(mealArr);
+                
+                Label totalCals = new Label("Total Calories: " + totalFoodData.getCalories());
+                Label totalFat = new Label("Total Fat: " + totalFoodData.getFat());
+                Label totalCarbs = new Label("Total Carbs: " + totalFoodData.getCarbs());
+                Label totalFiber = new Label("Total Fiber: " + totalFoodData.getFiber());
+                Label totalProtein = new Label("Total Protein: " + totalFoodData.getProtein());
+                VBox totalBox = new VBox();
+                totalBox.getChildren().addAll(totalCals, totalFat, totalCarbs, totalFiber, totalProtein);
+                mealAnalysisBox.getChildren().setAll(titleBox, analyzeButtonBox, totalBox);
+                
+            }
+        });
+        
         analyzeButtonBox= new HBox();
         analyzeButtonBox.getChildren().add(analyzeMeal);
         analyzeButtonBox.setAlignment(Pos.TOP_CENTER);
@@ -181,8 +150,15 @@ public class MealListPane extends BorderPane {
 
         // Delete Food Button
         Button deleteButton = new Button("Remove (r)");
-        DeleteHandler deleteHandler = new DeleteHandler(deleteButton);
-        deleteButton.setOnAction(deleteHandler);
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+            
+        @Override
+            public void handle(ActionEvent event) {
+                Food selectedFood = (Food) mealTable.getSelectionModel().getSelectedItem();
+                mealTable.getItems().remove(selectedFood);
+            }
+        });
+            
         KeyCodeCombination removeFood = new KeyCodeCombination(KeyCode.R);
         this.getScene().getAccelerators().put(removeFood, ()->deleteButton.fire());
         HBox hBox3 = new HBox();

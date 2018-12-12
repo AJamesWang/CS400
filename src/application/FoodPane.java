@@ -411,7 +411,7 @@ public class FoodPane extends BorderPane{
         // reset food list to display filtered data
         SortedList<Food> sortedData = new SortedList<Food>(filteredData);
         //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
-        sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
+    //    sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
         this.foodTable.setItems(sortedData); 
         foodTable.getSortOrder().add(nameCol);
         // reset count of foods in the list
