@@ -394,6 +394,7 @@ public class FoodPane extends BorderPane{
 
     public void updateFoodPane() {
         //See https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
+        this.foodArrList.sort((a, b)->{return a.getName().compareTo(b.getName());});
         FilteredList<Food> filteredData = new FilteredList<Food>(FXCollections.observableList(foodArrList), p->true);
 
         this.filterField.textProperty().addListener((observable, oldVal, newVal) -> {
@@ -417,9 +418,9 @@ public class FoodPane extends BorderPane{
         // reset food list to display filtered data
         SortedList<Food> sortedData = new SortedList<Food>(filteredData);
         //tbh, not sure what's the diff between Observable, Filtered, and Sorted list.
-    //    sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
+        sortedData.comparatorProperty().bind(this.foodTable.comparatorProperty());
         this.foodTable.setItems(sortedData); 
-        foodTable.getSortOrder().add(nameCol);
+//        foodTable.getSortOrder().add(nameCol);
         // reset count of foods in the list
         this.foodLabel = new Label("Food List (" + (foodArrList.size()==0?"empty":foodArrList.size()) + "):");
         this.foodLabel.setId("section-heading");
