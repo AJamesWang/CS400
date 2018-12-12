@@ -10,7 +10,7 @@ package application;
  * 
  * @author d-Team 57
  */
-public class Food implements Comparable {
+public class Food implements Comparable<Food> {
 	public static final String[] NUTRIENT_UNITS = {" Cal", " g", " g", " g", " g"};
 	public static final String[] NUTRIENT_NAMES = {"Calories: ", "Fat: ", "Carbs: ", "Fiber: ", "Protein: "};
 	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
@@ -47,20 +47,12 @@ public class Food implements Comparable {
         this.protein = protein;       
     }
     
-    /*
+    /**
      * Constructs a Food object with name, calories, fat, carbs, 
      * fiber, and protein specified. ID generated internally.
      * 
      * Preconditions: All nutrient related fields must be nonnegative.
      * 
-     * @param name
-     * @param calories
-     * @param fat
-     * @param carbs
-     * @param fiber
-     * @param protein
-     */
-    /**
      * @param name
      * @param calories
      * @param fat
@@ -213,8 +205,8 @@ public class Food implements Comparable {
 	public static final String[] NUTRIENT_IDS =   {"calories", "fat", "carbohydrate", "fiber", "protein"};
      */
     @Override
-    public int compareTo(Object o) {
-        return this.id.compareTo(((Food)o).getID());
+    public int compareTo(Food f) {
+        return this.name.compareTo(f.getName());
     }
     /*Returns ID's hashCode 
      * (non-Javadoc)

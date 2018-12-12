@@ -27,7 +27,18 @@ public class FoodItem {
         this.id = id;
         this.name = name;
     }
-    
+    /**
+     * Constructs foodItem from a Food object, due to uncertainty about whether
+     * FoodItem needs to be implemented if we didn't use it
+     * @param Food
+     */
+     public FoodItem(Food food){
+    	 this.id=food.getID();
+    	 this.name=food.getName();
+    	 for(String nutrient : Food.NUTRIENT_IDS){
+    		 this.addNutrient(nutrient, food.getNutrientValue(nutrient));
+    	 }
+     }
     /**
      * Gets the name of the food item
      * 

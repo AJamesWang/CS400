@@ -85,4 +85,10 @@ public class FoodList {
 		}
 	}
 	
+	/**
+	 * Returns a set containing all the foods
+	 */
+	 public Set<Food> getAll(){
+		 return this.foods;
+	 }
 }

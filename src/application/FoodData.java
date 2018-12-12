@@ -1,7 +1,9 @@
 package application;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents the backend for managing all 
@@ -16,7 +18,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
     //change
     //change
     // List of all the food items.
-    private List<FoodItem> foodItemList;
+    private FoodList foodItemList;
 
     // Map of nutrients and their corresponding index
     private HashMap<String, BPTree<Double, FoodItem>> indexes;
@@ -26,7 +28,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      * FoodData constructor 
      */
     public FoodData() {
-        this.foodItemList = new ArrayList<FoodItem>();
+        this.foodItemList = new FoodList();
         this.indexes = new HashMap<String, BPTree<Double, FoodItem>>();
     }
     
@@ -42,15 +44,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
         ArrayList<Food> foodList = csvReader.read(filePath);
         
         for (Food food: foodList) {
-            FoodItem foodItem = new FoodItem(food.getID(), food.getName());
-            foodItem.addNutrient("calories", food.getCalories());
-            foodItem.addNutrient("fat", food.getFat());
-            foodItem.addNutrient("carbohydrate", food.getCarbs());
-            foodItem.addNutrient("fiber", food.getFiber());
-            foodItem.addNutrient("protein", food.getProtein());
-            
-            foodItemList.add(foodItem);
-            
+            foodItemList.addFood(food);
         }
     }
 
@@ -62,11 +56,12 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     @Override
     public List<FoodItem> filterByName(String substring) {
+    	substring = substring.toLowerCase();
         List<FoodItem> filtered = new ArrayList<FoodItem>();
         
-        for (FoodItem foodItem: foodItemList) {
-            if (foodItem.getName().contains(substring)) {
-                filtered.add(foodItem);
+        for (Food food: foodItemList.getAll()) {
+            if (food.getName().toLowerCase().contains(substring)) {
+                filtered.add(new FoodItem(food));
             }
         }
         return filtered;
@@ -78,8 +73,37 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     @Override
     public List<FoodItem> filterByNutrients(List<String> rules) {
-        // TODO : Complete
-        return null;
+    	Map<String, Double> mins = new HashMap<String, Double>();
+    	Map<String, Double> maxes = new HashMap<String, Double>();
+    	for(String rule : rules){
+    		String[] vals = rule.split(" ");
+    		Double num;
+    		try{//ignores illegal rules
+				num = Double.parseDouble(vals[1]);
+    		} catch(NumberFormatException e){
+    			continue;
+    		}
+    		switch(vals[2]){
+    			case("=="):
+    				mins.put(vals[0], num);
+    				maxes.put(vals[0], num);
+    				break;
+    			case("<="):
+    				maxes.put(vals[0], num);
+    				break;
+    			case(">="):
+    				mins.put(vals[0], num);
+    				break;
+    			default://not necessary, put here for clarity
+    				continue;
+    		}
+    	}
+		ArrayList<Food> foods = this.foodItemList.filterFoods(mins, maxes);
+		ArrayList<FoodItem> out = new ArrayList<FoodItem>();
+		for(Food food : foods){
+			out.add(new FoodItem(food));
+		}
+    	return out;
     }
 
     /*
@@ -88,7 +112,13 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     @Override
     public void addFoodItem(FoodItem food) {
-        // TODO : Complete
+    	Food in = new Food(food.getID(), food.getName(),
+    					   food.getNutrientValue("calories"),
+    					   food.getNutrientValue("fat"),
+    					   food.getNutrientValue("carbohydrate"),
+    					   food.getNutrientValue("fiber"),
+    					   food.getNutrientValue("protein"));
+    	this.foodItemList.addFood(in);
     }
 
     /*Returns a list of the food items. 
@@ -97,14 +127,20 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     @Override
     public List<FoodItem> getAllFoodItems() {
-        return this.foodItemList;
+    	ArrayList<FoodItem> out = new ArrayList<FoodItem>();
+    	for(Food food : this.foodItemList.getAll()){
+    		out.add(new FoodItem(food));
+    	}
+    	return out;
     }
 
 
 	@Override
 	public void saveFoodItems(String filename) {
-		
-		
+		IOHandler io = new IOHandler();
+		ArrayList<Food> out = new ArrayList<Food>(this.foodItemList.getAll());
+		Collections.sort(out);
+		io.write(filename, out);
 	}
 
 }
