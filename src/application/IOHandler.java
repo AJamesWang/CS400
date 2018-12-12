@@ -10,8 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
+
 /**
+ * This class handles the reading from and writing to CSV files.
  * 
+ * @author d-team 57
  */
 public class IOHandler {
     private Set<String> idSet = new HashSet<String>(); // set of unique ids
@@ -25,8 +29,8 @@ public class IOHandler {
      */
     public ArrayList<Food> read(String filePath) {
         ArrayList<Food> foodList = new ArrayList<Food>(); // ArrayList of Foods from the file
-        BufferedReader br = null; 
-        String line = "";
+        BufferedReader br = null; // BufferedReader object
+        String line = ""; // holds individual lines from file
         String csvSplitBy = ","; // split lines based on commas
 
         try {
@@ -100,7 +104,7 @@ public class IOHandler {
      * @param foods ArrayList of Food items to be saved
      */
     public void write(String filePath, ArrayList<Food> foods) {
-        FileWriter fl = null;
+        FileWriter fl = null; // FileWriter object
         String csvSplitBy = ","; // split lines based on commas
 
         try {
@@ -117,7 +121,6 @@ public class IOHandler {
                 fl.append("\n");
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             try {
@@ -135,6 +138,7 @@ public class IOHandler {
      * 
      * Workaround to prevent the addition of user created individual
      * foods with duplicate ids. 
+     * @param fp Reference to the FoodPane receiving the set.
      */
     public void shareIDSet(FoodPane fp) {
         fp.updateIDSet(this.idSet);;

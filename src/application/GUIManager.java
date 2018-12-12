@@ -51,7 +51,6 @@ public class GUIManager extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("COOLEST CS400 PROJECT EVER!!!11!11111!!");
 			primaryStage.show();
-		   //loadNewFoodFile();
 		
 			//Moved to below scene creation b/c keyboard shortcuts need access to Scene
 			root.add(fp, 0, 0, 1, 2);
@@ -60,7 +59,7 @@ public class GUIManager extends Application {
 			sp.create(this);
 			root.add(mlp, 1, 1);
 			mlp.create();
-	        root.add(mlp.initializeMealAnalysis(), 2, 1);//awkward, convert to inner class later?
+	        root.add(mlp.initializeMealAnalysis(), 2, 1);
         } catch(Exception e) {
             e.printStackTrace();
         }
