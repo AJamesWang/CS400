@@ -190,9 +190,14 @@ public class FoodPane extends BorderPane{
             public void handle(ActionEvent event) {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Here's some info: ");
-                alert.setHeaderText("How to select more than one food to add to meal");
-                alert.setContentText("Hold down ctrl-c and click the food items you would "
-                    + "like to add");
+                alert.setHeaderText("");
+                alert.setContentText("-To load a new csv file, click \"Load\"."
+                		             + "Don't forget to put your file in the same folder as the .jar file!\n"
+                		             + "\n\n-To save your current foods, click \"Save\"."
+                		             + " Note that only the foods currenlty being displayed will be saved."
+                		             + "\n\n-To add foods to a meal, first select the foods from the list of foods then press \"Add to meal\""
+                		             + "\n\n-Similarly, to remove, highlight the foods in your meal then press remove."
+                		             + ". Note that you can only select one food at a time from your meal.");
                 alert.showAndWait();
             } 
         });
