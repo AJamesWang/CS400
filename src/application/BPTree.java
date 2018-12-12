@@ -17,7 +17,7 @@ import java.util.Random;
  * linear in-order traversals of the data items.
  *  
  *  
- * @author sapan (sapan@cs.wisc.edu)
+ * @author d-team 57
  *
  * @param <K> key - expect a string that is the type of id for each item
  * @param <V> value - expect a user-defined type that stores all data for a food item
