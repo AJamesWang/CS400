@@ -40,6 +40,7 @@ public class GUIManager extends Application {
     
     /**
      * Sets pane and scene.
+     * @author d-team 57
      */
     @Override
     public void start(Stage primaryStage) {
