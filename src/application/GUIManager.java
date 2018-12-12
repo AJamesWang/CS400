@@ -29,6 +29,7 @@ import javafx.scene.layout.VBox;
 /**
  * Main class that manages MealListPane, FoodPane, SearchPane, and FoodList.
  * 
+ * 
  * Bugs: none
  * @author d-team 57
  */
