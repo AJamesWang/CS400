@@ -99,7 +99,7 @@ public class MealListPane extends BorderPane {
         // Analyze Meal Button
         analyzeMeal = new Button("Analyze Meal");
         analyzeMeal.setOnAction(new EventHandler<ActionEvent>() {
-            @Override 
+            @Override  //implements functionality
             public void handle(ActionEvent Event) {
                 Food totalFoodData = calculateTotals(mealArr);
                 
@@ -151,7 +151,7 @@ public class MealListPane extends BorderPane {
         // Delete Food Button
         Button deleteButton = new Button("Remove (r)");
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            
+        //implements functionality     
         @Override
             public void handle(ActionEvent event) {
                 Food selectedFood = (Food) mealTable.getSelectionModel().getSelectedItem();
