@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 /**
+ * This class puts all of the food ID's into the BP tree, and will filter the foods
+ * by checking all of the desired filters and then adding the ones that meet the 
+ * requirements to a new list. 
  * 
- * 
- *
+ *@author d-team 57
  */
 public class FoodList {
 	private HashMap<String, BPTree<Double, Food>> foodTrees;

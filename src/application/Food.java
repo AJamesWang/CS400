@@ -1,6 +1,6 @@
 package application;
 
-/*
+/**
  * Stores all the necessary data for a food: calories, fat, carbs, fiber, protein.
  * Cannot handle newly created nutrition catagories (e.g. sugar)
  * 

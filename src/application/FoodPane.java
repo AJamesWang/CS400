@@ -64,10 +64,11 @@ public class FoodPane extends BorderPane{
     private TableColumn nameCol; // visibility for filtering alphabetically based on names
     Set<String> idSet = new HashSet<String>(); // keeps track of unique ids of all foods in list
 
-    /*
+    /**
      * Constructs a FoodPane containing information
      * about the name and nutritional content of various foods.
      * @param mlp A reference to the MealListPane that will be fed data from the FoodPane.
+     * @author d-team 57
      */
     public FoodPane(){
     }
