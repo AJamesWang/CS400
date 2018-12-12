@@ -27,8 +27,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
- * Main class that manages MealListPane, FoodPane, SearchPane, and FoodList.
- *   
+ * Main class that manages MealListPane, FoodPane, SearchPane, and FoodList
  * 
  * Bugs: none
  * @author d-team 57
