@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * This class represents a food item with all its properties.
+ * @author d-team 57
  */
 public class FoodItem {
     // The name of the food item.
