@@ -43,7 +43,7 @@ import javafx.stage.Screen;
  * save the current foods displayed to a file, and add selected foods to the Meal List.
  
  * 
- *@authors d-team 57
+ *@authors d-team 57 
  */
 public class FoodPane extends BorderPane{
 	private GUIManager guiManager; // reference to guiManager
