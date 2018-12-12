@@ -16,8 +16,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 /**
- *
- *
+ * Container for all search related GUI components.
+ * Also holds higher-level searching methods
+ * For lower-level searches, see FoodList or BPTree
+ * 
+ * @authors d-team 57
  */
 
 public class SearchPane extends VBox{
@@ -30,10 +33,9 @@ public class SearchPane extends VBox{
 	Map<String, Double> curMaxes;
 	HBox buttonPane;
 	
-	protected SearchPane(){
-	}
-	/*
-	 * Separated constructor for GUIManager. 
+	/**
+	 * Creates all the internal GUI components
+	 * @param  manager - parent GUIManager which contains this pane
 	 */
 	protected void create(GUIManager manager){
 		this.manager = manager;
@@ -43,7 +45,7 @@ public class SearchPane extends VBox{
 		this.generateButtons();
 	}
 	
-	/*
+	/**
 	 * Sets all the values in the text boxes to whatever's listed in CurVals
 	 */
 	 protected void update(){
@@ -54,7 +56,7 @@ public class SearchPane extends VBox{
 			 maxes.get(id).setPromptText(Food.format(curMaxes.get(id)));
 		 }
 	 }
-	/*
+	/**
 	 * Updates curMins and curMaxes data values
 	 */
 	 private void updateCurVals(){
@@ -70,34 +72,40 @@ public class SearchPane extends VBox{
 		 }
 	 }
 	
-	/*
+	/**
 	 * tells GUIManager filter was updated
 	 */
 	private void promptGUIManager(){
 		this.manager.constraintsUpdated();
 	}
 	
-	/*
+	
+	/**
 	 * gets current min constraints
+	 * @return Map<String, Double> a map connecting each nutrient with its min value
 	 */
 	protected Map<String, Double> getMins(){
 		return this.curMins;
 	}
-	/*
+	
+	/**
 	 * gets current max constraints
+	 * @return Map<String, Double. a mpa connecting each nutrient with its max value
 	 */
 	protected Map<String, Double> getMaxes(){
 		return this.curMaxes;
 	}
 	
+	
 	/*
-	 * Things that happen when searchButton was clicked
+	 * Updates min/max values, then tells GUIManager that values were changed
 	 */
 	 private void search(){
 		 this.updateCurVals();
 		 this.promptGUIManager();
 		 update();
 	 }
+	 
 	
 	/*
 	 * tells GUIManager to clear min/max data
@@ -108,6 +116,7 @@ public class SearchPane extends VBox{
 		 this.manager.constraintsUpdated();
 		 this.update();
 	 }
+	 
 	 
 	/*
 	 * Creates all necessary title components
@@ -120,6 +129,7 @@ public class SearchPane extends VBox{
 		this.titlePane.setCenter(title);
 		this.getChildren().add(this.titlePane);
 	}
+	
 	
 	/*
 	 * Creates all necessary data input components

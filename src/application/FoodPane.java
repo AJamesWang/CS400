@@ -387,7 +387,7 @@ public class FoodPane extends BorderPane{
     //Or maybe filteredData?
 
     public void updateFoodPane() {
-        //taken from https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
+        //See https://code.makery.ch/blog/javafx-8-tableview-sorting-filtering/
         FilteredList<Food> filteredData = new FilteredList<Food>(FXCollections.observableList(foodArrList), p->true);
 
         this.filterField.textProperty().addListener((observable, oldVal, newVal) -> {
